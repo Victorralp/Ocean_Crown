@@ -1,0 +1,73 @@
+**Role:**  
+You’re a web copywriter and UX consultant.
+
+**Brand:**  
+Ocean Crown Multilink Ent (no tagline).
+
+**Tone:**  
+Friendly & conversational.
+
+**Keywords to weave in:**  
+reliable, global reach, on‑time delivery, cost‑effective, secure, end‑to‑end solutions, seamless tracking, expert handling.
+
+**Objective:**  
+Build a homepage for a professional shipping & logistics company. It must include:
+
+1. **Full‑width hero**  
+   - Background: dramatic, golden‑hour container‑ship or aerial port panorama  
+   - Headline introducing Ocean Crown Multilink Ent  
+   - Subhead highlighting “reliable, cost‑effective sea & air freight”  
+   - Prominent tracking‑number input + “Track” button  
+
+2. **Sticky top nav**  
+   - Track Shipment  
+   - Get a Quote  
+   - Our Services  
+   - Certificates & Clients  
+   - Blog  
+   - Contact Us  
+
+3. **Services section** (in 6 cards):  
+   - **Ocean Freight** – “Reliable and cost‑effective sea transportation for your cargo.”  
+   - **Air Freight** – “Fast and secure air cargo shipping to global destinations.”  
+   - **Ground Shipping** – “Domestic and cross‑border road transport solutions.”  
+   - **Warehousing & Distribution** – “Secure storage and inventory management services.”  
+   - **Import & Export** – “Comprehensive trade solutions for inbound and outbound shipments.”  
+   - **Customs Clearance & Supply Chain Solutions** – “End‑to‑-end customs and supply‑chain management.”  
+
+4. **Interactive world map**  
+   - Spotlight major trade lanes  
+   - Clickable global hubs with tooltip micro‑copy  
+
+5. **Certificates & Clients**  
+   - Logos of industry certifications (e.g., ISO, IATA)  
+   - Carousel of key client logos with short testimonial blurbs  
+
+6. **Blog preview**  
+   - Latest 3 posts with title, date, excerpt, and “Read more” links  
+
+7. **Request a Quote**  
+   - Bold “Get a Quote” button in a standout banner  
+
+8. **Footer**  
+   - Contact info, social links, mini‑tracking form, and language selector (for potential multilingual support)  
+
+**Design cues (inspired by MSC.com):**  
+- **Palette:** Vibrant blue & sunny yellow accents, with plenty of white space.  
+- **Typography:** Clean, modern sans‑serif with generous line‑height.  
+- **Photography:** Striking aerial port panoramas or golden‑hour container‑stack shots—dramatic, high‑resolution imagery.  
+- **Interactions:** Subtle hover animations on buttons/service cards; smooth map zoom transitions.
+
+**Technical Constraints:**  
+- Built with React (no other framework).  
+- Mobile‑first, fully responsive design ensuring top‑notch performance across all devices and screen sizes.  
+- Include a language selector component for possible multilingual support.
+
+---
+
+**Deliverables:**  
+- All headline and body copy for each section.  
+- Suggested alt‑text for images.  
+- Navigation labels.  
+- Micro‑copy for buttons, forms, map tooltips, and the language selector.  
+- A brief style note on tone, pacing, and color usage.
