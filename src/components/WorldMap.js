@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import { FaMapMarkerAlt } from 'react-icons/fa';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -14,26 +13,50 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
 });
 
-const customIcon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
+// Custom marker icons based on region
+const createCustomIcon = (color) => {
+  return new L.Icon({
+    iconUrl: `https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${color}.png`,
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+};
+
+const icons = {
+  americas: createCustomIcon('red'),
+  europe: createCustomIcon('blue'),
+  asia: createCustomIcon('green'),
+  africa: createCustomIcon('orange'),
+  headquarters: createCustomIcon('violet')
+};
 
 const MapSection = styled.section`
   padding: 100px 0;
-  background-color: #f7f9fc;
+  background: linear-gradient(to bottom, #f7f9fc, #e6f0f9);
   position: relative;
   overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, rgba(5, 160, 232, 0.05), rgba(5, 160, 232, 0));
+    z-index: 0;
+  }
 `;
 
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  position: relative;
+  z-index: 1;
 `;
 
 const SectionHeader = styled.div`
@@ -46,6 +69,20 @@ const SectionTitle = styled.h2`
   color: #0c2340;
   margin-bottom: 20px;
   font-weight: 700;
+  position: relative;
+  display: inline-block;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #05a0e8;
+    border-radius: 3px;
+  }
 `;
 
 const SectionDescription = styled.p`
@@ -58,14 +95,58 @@ const SectionDescription = styled.p`
 
 const LeafletMapContainer = styled.div`
   width: 100%;
-  height: 550px;
-  border-radius: 12px;
+  height: 600px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
   
   .leaflet-container {
     width: 100%;
     height: 100%;
+    z-index: 1;
+    background-color: #cad2d3;
+  }
+  
+  .leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .leaflet-popup-content {
+    margin: 0;
+    width: 280px !important;
+  }
+  
+  .leaflet-popup-tip {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+`;
+
+const MapOverlay = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  max-width: 200px;
+  pointer-events: auto;
+  
+  h3 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #0c2340;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
   }
 `;
 
@@ -74,24 +155,32 @@ const RegionTabs = styled.div`
   justify-content: center;
   margin-bottom: 40px;
   flex-wrap: wrap;
+  gap: 10px;
 `;
 
 const RegionTab = styled.button`
-  background: ${props => props.active ? '#05a0e8' : 'transparent'};
-  color: ${props => props.active ? '#fff' : '#666'};
+  background: ${props => props.active ? '#05a0e8' : 'white'};
+  color: ${props => props.active ? '#fff' : '#555'};
   border: 2px solid ${props => props.active ? '#05a0e8' : '#ddd'};
-  padding: 10px 20px;
-  margin: 0 8px 10px;
+  padding: 12px 24px;
   border-radius: 30px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: ${props => props.active ? '0 5px 15px rgba(5, 160, 232, 0.3)' : '0 3px 8px rgba(0, 0, 0, 0.05)'};
   
   &:hover {
     background: ${props => props.active ? '#05a0e8' : 'rgba(5, 160, 232, 0.1)'};
     border-color: #05a0e8;
     color: ${props => props.active ? '#fff' : '#05a0e8'};
+    transform: translateY(-2px);
+    box-shadow: ${props => props.active ? '0 7px 20px rgba(5, 160, 232, 0.4)' : '0 5px 15px rgba(5, 160, 232, 0.2)'};
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 `;
 
@@ -105,32 +194,195 @@ const StatsContainer = styled.div`
 
 const StatItem = styled.div`
   flex: 1;
-  min-width: 180px;
+  min-width: 200px;
   text-align: center;
-  padding: 20px 15px;
+  padding: 30px 20px;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(5, 160, 232, 0.15);
+  }
 `;
 
 const StatNumber = styled.div`
-  font-size: 42px;
-  font-weight: 700;
+  font-size: 46px;
+  font-weight: 800;
   color: #05a0e8;
   margin-bottom: 10px;
+  background: linear-gradient(135deg, #05a0e8, #0c2340);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const StatLabel = styled.div`
   font-size: 16px;
-  color: #666;
+  color: #555;
   font-weight: 500;
 `;
 
+const PopupHeader = styled.div`
+  background: #0c2340;
+  color: white;
+  padding: 15px;
+  
+  h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  p {
+    margin: 5px 0 0 0;
+    font-size: 12px;
+    opacity: 0.8;
+  }
+`;
+
+const PopupContent = styled.div`
+  padding: 15px;
+  
+  p {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    strong {
+      color: #0c2340;
+      min-width: 60px;
+      margin-right: 5px;
+    }
+  }
+`;
+
+const PopupFooter = styled.div`
+  padding: 10px 15px;
+  background: #f5f8fa;
+  border-top: 1px solid #eee;
+  text-align: right;
+  
+  a {
+    display: inline-block;
+    padding: 5px 12px;
+    background: #05a0e8;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: #0c2340;
+    }
+  }
+`;
+
+const KeyLocationsInfo = styled.div`
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  margin-top: 50px;
+  
+  h3 {
+    margin: 0 0 20px;
+    color: #0c2340;
+    font-size: 22px;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: #05a0e8;
+      border-radius: 2px;
+    }
+  }
+`;
+
+const LocationGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+`;
+
+const LocationCard = styled.div`
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid ${props => props.color || '#05a0e8'};
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #f5f8fa;
+  }
+  
+  h4 {
+    margin: 0 0 8px;
+    color: #0c2340;
+    font-size: 16px;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+`;
+
+const ZoomNotification = styled.div`
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(12, 35, 64, 0.8);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: ${props => props.show ? 1 : 0};
+`;
+
+// Custom map bounds component to prevent infinite horizontal scrolling
+const SetMapBounds = ({ map, bounds }) => {
+  useEffect(() => {
+    if (map) {
+      map.setMaxBounds(bounds);
+      map.on('drag', () => {
+        map.panInsideBounds(bounds, { animate: false });
+      });
+    }
+  }, [map, bounds]);
+  
+  return null;
+};
+
 const WorldMap = () => {
   const [activeRegion, setActiveRegion] = useState('all');
-  const [mapCenter, setMapCenter] = useState([20, 0]);
-  const [mapZoom, setMapZoom] = useState(2);
   const [map, setMap] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [showRoutes, setShowRoutes] = useState(false);
+  const [showZoomNotification, setShowZoomNotification] = useState(false);
+
+  // Define map bounds to prevent infinite scrolling horizontally
+  const mapBounds = L.latLngBounds(
+    L.latLng(-90, -200), // Southwest corner
+    L.latLng(90, 200)    // Northeast corner
+  );
 
   const regions = [
     { id: 'all', name: 'All Regions' },
@@ -148,7 +400,8 @@ const WorldMap = () => {
       phone: '+1 (212) 555-7890',
       email: 'newyork@oceancrown.com',
       position: [40.7028, -74.0111],
-      region: 'americas'
+      region: 'americas',
+      type: 'Regional HQ'
     },
     {
       id: 2,
@@ -157,7 +410,8 @@ const WorldMap = () => {
       phone: '+31 10 555 7890',
       email: 'rotterdam@oceancrown.com',
       position: [51.9070, 4.4822],
-      region: 'europe'
+      region: 'europe',
+      type: 'Regional HQ'
     },
     {
       id: 3,
@@ -166,7 +420,8 @@ const WorldMap = () => {
       phone: '+65 6123 4567',
       email: 'singapore@oceancrown.com',
       position: [1.2657, 103.8200],
-      region: 'asia'
+      region: 'asia',
+      type: 'Regional HQ'
     },
     {
       id: 4,
@@ -175,7 +430,8 @@ const WorldMap = () => {
       phone: '+86 21 5888 7890',
       email: 'shanghai@oceancrown.com',
       position: [31.2304, 121.4737],
-      region: 'asia'
+      region: 'asia',
+      type: 'Office'
     },
     {
       id: 5,
@@ -184,7 +440,8 @@ const WorldMap = () => {
       phone: '+971 4 555 7890',
       email: 'dubai@oceancrown.com',
       position: [25.0153, 55.0717],
-      region: 'africa'
+      region: 'africa',
+      type: 'Regional HQ'
     },
     {
       id: 6,
@@ -193,7 +450,8 @@ const WorldMap = () => {
       phone: '+49 40 555 7890',
       email: 'hamburg@oceancrown.com',
       position: [53.5432, 9.9966],
-      region: 'europe'
+      region: 'europe',
+      type: 'Office'
     },
     {
       id: 7,
@@ -202,7 +460,8 @@ const WorldMap = () => {
       phone: '+1 (310) 555-7890',
       email: 'losangeles@oceancrown.com',
       position: [33.7668, -118.2262],
-      region: 'americas'
+      region: 'americas',
+      type: 'Office'
     },
     {
       id: 8,
@@ -211,7 +470,8 @@ const WorldMap = () => {
       phone: '+61 2 5555 7890',
       email: 'sydney@oceancrown.com',
       position: [-33.8688, 151.2093],
-      region: 'asia'
+      region: 'asia',
+      type: 'Office'
     },
     {
       id: 9,
@@ -220,28 +480,113 @@ const WorldMap = () => {
       phone: '+234 90 555 7890',
       email: 'lagos@oceancrown.com',
       position: [6.4579, 3.3606],
-      region: 'africa'
+      region: 'africa',
+      type: 'Global Headquarters',
+      isHQ: true
+    },
+    {
+      id: 10,
+      name: 'Mumbai',
+      address: 'Nariman Point, Mumbai 400021, India',
+      phone: '+91 22 5555 7890',
+      email: 'mumbai@oceancrown.com',
+      position: [18.9257, 72.8254],
+      region: 'asia',
+      type: 'Office'
+    },
+    {
+      id: 11,
+      name: 'Rio de Janeiro',
+      address: 'Av. Rio Branco 115, Centro, Rio de Janeiro, Brazil',
+      phone: '+55 21 5555 7890',
+      email: 'rio@oceancrown.com',
+      position: [-22.9068, -43.1729],
+      region: 'americas',
+      type: 'Office'
+    },
+    {
+      id: 12,
+      name: 'Cape Town',
+      address: 'Victoria & Alfred Waterfront, Cape Town, South Africa',
+      phone: '+27 21 555 7890',
+      email: 'capetown@oceancrown.com',
+      position: [-33.9076, 18.4173],
+      region: 'africa',
+      type: 'Office'
+    }
+  ];
+
+  // Major shipping routes
+  const shippingRoutes = [
+    // Transatlantic
+    { 
+      points: [[40.7028, -74.0111], [51.9070, 4.4822]], 
+      name: 'New York - Rotterdam',
+      color: '#0066cc',
+      weight: 3,
+      dashArray: '5, 10'
+    },
+    // Transpacific
+    { 
+      points: [[33.7668, -118.2262], [31.2304, 121.4737]], 
+      name: 'Los Angeles - Shanghai',
+      color: '#cc0000',
+      weight: 3,
+      dashArray: '5, 10'
+    },
+    // Europe - Asia
+    { 
+      points: [[51.9070, 4.4822], [1.2657, 103.8200]], 
+      name: 'Rotterdam - Singapore',
+      color: '#009900',
+      weight: 3,
+      dashArray: '5, 10'
+    },
+    // Middle East - Asia
+    { 
+      points: [[25.0153, 55.0717], [18.9257, 72.8254]], 
+      name: 'Dubai - Mumbai',
+      color: '#ff6600',
+      weight: 3,
+      dashArray: '5, 10'
+    },
+    // Africa - Europe
+    { 
+      points: [[6.4579, 3.3606], [53.5432, 9.9966]], 
+      name: 'Lagos - Hamburg',
+      color: '#9900cc',
+      weight: 3,
+      dashArray: '5, 10'
     }
   ];
 
   const stats = [
-    { number: '60+', label: 'Countries Served' },
-    { number: '120+', label: 'Major Ports' },
-    { number: '25+', label: 'Years Experience' },
-    { number: '500K+', label: 'TEUs Annually' }
+    { number: '70+', label: 'Countries Served' },
+    { number: '150+', label: 'Major Ports' },
+    { number: '30+', label: 'Years Experience' },
+    { number: '2.5M+', label: 'TEUs Annually' }
   ];
+
+  const handleSetRegion = useCallback((regionId) => {
+    setActiveRegion(regionId);
+    setSelectedLocation(null);
+  }, []);
+
+  const handleMarkerClick = useCallback((location) => {
+    setSelectedLocation(location);
+  }, []);
 
   useEffect(() => {
     if (map) {
       // Set region-specific view when region changes
       if (activeRegion === 'americas') {
-        map.setView([30, -90], 3);
+        map.setView([25, -90], 3);
       } else if (activeRegion === 'europe') {
         map.setView([50, 10], 4);
       } else if (activeRegion === 'asia') {
         map.setView([20, 100], 3);
       } else if (activeRegion === 'africa') {
-        map.setView([10, 20], 3);
+        map.setView([15, 20], 3);
       } else {
         // All regions
         map.setView([20, 0], 2);
@@ -249,9 +594,38 @@ const WorldMap = () => {
     }
   }, [activeRegion, map]);
 
+  useEffect(() => {
+    if (map) {
+      const handleZoomEnd = () => {
+        if (map.getZoom() === 6) {
+          setShowZoomNotification(true);
+          setTimeout(() => setShowZoomNotification(false), 3000);
+        }
+      };
+
+      map.on('zoomend', handleZoomEnd);
+      
+      return () => {
+        map.off('zoomend', handleZoomEnd);
+      };
+    }
+  }, [map]);
+
   const filteredLocations = activeRegion === 'all' 
     ? locations 
     : locations.filter(location => location.region === activeRegion);
+
+  const filteredRoutes = activeRegion === 'all' || !showRoutes
+    ? shippingRoutes
+    : shippingRoutes.filter(route => {
+        const startPointLoc = locations.find(loc => 
+          loc.position[0] === route.points[0][0] && loc.position[1] === route.points[0][1]);
+        const endPointLoc = locations.find(loc => 
+          loc.position[0] === route.points[1][0] && loc.position[1] === route.points[1][1]);
+        
+        return (startPointLoc && startPointLoc.region === activeRegion) || 
+               (endPointLoc && endPointLoc.region === activeRegion);
+      });
 
   return (
     <MapSection>
@@ -263,51 +637,113 @@ const WorldMap = () => {
           </SectionDescription>
         </SectionHeader>
         
-        <RegionTabs>
-          {regions.map(region => (
-            <RegionTab 
-              key={region.id} 
-              active={activeRegion === region.id}
-              onClick={() => setActiveRegion(region.id)}
-            >
-              {region.name}
-            </RegionTab>
-          ))}
-        </RegionTabs>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <RegionTabs>
+            {regions.map(region => (
+              <RegionTab 
+                key={region.id} 
+                active={activeRegion === region.id}
+                onClick={() => handleSetRegion(region.id)}
+              >
+                {region.name}
+              </RegionTab>
+            ))}
+          </RegionTabs>
+          
+          <div>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+              <input 
+                type="checkbox" 
+                checked={showRoutes} 
+                onChange={() => setShowRoutes(!showRoutes)}
+                style={{ cursor: 'pointer' }}
+              />
+              <span style={{ fontSize: '14px', color: '#555' }}>Show shipping routes</span>
+            </label>
+          </div>
+        </div>
         
         <LeafletMapContainer>
           <MapContainer 
-            center={mapCenter} 
-            zoom={mapZoom} 
+            center={[20, 0]} 
+            zoom={2} 
             scrollWheelZoom={true}
             whenCreated={setMap}
             style={{ height: '100%', width: '100%' }}
+            zoomControl={false}
+            minZoom={2}
+            maxZoom={6}
+            worldCopyJump={true}
+            maxBoundsViscosity={1.0}
           >
+            {/* Set map bounds to prevent infinite horizontal scrolling */}
+            <SetMapBounds map={map} bounds={mapBounds} />
+            
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
             />
+            
+            <ZoomControl position="bottomright" />
+            
+            {/* Display shipping routes */}
+            {showRoutes && filteredRoutes.map((route, index) => (
+              <Polyline 
+                key={index} 
+                positions={route.points}
+                pathOptions={{
+                  color: route.color,
+                  weight: route.weight,
+                  dashArray: route.dashArray
+                }}
+              >
+                <Popup>
+                  <div style={{ padding: '5px 10px' }}>
+                    <strong>Route:</strong> {route.name}
+                  </div>
+                </Popup>
+              </Polyline>
+            ))}
+            
             {filteredLocations.map(location => (
               <Marker 
                 key={location.id} 
                 position={location.position}
-                icon={customIcon}
+                icon={location.isHQ ? icons.headquarters : icons[location.region]}
+                eventHandlers={{
+                  click: () => handleMarkerClick(location)
+                }}
               >
                 <Popup>
-                  <div>
-                    <h3 style={{ margin: '0 0 8px 0', color: '#0c2340', fontSize: '16px' }}>{location.name}</h3>
-                    <p style={{ margin: '0 0 8px 0', fontSize: '14px', color: '#666' }}>{location.address}</p>
-                    <p style={{ margin: '0 0 5px 0', fontSize: '14px', color: '#666' }}>
-                      <strong style={{ color: '#0c2340' }}>Phone:</strong> {location.phone}
-                    </p>
-                    <p style={{ margin: '0', fontSize: '14px', color: '#666' }}>
-                      <strong style={{ color: '#0c2340' }}>Email:</strong> {location.email}
-                    </p>
-                  </div>
+                  <PopupHeader>
+                    <h3>{location.name}</h3>
+                    <p>{location.type}</p>
+                  </PopupHeader>
+                  <PopupContent>
+                    <p>{location.address}</p>
+                    <p><strong>Phone:</strong> {location.phone}</p>
+                    <p><strong>Email:</strong> {location.email}</p>
+                  </PopupContent>
+                  <PopupFooter>
+                    <a href={`mailto:${location.email}`}>Contact Office</a>
+                  </PopupFooter>
                 </Popup>
               </Marker>
             ))}
           </MapContainer>
+          
+          {/* Optional selected location info overlay */}
+          {selectedLocation && (
+            <MapOverlay>
+              <h3>{selectedLocation.name}</h3>
+              <p>{selectedLocation.type}</p>
+              <p style={{ marginTop: '5px', fontSize: '11px' }}>Click on the marker for more details</p>
+            </MapOverlay>
+          )}
+          
+          <ZoomNotification show={showZoomNotification}>
+            Maximum zoom level reached
+          </ZoomNotification>
         </LeafletMapContainer>
         
         <StatsContainer>
@@ -318,6 +754,24 @@ const WorldMap = () => {
             </StatItem>
           ))}
         </StatsContainer>
+        
+        <KeyLocationsInfo>
+          <h3>Key Locations</h3>
+          <LocationGrid>
+            {locations
+              .filter(loc => loc.type.includes('HQ'))
+              .map(location => (
+                <LocationCard 
+                  key={location.id}
+                  color={location.isHQ ? '#6200ea' : icons[location.region] ? '#05a0e8' : '#05a0e8'}
+                >
+                  <h4>{location.name}</h4>
+                  <p>{location.type}</p>
+                </LocationCard>
+              ))
+            }
+          </LocationGrid>
+        </KeyLocationsInfo>
       </Container>
     </MapSection>
   );

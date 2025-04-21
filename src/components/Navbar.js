@@ -70,6 +70,11 @@ const Navbar = () => {
             </NavLinkStyled>
           </NavItem>
           <NavItem>
+            <NavLinkStyled to="/faq">
+              FAQ
+            </NavLinkStyled>
+          </NavItem>
+          <NavItem>
             <NavLinkStyled to="/contact">
               {t('contact')}
             </NavLinkStyled>

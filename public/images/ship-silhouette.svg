@@ -1,0 +1,29 @@
+<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shipGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="white" stop-opacity="0.7" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Ship Hull -->
+  <path d="M 30,150 L 150,150 L 170,130 L 320,130 L 370,150 L 370,170 L 30,170 Z" 
+        fill="url(#shipGradient)" />
+  
+  <!-- Bridge/Superstructure -->
+  <rect x="180" y="80" width="80" height="50" fill="url(#shipGradient)" />
+  <rect x="195" y="60" width="50" height="20" fill="url(#shipGradient)" />
+  
+  <!-- Smokestack -->
+  <rect x="220" y="30" width="25" height="30" fill="url(#shipGradient)" />
+  
+  <!-- Containers -->
+  <rect x="120" y="110" width="50" height="20" fill="url(#shipGradient)" opacity="0.5" />
+  <rect x="275" y="110" width="35" height="20" fill="url(#shipGradient)" opacity="0.5" />
+  
+  <!-- Bow detail -->
+  <path d="M 30,150 L 50,140 L 50,170 L 30,170 Z" fill="url(#shipGradient)" opacity="0.7" />
+  
+  <!-- Stern detail -->
+  <path d="M 350,130 L 370,150 L 370,170 L 350,160 Z" fill="url(#shipGradient)" opacity="0.7" />
+</svg> 

@@ -289,7 +289,7 @@ const Services = () => {
       features: ['services.documentation.feature1', 'services.documentation.feature2', 'services.documentation.feature3']
     }
   ]);
-
+  
   return (
     <ServicesSection id="services">
       <Container>
@@ -352,13 +352,13 @@ const Services = () => {
                 <FeaturedIcon>
                   <FaChartLine />
                 </FeaturedIcon>
-                <FeaturedItemContent>
+                  <FeaturedItemContent>
                   <FeaturedItemTitle>{t('services.featured.item2.title')}</FeaturedItemTitle>
                   <FeaturedItemDescription>
                     {t('services.featured.item2.description')}
                   </FeaturedItemDescription>
-                </FeaturedItemContent>
-              </FeaturedItem>
+                  </FeaturedItemContent>
+                </FeaturedItem>
             </FeaturedGrid>
             <CtaButton href="/contact">{t('services.contactUs')}</CtaButton>
           </FeaturedContent>

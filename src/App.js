@@ -410,7 +410,7 @@ const LanguageDropdown = ({ isOpen, onClose }) => {
 // Simple Contact component that doesn't require a backend
 const Contact = () => {
   const { t } = useTranslation();
-  
+
   return (
     <section style={{ 
       padding: '80px 0', 

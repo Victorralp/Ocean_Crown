@@ -1,0 +1,55 @@
+<svg width="1200" height="120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e90ff" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#1e90ff" stop-opacity="0.2" />
+    </linearGradient>
+    
+    <filter id="blur" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+    </filter>
+  </defs>
+  
+  <!-- First Wave Layer -->
+  <path d="M0,40 
+           C150,10 300,80 450,40 
+           C600,0 750,70 900,30 
+           C1050,0 1200,60 1200,60 
+           L1200,120 L0,120 Z" 
+        fill="url(#waveGradient)" 
+        opacity="0.6"
+        filter="url(#blur)" />
+  
+  <!-- Second Wave Layer - Slightly different pattern -->
+  <path d="M0,60 
+           C100,30 200,70 300,50 
+           C400,30 500,70 600,40 
+           C700,10 800,50 900,30 
+           C1000,10 1100,50 1200,30 
+           L1200,120 L0,120 Z" 
+        fill="url(#waveGradient)" 
+        opacity="0.4"
+        filter="url(#blur)" />
+  
+  <!-- Highlight Lines -->
+  <path d="M0,40 
+           C150,10 300,80 450,40 
+           C600,0 750,70 900,30 
+           C1050,0 1200,60 1200,60" 
+        fill="none" 
+        stroke="white" 
+        stroke-width="1" 
+        stroke-opacity="0.3"
+        filter="url(#blur)" />
+  
+  <path d="M0,60 
+           C100,30 200,70 300,50 
+           C400,30 500,70 600,40 
+           C700,10 800,50 900,30 
+           C1000,10 1100,50 1200,30" 
+        fill="none" 
+        stroke="white" 
+        stroke-width="1" 
+        stroke-opacity="0.2"
+        filter="url(#blur)" />
+</svg> 

@@ -49,7 +49,7 @@ const Footer = () => {
             <FooterLink as={Link} to="/about">About Us</FooterLink>
             <FooterLink as={Link} to="/sustainability">Sustainability</FooterLink>
             <FooterLink as={Link} to="/ebusiness">eBusiness</FooterLink>
-            <FooterLink as={Link} to="/blog">Blog</FooterLink>
+            <FooterLink as={Link} to="/faq">FAQ</FooterLink>
           </FooterLinks>
         </FooterSection>
         
