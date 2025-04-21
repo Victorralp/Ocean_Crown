@@ -9,16 +9,13 @@ import {
 import Services from './components/Services';
 import WorldMap from './components/WorldMap';
 import Certificates from './components/Certificates';
-import Blog from './components/Blog';
+import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import Stats from './components/Stats';
 import Industries from './components/Industries';
 import AboutUs from './components/AboutUs';
 import Sustainability from './components/Sustainability';
 import EBusiness from './components/EBusiness';
-import BlogDetail from './components/BlogDetail';
-import BlogCategory from './components/BlogCategory';
-import AuthorPage from './components/AuthorPage';
 import { useTranslation } from './translations/useTranslation';
 
 // Re-export the hook for backward compatibility
@@ -662,7 +659,7 @@ function App() {
               <QuickLinks>
                 <QuickLink as={Link} to="/blog" onClick={toggleNav}>
                   <FaClipboardList />
-                  Blog
+                  FAQ
                 </QuickLink>
                 <QuickLink as={Link} to="/contact" onClick={toggleNav}>
                   <FaEnvelope />
@@ -691,7 +688,7 @@ function App() {
                   <Industries />
                   <WorldMap />
                   <Certificates />
-                  <Blog />
+                  <FAQ />
                   <Contact />
                 </>
               } />
@@ -702,15 +699,8 @@ function App() {
               <Route path="/industries" element={<Industries />} />
               <Route path="/global-network" element={<WorldMap />} />
               <Route path="/certificates" element={<Certificates />} />
-              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog" element={<FAQ />} />
               <Route path="/contact" element={<Contact />} />
-              
-              {/* Blog detail route */}
-              <Route path="/blog/:slug" element={<BlogDetail />} />
-              
-              {/* Blog category and author routes */}
-              <Route path="/blog/category/:category" element={<BlogCategory />} />
-              <Route path="/blog/author/:authorSlug" element={<AuthorPage />} />
               
               {/* Other static pages */}
               <Route path="/ebusiness" element={<EBusiness />} />
