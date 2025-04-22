@@ -20,13 +20,13 @@ export const useTranslation = () => {
     if (!key) return '';
     
     // Get the translation object for current language
-    const translations = allTranslations[language] || allTranslations.en;
+    const currentTranslations = allTranslations[language] || allTranslations.en;
     
     // Split the key into parts for nested objects
     const parts = key.split('.');
     
     // Traverse the nested objects to find the translation
-    let value = translations;
+    let value = currentTranslations;
     for (const part of parts) {
       if (value && typeof value === 'object' && part in value) {
         value = value[part];
@@ -72,10 +72,10 @@ export const useTranslation = () => {
   const hasTranslation = (key) => {
     if (!key) return false;
     
-    const translations = allTranslations[language] || allTranslations.en;
+    const translationsObj = allTranslations[language] || allTranslations.en;
     const parts = key.split('.');
     
-    let value = translations;
+    let value = translationsObj;
     for (const part of parts) {
       if (value && typeof value === 'object' && part in value) {
         value = value[part];

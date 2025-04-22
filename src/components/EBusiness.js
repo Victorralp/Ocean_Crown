@@ -35,24 +35,36 @@ const EBusinessSection = styled.div`
 `;
 
 const HeroSection = styled.div`
-  background: linear-gradient(rgba(0, 48, 87, 0.7), rgba(0, 48, 87, 0.7)), 
-              url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1000') no-repeat center center;
+  background: linear-gradient(rgba(96, 125, 148, 0.6), rgba(76, 100, 120, 0.7)),
+              url('https://images.pexels.com/photos/830891/pexels-photo-830891.jpeg?auto=compress&cs=tinysrgb&w=1920') no-repeat center center;
   background-size: cover;
-  height: 60vh;
+  height: 100vh;
+  margin-top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  margin-top: 112px;
+  position: relative;
+  padding-top: 112px;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(to right, ${colors.coral}, #3a86ff);
+  }
 `;
 
 const GlassContainer = styled.div`
-  backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 40px;
-  box-shadow: 0 8px 32px rgba(0, 48, 87, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 45px;
+  box-shadow: 0 8px 32px rgba(0, 48, 87, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 `;
 
 const Container = styled.div`
@@ -67,18 +79,28 @@ const HeroContent = styled(GlassContainer)`
   position: relative;
   max-width: 800px;
   margin: 0 20px;
+  transform: translateY(-10px);
+  transition: transform 0.5s ease;
+  
+  &:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 40px rgba(0, 48, 87, 0.25);
+  }
 `;
 
 const PageTitle = styled.h1`
-  font-size: 3.5rem;
+  font-size: 3.8rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   letter-spacing: 1px;
+  background: linear-gradient(to right, #ffffff, ${colors.lightBlue});
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -87,9 +109,9 @@ const Subtitle = styled.p`
   &::after {
     content: '';
     display: block;
-    width: 80px;
+    width: 120px;
     height: 4px;
-    background-color: ${colors.coral};
+    background: linear-gradient(to right, ${colors.coral}, #3a86ff);
     margin: 25px auto 0;
     border-radius: 2px;
   }
@@ -726,11 +748,6 @@ const EBusiness = () => {
           
           <StatsContainer>
             <StatBox>
-              <StatNumber>40%</StatNumber>
-              <StatLabel>Average reduction in documentation processing time</StatLabel>
-            </StatBox>
-            
-            <StatBox>
               <StatNumber>99.8%</StatNumber>
               <StatLabel>Data accuracy rate with our digital solutions</StatLabel>
             </StatBox>
@@ -738,11 +755,6 @@ const EBusiness = () => {
             <StatBox>
               <StatNumber>24/7</StatNumber>
               <StatLabel>Access to your shipping data from anywhere</StatLabel>
-            </StatBox>
-            
-            <StatBox>
-              <StatNumber>30%</StatNumber>
-              <StatLabel>Typical decrease in administrative costs</StatLabel>
             </StatBox>
           </StatsContainer>
         </Container>

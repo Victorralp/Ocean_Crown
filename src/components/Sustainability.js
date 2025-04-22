@@ -22,15 +22,27 @@ const SustainabilitySection = styled.div`
 `;
 
 const HeroSection = styled.div`
-  background: linear-gradient(rgba(0, 48, 87, 0.6), rgba(0, 48, 87, 0.6)), 
-              url('https://images.unsplash.com/photo-1618017049045-0dc296b7eb9b?q=80&w=1000') no-repeat center center;
+  background: linear-gradient(rgba(96, 125, 148, 0.6), rgba(76, 100, 120, 0.7)),
+              url('https://images.pexels.com/photos/2611675/pexels-photo-2611675.jpeg?auto=compress&cs=tinysrgb&w=1920') no-repeat center center;
   background-size: cover;
-  height: 60vh;
+  height: 100vh;
+  margin-top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  margin-top: 112px;
+  position: relative;
+  padding-top: 112px;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(to right, ${colors.coral}, #3a86ff);
+  }
 `;
 
 const GlassContainer = styled.div`
@@ -628,7 +640,7 @@ const Sustainability = () => {
         </Container>
       </ContentSection>
 
-      <FullWidthImage src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=1200" />
+      <FullWidthImage src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=2070" />
 
       <ContentSection bgColor={colors.sand}>
         <Container>
@@ -734,7 +746,7 @@ const Sustainability = () => {
         </Container>
       </ContentSection>
 
-      <FullWidthImage src="https://images.unsplash.com/photo-1580137189272-c9379f8864fd?q=80&w=1200" />
+      <FullWidthImage src="https://images.unsplash.com/photo-1596237563267-84ffd99c80e1?q=80&w=2070" />
 
       <ContentSection>
         <Container>
@@ -802,7 +814,7 @@ const Sustainability = () => {
         </Container>
       </ContentSection>
 
-      <FullWidthImage src="https://images.unsplash.com/photo-1520116468816-95b69f847357?q=80&w=1200" />
+      <FullWidthImage src="https://images.unsplash.com/photo-1498092590708-048a21c99fd9?q=80&w=2070" />
 
       <ContentSection bgColor={colors.deepBlue}>
         <Container>

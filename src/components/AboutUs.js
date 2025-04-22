@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from '../App';
 import { FaShip, FaAward, FaHandshake, FaGlobeAfrica, FaChartLine, FaUsers, FaBuilding, FaUniversity } from 'react-icons/fa';
 
 const AboutSection = styled.section`
-  padding: 40px 0;
+  padding: 60px 0;
+  background-color: #f8fafc;
 `;
 
 const HeroSection = styled.div`
   position: relative;
   height: 70vh;
-  background: url('/images/about_us.avif') center/cover;
+  background: url('https://images.pexels.com/photos/1554646/pexels-photo-1554646.jpeg') center/cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,12 +28,32 @@ const HeroSection = styled.div`
     bottom: 0;
     background: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0.4) 30%,
-      rgba(0, 0, 0, 0.3) 100%
+      rgba(0, 26, 51, 0.8) 0%,
+      rgba(5, 57, 107, 0.7) 50%,
+      rgba(13, 110, 253, 0.6) 100%
     );
     z-index: 1;
   }
+`;
+
+const HeroTitle = styled.h1`
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+`;
+
+const HeroSubtitle = styled.p`
+  font-size: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  opacity: 0.9;
+`;
+
+const AboutContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 `;
 
 const Container = styled.div`
@@ -101,10 +123,12 @@ const AboutImage = styled.img`
 `;
 
 const AboutParagraph = styled.p`
-  font-size: 17px;
-  color: #444;
+  font-size: 1.1rem;
   line-height: 1.8;
-  margin-bottom: 25px;
+  color: #333;
+  margin-bottom: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
 `;
 
 const ValuesContainer = styled.div`
@@ -499,51 +523,37 @@ const BiographyQuote = styled.blockquote`
 `;
 
 const AboutUs = () => {
+  const { t, language } = useTranslation();
+  
   return (
     <>
       <HeroSection>
-        <Container>
-          <PageTitle>ABOUT OCEAN CROWN</PageTitle>
-          <Subtitle>
-            A leading logistics and shipping company committed to excellence in global trade and transportation.
-          </Subtitle>
-        </Container>
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <HeroTitle>{t('aboutUs.title')}</HeroTitle>
+          <HeroSubtitle>{t('aboutUs.subtitle')}</HeroSubtitle>
+        </div>
       </HeroSection>
       
       <AboutSection>
-        <Container>
-          <TwoColumnSection>
-            <LeftColumn>
-              <SectionTitle>Our Story</SectionTitle>
-              <AboutParagraph>
-                In early 2019, a few shipping experts gathered together to discuss how they could improve on existing norms in the clearing industry. Their goal was to provide "New Generation Solutions" that would match international standards and regulations. To achieve their goal, they needed a company to render world-class services.
-              </AboutParagraph>
-              <AboutParagraph>
-                Global Ocean Crown Oil & Transport Ltd started operations in a small office in a block of offices situated at 7/9, Payne Crescent, Apapa, Lagos. Over the years, we've grown into a comprehensive logistics provider serving clients across Africa and beyond.
-              </AboutParagraph>
-              <AboutParagraph>
-                Today, this outstanding company that started in a humble office has become a reputable, internationally recognized provider of new generation services and solutions in diverse industries such as shipping, oil & gas, haulage & logistics, customs clearing/freight forwarding, and warehouse management.
-              </AboutParagraph>
-              <AboutParagraph>
-                Global Ocean Crown Oil & Transport Ltd does not just render outstanding services, we also fulfill our social responsibilities in the community. We are committed to making a positive impact wherever we operate.
-              </AboutParagraph>
-            </LeftColumn>
-            <RightColumn>
-              <AboutImage src="/images/WhatsApp Image 2025-04-20 at 13.22.44_90bf0e73.jpg" alt="Ocean Crown Biography" />
-            </RightColumn>
-          </TwoColumnSection>
+        <AboutContainer>
+          <SectionTitle style={{ textAlign: 'center', marginBottom: '30px' }}>
+            {t('aboutUs.ourStory.title')}
+          </SectionTitle>
           
-          <BiographySection>
+              <AboutParagraph>
+            {t('aboutUs.ourStory.paragraph1')}
+              </AboutParagraph>
+              <AboutParagraph>
+            {t('aboutUs.ourStory.paragraph2')}
+              </AboutParagraph>
+              <AboutParagraph>
+            {t('aboutUs.ourStory.paragraph3')}
+              </AboutParagraph>
+        </AboutContainer>
+      </AboutSection>
+      
+      <AboutSection>
             <Container>
-              <BiographyContent>
-                <SectionTitle>Our Commitment</SectionTitle>
-                <BiographyQuote>
-                  We are dedicated to providing "New Generation Solutions" that match international standards and regulations. With our team of experienced professionals, we deliver reliable, efficient, and innovative logistics services that help our clients succeed in their businesses.
-                </BiographyQuote>
-              </BiographyContent>
-            </Container>
-          </BiographySection>
-          
           <SectionTitle>Our Timeline</SectionTitle>
           <TimelineContainer>
             <TimelineItem position="right">
@@ -768,27 +778,7 @@ const AboutUs = () => {
           <SectionTitle>Company Information</SectionTitle>
           <ContactInfo>
             <ContactCard>
-              <ContactTitle>Ocean Crown Multi-Links Enterprises Ltd</ContactTitle>
-              <ContactDetail>
-                <ContactLabel>Established:</ContactLabel>
-                <ContactValue>November 12, 2012</ContactValue>
-              </ContactDetail>
-              <ContactDetail>
-                <ContactLabel>RC Number:</ContactLabel>
-                <ContactValue>1077709</ContactValue>
-              </ContactDetail>
-              <ContactDetail>
-                <ContactLabel>Address:</ContactLabel>
-                <ContactValue>No 29, Payne Crescent, Apapa, Lagos, Nigeria</ContactValue>
-              </ContactDetail>
-              <ContactDetail>
-                <ContactLabel>Services:</ContactLabel>
-                <ContactValue>Customs Clearance, Freight Forwarding, Shipping</ContactValue>
-              </ContactDetail>
-            </ContactCard>
-            
-            <ContactCard>
-              <ContactTitle>Global Ocean Crown Oil & Transport Ltd</ContactTitle>
+              <ContactTitle>Global Ocean Crown Multilinks Oil and Transportation Ltd</ContactTitle>
               <ContactDetail>
                 <ContactLabel>Established:</ContactLabel>
                 <ContactValue>October 4, 2018</ContactValue>
@@ -803,7 +793,27 @@ const AboutUs = () => {
               </ContactDetail>
               <ContactDetail>
                 <ContactLabel>Services:</ContactLabel>
-                <ContactValue>Oil Logistics, Transportation, Supply Chain Management</ContactValue>
+                <ContactValue>Export and Transportation Services</ContactValue>
+              </ContactDetail>
+            </ContactCard>
+            
+            <ContactCard>
+              <ContactTitle>Ocean Crown Multilinks Enterprise Limited</ContactTitle>
+              <ContactDetail>
+                <ContactLabel>Established:</ContactLabel>
+                <ContactValue>November 12, 2012</ContactValue>
+              </ContactDetail>
+              <ContactDetail>
+                <ContactLabel>RC Number:</ContactLabel>
+                <ContactValue>1077709</ContactValue>
+              </ContactDetail>
+              <ContactDetail>
+                <ContactLabel>Address:</ContactLabel>
+                <ContactValue>No 29, Payne Crescent, Apapa, Lagos, Nigeria</ContactValue>
+              </ContactDetail>
+              <ContactDetail>
+                <ContactLabel>Services:</ContactLabel>
+                <ContactValue>Import Clearing and Forwarding</ContactValue>
               </ContactDetail>
             </ContactCard>
           </ContactInfo>

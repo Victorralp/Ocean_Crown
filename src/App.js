@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect, createContext, useContext, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { 
@@ -18,7 +18,7 @@ import Sustainability from './components/Sustainability';
 import EBusiness from './components/EBusiness';
 import { useTranslation } from './translations/useTranslation';
 
-// Re-export the hook for backward compatibility
+// Re-export the hook for backward compatibility - many components import from App.js
 export { useTranslation };
 
 // Create Language Context with translations
@@ -161,7 +161,7 @@ const UtilityButton = styled(UtilityLink)`
 const Hero = styled.section`
   position: relative;
   height: 100vh;
-  background: url('https://images.pexels.com/photos/1554646/pexels-photo-1554646.jpeg') center/cover;
+  background: url('https://images.unsplash.com/photo-1524522173746-f628baad3644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1831&q=80') center/cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -178,9 +178,9 @@ const Hero = styled.section`
     bottom: 0;
     background: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0.4) 30%,
-      rgba(0, 0, 0, 0.3) 100%
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.65) 40%,
+      rgba(0, 0, 0, 0.5) 100%
     );
     z-index: 1;
   }
@@ -558,6 +558,10 @@ function App() {
     // Get language from localStorage or default to English
     return localStorage.getItem('language') || 'en';
   });
+  
+  // Create refs for the dropdown nav and menu button
+  const dropdownNavRef = useRef(null);
+  const menuButtonRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -570,6 +574,32 @@ function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [scrolled]);
+
+  // Add click outside handler for nav dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Close nav if click is outside nav and not on the menu button
+      if (
+        isNavOpen && 
+        dropdownNavRef.current && 
+        !dropdownNavRef.current.contains(event.target) &&
+        menuButtonRef.current &&
+        !menuButtonRef.current.contains(event.target)
+      ) {
+        setIsNavOpen(false);
+      }
+    };
+    
+    // Add event listener when nav is open
+    if (isNavOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    
+    // Clean up event listener
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isNavOpen]);
 
   // Save language preference to localStorage when it changes
   useEffect(() => {
@@ -607,7 +637,11 @@ function App() {
         <AppContainer>
           <ScrollToTop />
           <MainNav className={scrolled ? 'scrolled' : ''} scrolled={scrolled}>
-            <MenuButton scrolled={scrolled} onClick={toggleNav}>
+            <MenuButton 
+              ref={menuButtonRef}
+              scrolled={scrolled} 
+              onClick={toggleNav}
+            >
               <FaBars />
             </MenuButton>
             <Logo scrolled={scrolled}>
@@ -635,7 +669,10 @@ function App() {
             </UtilityNav>
           </MainNav>
 
-          <DropdownNav isOpen={isNavOpen}>
+          <DropdownNav 
+            ref={dropdownNavRef}
+            isOpen={isNavOpen}
+          >
             <DropdownContainer>
               <CloseButton onClick={toggleNav}>✕</CloseButton>
               <MainLinks>

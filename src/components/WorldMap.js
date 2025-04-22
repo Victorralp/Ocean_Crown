@@ -17,12 +17,12 @@ L.Icon.Default.mergeOptions({
 const createCustomIcon = (color) => {
   return new L.Icon({
     iconUrl: `https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${color}.png`,
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
 };
 
 const icons = {
@@ -34,7 +34,7 @@ const icons = {
 };
 
 const MapSection = styled.section`
-  padding: 100px 0;
+  padding: 60px 0;
   background: linear-gradient(to bottom, #f7f9fc, #e6f0f9);
   position: relative;
   overflow: hidden;
@@ -45,14 +45,14 @@ const MapSection = styled.section`
     top: 0;
     left: 0;
     right: 0;
-    height: 200px;
+    height: 150px;
     background: linear-gradient(to bottom, rgba(5, 160, 232, 0.05), rgba(5, 160, 232, 0));
     z-index: 0;
   }
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 20px;
   position: relative;
@@ -61,13 +61,13 @@ const Container = styled.div`
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 36px;
+  font-size: 28px;
   color: #0c2340;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   font-weight: 700;
   position: relative;
   display: inline-block;
@@ -75,10 +75,10 @@ const SectionTitle = styled.h2`
   &::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
+    width: 60px;
     height: 3px;
     background: #05a0e8;
     border-radius: 3px;
@@ -86,19 +86,19 @@ const SectionTitle = styled.h2`
 `;
 
 const SectionDescription = styled.p`
-  font-size: 18px;
+  font-size: 15px;
   color: #666;
-  max-width: 700px;
+  max-width: 650px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.5;
 `;
 
 const LeafletMapContainer = styled.div`
   width: 100%;
-  height: 600px;
-  border-radius: 16px;
+  height: 500px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   position: relative;
   
   .leaflet-container {
@@ -109,43 +109,43 @@ const LeafletMapContainer = styled.div`
   }
   
   .leaflet-popup-content-wrapper {
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     padding: 0;
     overflow: hidden;
   }
   
   .leaflet-popup-content {
     margin: 0;
-    width: 280px !important;
+    width: 250px !important;
   }
   
   .leaflet-popup-tip {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 `;
 
 const MapOverlay = styled.div`
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 16px;
+  left: 16px;
   z-index: 999;
   background: white;
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  max-width: 200px;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 180px;
   pointer-events: auto;
   
   h3 {
-    margin: 0 0 10px 0;
-    font-size: 14px;
+    margin: 0 0 8px 0;
+    font-size: 13px;
     color: #0c2340;
   }
   
   p {
     margin: 0;
-    font-size: 12px;
+    font-size: 11px;
     color: #666;
   }
 `;
@@ -153,73 +153,73 @@ const MapOverlay = styled.div`
 const RegionTabs = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 `;
 
 const RegionTab = styled.button`
   background: ${props => props.active ? '#05a0e8' : 'white'};
   color: ${props => props.active ? '#fff' : '#555'};
   border: 2px solid ${props => props.active ? '#05a0e8' : '#ddd'};
-  padding: 12px 24px;
-  border-radius: 30px;
-  font-size: 15px;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: ${props => props.active ? '0 5px 15px rgba(5, 160, 232, 0.3)' : '0 3px 8px rgba(0, 0, 0, 0.05)'};
+  box-shadow: ${props => props.active ? '0 4px 12px rgba(5, 160, 232, 0.3)' : '0 2px 6px rgba(0, 0, 0, 0.05)'};
   
   &:hover {
     background: ${props => props.active ? '#05a0e8' : 'rgba(5, 160, 232, 0.1)'};
     border-color: #05a0e8;
     color: ${props => props.active ? '#fff' : '#05a0e8'};
     transform: translateY(-2px);
-    box-shadow: ${props => props.active ? '0 7px 20px rgba(5, 160, 232, 0.4)' : '0 5px 15px rgba(5, 160, 232, 0.2)'};
+    box-shadow: ${props => props.active ? '0 6px 16px rgba(5, 160, 232, 0.4)' : '0 4px 12px rgba(5, 160, 232, 0.2)'};
   }
   
   &:active {
     transform: translateY(0);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 `;
 
 const StatsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 70px;
+  margin-top: 50px;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 16px;
 `;
 
 const StatItem = styled.div`
   flex: 1;
-  min-width: 200px;
+  min-width: 180px;
   text-align: center;
-  padding: 30px 20px;
+  padding: 24px 16px;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(5, 160, 232, 0.15);
+    box-shadow: 0 12px 24px rgba(5, 160, 232, 0.15);
   }
 `;
 
 const StatNumber = styled.div`
-  font-size: 46px;
+  font-size: 36px;
   font-weight: 800;
   color: #05a0e8;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   background: linear-gradient(135deg, #05a0e8, #0c2340);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
 
 const StatLabel = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   color: #555;
   font-weight: 500;
 `;
@@ -227,26 +227,26 @@ const StatLabel = styled.div`
 const PopupHeader = styled.div`
   background: #0c2340;
   color: white;
-  padding: 15px;
+  padding: 12px;
   
   h3 {
     margin: 0;
-    font-size: 18px;
+    font-size: 16px;
   }
   
   p {
-    margin: 5px 0 0 0;
-    font-size: 12px;
+    margin: 4px 0 0 0;
+    font-size: 11px;
     opacity: 0.8;
   }
 `;
 
 const PopupContent = styled.div`
-  padding: 15px;
+  padding: 12px;
   
   p {
-    margin: 0 0 8px;
-    font-size: 14px;
+    margin: 0 0 6px;
+    font-size: 13px;
     color: #555;
     display: flex;
     align-items: center;
@@ -257,26 +257,26 @@ const PopupContent = styled.div`
     
     strong {
       color: #0c2340;
-      min-width: 60px;
-      margin-right: 5px;
+      min-width: 50px;
+      margin-right: 4px;
     }
   }
 `;
 
 const PopupFooter = styled.div`
-  padding: 10px 15px;
+  padding: 8px 12px;
   background: #f5f8fa;
   border-top: 1px solid #eee;
   text-align: right;
   
   a {
     display: inline-block;
-    padding: 5px 12px;
+    padding: 4px 10px;
     background: #05a0e8;
     color: white;
     text-decoration: none;
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     transition: all 0.2s ease;
     
@@ -288,23 +288,23 @@ const PopupFooter = styled.div`
 
 const KeyLocationsInfo = styled.div`
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  padding: 25px;
-  margin-top: 50px;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  margin-top: 40px;
   
   h3 {
-    margin: 0 0 20px;
+    margin: 0 0 16px;
     color: #0c2340;
-    font-size: 22px;
+    font-size: 18px;
     position: relative;
     
     &::after {
       content: '';
       position: absolute;
-      bottom: -8px;
+      bottom: -6px;
       left: 0;
-      width: 50px;
+      width: 40px;
       height: 2px;
       background: #05a0e8;
       border-radius: 2px;
@@ -314,14 +314,14 @@ const KeyLocationsInfo = styled.div`
 
 const LocationGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
 `;
 
 const LocationCard = styled.div`
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 3px solid ${props => props.color || '#05a0e8'};
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 2px solid ${props => props.color || '#05a0e8'};
   transition: all 0.2s ease;
   
   &:hover {
@@ -329,14 +329,14 @@ const LocationCard = styled.div`
   }
   
   h4 {
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     color: #0c2340;
-    font-size: 16px;
+    font-size: 14px;
   }
   
   p {
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
     color: #666;
   }
 `;
@@ -401,27 +401,31 @@ const WorldMap = () => {
       email: 'newyork@oceancrown.com',
       position: [40.7028, -74.0111],
       region: 'americas',
-      type: 'Regional HQ'
+      type: 'Regional HQ',
+      isKeyLocation: true
     },
     {
       id: 2,
-      name: 'Rotterdam',
-      address: 'Wilhelminakade 909, 3072 AP Rotterdam, Netherlands',
-      phone: '+31 10 555 7890',
-      email: 'rotterdam@oceancrown.com',
-      position: [51.9070, 4.4822],
-      region: 'europe',
-      type: 'Regional HQ'
+      name: 'Lagos',
+      address: '7/9, Payne Crescent, Apapa, Lagos, Nigeria',
+      phone: '+234 90 555 7890',
+      email: 'lagos@oceancrown.com',
+      position: [6.4579, 3.3606],
+      region: 'africa',
+      type: 'Global Headquarters',
+      isHQ: true,
+      isKeyLocation: true
     },
     {
       id: 3,
-      name: 'Singapore',
-      address: '1 Maritime Square, Harbourfront Centre, Singapore 099253',
-      phone: '+65 6123 4567',
-      email: 'singapore@oceancrown.com',
-      position: [1.2657, 103.8200],
-      region: 'asia',
-      type: 'Regional HQ'
+      name: 'Dubai',
+      address: 'Jebel Ali Free Zone, Dubai, United Arab Emirates',
+      phone: '+971 4 555 7890',
+      email: 'dubai@oceancrown.com',
+      position: [25.0153, 55.0717],
+      region: 'africa',
+      type: 'Regional HQ',
+      isKeyLocation: true
     },
     {
       id: 4,
@@ -435,13 +439,13 @@ const WorldMap = () => {
     },
     {
       id: 5,
-      name: 'Dubai',
-      address: 'Jebel Ali Free Zone, Dubai, United Arab Emirates',
-      phone: '+971 4 555 7890',
-      email: 'dubai@oceancrown.com',
-      position: [25.0153, 55.0717],
-      region: 'africa',
-      type: 'Regional HQ'
+      name: 'Rotterdam',
+      address: 'Wilhelminakade 909, 3072 AP Rotterdam, Netherlands',
+      phone: '+31 10 555 7890',
+      email: 'rotterdam@oceancrown.com',
+      position: [51.9070, 4.4822],
+      region: 'europe',
+      type: 'Office'
     },
     {
       id: 6,
@@ -475,14 +479,13 @@ const WorldMap = () => {
     },
     {
       id: 9,
-      name: 'Lagos',
-      address: '7/9, Payne Crescent, Apapa, Lagos, Nigeria',
-      phone: '+234 90 555 7890',
-      email: 'lagos@oceancrown.com',
-      position: [6.4579, 3.3606],
-      region: 'africa',
-      type: 'Global Headquarters',
-      isHQ: true
+      name: 'Singapore',
+      address: '1 Maritime Square, Harbourfront Centre, Singapore 099253',
+      phone: '+65 6123 4567',
+      email: 'singapore@oceancrown.com',
+      position: [1.2657, 103.8200],
+      region: 'asia',
+      type: 'Office'
     },
     {
       id: 10,
@@ -562,9 +565,9 @@ const WorldMap = () => {
 
   const stats = [
     { number: '70+', label: 'Countries Served' },
-    { number: '150+', label: 'Major Ports' },
+    { number: '100+', label: 'Major Ports' },
     { number: '30+', label: 'Years Experience' },
-    { number: '2.5M+', label: 'TEUs Annually' }
+    { number: '1.5M+', label: 'TEUs Annually' }
   ];
 
   const handleSetRegion = useCallback((regionId) => {
@@ -638,17 +641,17 @@ const WorldMap = () => {
         </SectionHeader>
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-          <RegionTabs>
-            {regions.map(region => (
-              <RegionTab 
-                key={region.id} 
-                active={activeRegion === region.id}
+        <RegionTabs>
+          {regions.map(region => (
+            <RegionTab 
+              key={region.id} 
+              active={activeRegion === region.id}
                 onClick={() => handleSetRegion(region.id)}
-              >
-                {region.name}
-              </RegionTab>
-            ))}
-          </RegionTabs>
+            >
+              {region.name}
+            </RegionTab>
+          ))}
+        </RegionTabs>
           
           <div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
@@ -759,7 +762,7 @@ const WorldMap = () => {
           <h3>Key Locations</h3>
           <LocationGrid>
             {locations
-              .filter(loc => loc.type.includes('HQ'))
+              .filter(loc => loc.isKeyLocation === true)
               .map(location => (
                 <LocationCard 
                   key={location.id}

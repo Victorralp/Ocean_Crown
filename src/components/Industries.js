@@ -2,55 +2,120 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaChevronRight } from 'react-icons/fa';
 import { useTranslation } from '../translations/useTranslation';
+import { useLocation } from 'react-router-dom';
 
 const IndustriesSection = styled.section`
-  padding: 100px 0;
+  padding: 60px 0;
   background-color: #f7f9fc;
 `;
 
+const HeroSection = styled.div`
+  background: linear-gradient(rgba(96, 125, 148, 0.6), rgba(76, 100, 120, 0.7)),
+              url('https://images.unsplash.com/photo-1599033090116-19d8d30b2239?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  padding-top: 112px;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(to right, #05a0e8, #0c2340);
+  }
+`;
+
+const HeroContent = styled.div`
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  max-width: 800px;
+  margin: 0 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 45px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 48, 87, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+`;
+
+const PageTitle = styled.h1`
+  font-size: 3.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+`;
+
+const Subtitle = styled.p`
+  font-size: 1.4rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  
+  &::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(to right, #05a0e8, #0c2340);
+    margin: 25px auto 0;
+    border-radius: 2px;
+  }
+`;
+
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 20px;
 `;
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 700;
   color: #0c2340;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   position: relative;
   display: inline-block;
   
   &:after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
+    width: 60px;
     height: 3px;
     background: #05a0e8;
   }
 `;
 
 const SectionDescription = styled.p`
-  font-size: 18px;
+  font-size: 15px;
   color: #4a5568;
-  max-width: 700px;
+  max-width: 650px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.5;
 `;
 
 const IndustriesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 20px;
   
   @media (max-width: 992px) {
     grid-template-columns: repeat(2, 1fr);
@@ -65,18 +130,18 @@ const IndustryCard = styled.div`
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
   }
 `;
 
 const IndustryImage = styled.div`
-  height: 200px;
+  height: 160px;
   background-image: url(${props => props.image});
   background-size: cover;
   background-position: center;
@@ -94,25 +159,25 @@ const IndustryImage = styled.div`
 `;
 
 const IndustryTitle = styled.h3`
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 600;
   color: white;
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 16px;
+  left: 16px;
   margin: 0;
   z-index: 1;
 `;
 
 const IndustryContent = styled.div`
-  padding: 25px;
+  padding: 18px;
 `;
 
 const IndustryDescription = styled.p`
-  font-size: 16px;
+  font-size: 14px;
   color: #4a5568;
-  line-height: 1.6;
-  margin-bottom: 20px;
+  line-height: 1.5;
+  margin-bottom: 16px;
 `;
 
 const IndustryLink = styled.a`
@@ -120,7 +185,7 @@ const IndustryLink = styled.a`
   align-items: center;
   color: #05a0e8;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   text-decoration: none;
   transition: color 0.3s ease;
   
@@ -129,12 +194,13 @@ const IndustryLink = styled.a`
   }
   
   svg {
-    margin-left: 8px;
+    margin-left: 6px;
     transition: transform 0.3s ease;
+    font-size: 12px;
   }
   
   &:hover svg {
-    transform: translateX(5px);
+    transform: translateX(4px);
   }
 `;
 
@@ -304,6 +370,8 @@ const CaseStudyDescription = styled.p`
 const Industries = () => {
   const { t } = useTranslation();
   const [selectedIndustry, setSelectedIndustry] = useState(null);
+  const location = useLocation();
+  const isStandalonePage = location.pathname === '/industries';
   
   const industriesData = [
     {
@@ -459,77 +527,90 @@ const Industries = () => {
   };
   
   return (
-    <IndustriesSection id="industries">
-      <Container>
-        <SectionHeader>
-          <SectionTitle>{t('industries.title')}</SectionTitle>
-          <SectionDescription>
-            {t('industries.description')}
-          </SectionDescription>
-        </SectionHeader>
-        
-        <IndustriesGrid>
-          {industriesData.map(industry => (
-            <IndustryCard 
-              key={industry.id}
-              onClick={() => handleOpenModal(industry)}
-            >
-              <IndustryImage image={industry.image}>
-                <IndustryTitle>{t(industry.title)}</IndustryTitle>
-              </IndustryImage>
-              <IndustryContent>
-                <IndustryDescription>
-                  {t(industry.shortDescription)}
-                </IndustryDescription>
-                <IndustryLink href="#" onClick={(e) => {
-                  e.preventDefault();
-                  handleOpenModal(industry);
-                }}>
-                  Learn more <FaChevronRight />
-                </IndustryLink>
-              </IndustryContent>
-            </IndustryCard>
-          ))}
-        </IndustriesGrid>
-      </Container>
+    <>
+      {isStandalonePage && (
+        <HeroSection>
+          <HeroContent>
+            <PageTitle>Industry Solutions</PageTitle>
+            <Subtitle>
+              Specialized logistics services tailored to your industry's unique challenges
+            </Subtitle>
+          </HeroContent>
+        </HeroSection>
+      )}
       
-      <ModalOverlay 
-        isOpen={!!selectedIndustry}
-        onClick={handleCloseModal}
-      >
-        {selectedIndustry && (
-          <ModalContent 
-            isOpen={!!selectedIndustry}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <ModalHeader image={selectedIndustry.image}>
-              <ModalTitle>{t(selectedIndustry.title)}</ModalTitle>
-              <ModalCloseButton onClick={handleCloseModal} />
-            </ModalHeader>
-            <ModalBody>
-              <p>{t(selectedIndustry.fullDescription)}</p>
-              
-              <h4>Our Solutions:</h4>
-              <SolutionsList>
-                {selectedIndustry.solutions.map((solution, index) => (
-                  <SolutionItem key={index}>{t(solution)}</SolutionItem>
-                ))}
-              </SolutionsList>
-              
-              <CaseStudies>
-                <CaseStudyTitle>Success Stories</CaseStudyTitle>
-                {selectedIndustry.caseStudies.map((caseStudy, index) => (
-                  <CaseStudy key={index}>
-                    <CaseStudyName>{caseStudy.name}</CaseStudyName>
-                    <CaseStudyDescription>{caseStudy.description}</CaseStudyDescription>
-                  </CaseStudy>
-                ))}
-              </CaseStudies>
-            </ModalBody>
-          </ModalContent>
-        )}
-      </ModalOverlay>
-    </IndustriesSection>
+      <IndustriesSection id="industries">
+        <Container>
+          <SectionHeader>
+            <SectionTitle>{t('industries.title')}</SectionTitle>
+            <SectionDescription>
+              {t('industries.description')}
+            </SectionDescription>
+          </SectionHeader>
+          
+          <IndustriesGrid>
+            {industriesData.map(industry => (
+              <IndustryCard 
+                key={industry.id}
+                onClick={() => handleOpenModal(industry)}
+              >
+                <IndustryImage image={industry.image}>
+                  <IndustryTitle>{t(industry.title)}</IndustryTitle>
+                </IndustryImage>
+                <IndustryContent>
+                  <IndustryDescription>
+                    {t(industry.shortDescription)}
+                  </IndustryDescription>
+                  <IndustryLink href="#" onClick={(e) => {
+                    e.preventDefault();
+                    handleOpenModal(industry);
+                  }}>
+                    Learn more <FaChevronRight />
+                  </IndustryLink>
+                </IndustryContent>
+              </IndustryCard>
+            ))}
+          </IndustriesGrid>
+        </Container>
+        
+        <ModalOverlay 
+          isOpen={!!selectedIndustry}
+          onClick={handleCloseModal}
+        >
+          {selectedIndustry && (
+            <ModalContent 
+              isOpen={!!selectedIndustry}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ModalHeader image={selectedIndustry.image}>
+                <ModalTitle>{t(selectedIndustry.title)}</ModalTitle>
+                <ModalCloseButton onClick={handleCloseModal} />
+              </ModalHeader>
+              <ModalBody>
+                <p>{t(selectedIndustry.fullDescription)}</p>
+                
+                <h4>Our Solutions:</h4>
+                <SolutionsList>
+                  {selectedIndustry.solutions.map((solution, index) => (
+                    <SolutionItem key={index}>{t(solution)}</SolutionItem>
+                  ))}
+                </SolutionsList>
+                
+                <CaseStudies>
+                  <CaseStudyTitle>Success Stories</CaseStudyTitle>
+                  {selectedIndustry.caseStudies.map((caseStudy, index) => (
+                    <CaseStudy key={index}>
+                      <CaseStudyName>{caseStudy.name}</CaseStudyName>
+                      <CaseStudyDescription>{caseStudy.description}</CaseStudyDescription>
+                    </CaseStudy>
+                  ))}
+                </CaseStudies>
+              </ModalBody>
+            </ModalContent>
+          )}
+        </ModalOverlay>
+      </IndustriesSection>
+    </>
   );
 };
 

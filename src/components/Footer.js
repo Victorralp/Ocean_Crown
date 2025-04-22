@@ -110,7 +110,7 @@ const FooterContent = styled.div`
   padding: 0 20px;
   
   @media (max-width: 768px) {
-    flex-direction: column;
+  flex-direction: column;
     gap: 40px;
   }
 `;
@@ -162,7 +162,7 @@ const SocialLink = styled.a`
   border-radius: 50%;
   color: #e0e0e0;
   transition: all 0.3s ease;
-  
+
   &:hover {
     background: #F6AD55;
     color: white;
@@ -188,7 +188,7 @@ const FooterLink = styled.a`
   text-decoration: none;
   font-size: 14px;
   transition: all 0.3s ease;
-  
+
   &:hover {
     color: #F6AD55;
     transform: translateX(2px);
@@ -253,7 +253,7 @@ const FooterBottomLink = styled.a`
   font-size: 13px;
   opacity: 0.7;
   transition: all 0.3s ease;
-  
+
   &:hover {
     color: #F6AD55;
     opacity: 1;

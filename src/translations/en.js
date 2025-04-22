@@ -19,8 +19,8 @@ const en = {
   
   // Hero section
   hero: {
-    leaderIn: "LEADER IN",
-    shippingLogistics: "SHIPPING & LOGISTICS",
+    leaderIn: "OCEAN CROWN",
+    shippingLogistics: "MULTILINK ENTERPRISE LTD",
     trackingTab: "TRACKING",
     schedulesTab: "SCHEDULES",
     contactsTab: "CONTACTS",
@@ -142,6 +142,18 @@ const en = {
     tech: {
       title: "Technology",
       description: "Fast, secure logistics for high-value technology products and components."
+    }
+  },
+  
+  // About Us Component
+  aboutUs: {
+    title: "About Ocean Crown",
+    subtitle: "Your trusted logistics partner since 2012, connecting businesses across continents.",
+    ourStory: {
+      title: "Our Story",
+      paragraph1: "Ocean Crown Multi-Links Enterprises Ltd was established in 2012 in Lagos, Nigeria, with a vision to revolutionize the logistics and shipping industry in West Africa through exceptional service delivery and operational excellence.",
+      paragraph2: "Over the years, we have expanded our services and geographical reach, forming Global Ocean Crown Oil & Transport Ltd in 2018 to specialize in oil sector logistics and transportation services, enhancing our capabilities in Nigeria's energy market.",
+      paragraph3: "Today, we are recognized as a leading logistics provider in Nigeria, offering comprehensive shipping, clearing, forwarding, and transportation services to clients across various industries."
     }
   },
   

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { FaShieldAlt, FaCheck, FaInfoCircle } from 'react-icons/fa';
 
 const CertificatesSection = styled.section`
-  padding: 100px 0;
-  background: #f8f9fa;
+  padding: 80px 0;
+  background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
 `;
 
 const Container = styled.div`
@@ -15,22 +15,48 @@ const Container = styled.div`
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 70px;
+  margin-bottom: 60px;
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 36px;
-  margin-bottom: 20px;
-  font-weight: 700;
+  font-size: 2.2rem;
   color: #0c2340;
+  margin-bottom: 16px;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #05a0e8, #0284c7);
+    border-radius: 3px;
+  }
 `;
 
 const SectionDescription = styled.p`
-  font-size: 18px;
-  color: #535b61;
-  max-width: 700px;
+  font-size: 1.1rem;
+  color: #475569;
+  max-width: 750px;
   margin: 0 auto;
   line-height: 1.6;
+  margin-top: 30px;
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 
 const CertificatesGrid = styled.div`
@@ -38,7 +64,7 @@ const CertificatesGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   
-  @media (max-width: 992px) {
+  @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
   }
   
@@ -49,24 +75,28 @@ const CertificatesGrid = styled.div`
 
 const CertificateCard = styled.div`
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s ease;
+  animation: ${fadeIn} 0.6s ease-out forwards;
+  animation-delay: ${props => `${props.index * 0.15}s`};
+  opacity: 0;
+  transform: translateY(20px);
   height: 100%;
   display: flex;
   flex-direction: column;
   
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-12px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
   }
 `;
 
 const CertificateHeader = styled.div`
   background: ${props => props.color || '#05a0e8'};
   color: white;
-  padding: 25px 20px;
+  padding: 30px 20px;
   text-align: center;
 `;
 
@@ -78,16 +108,23 @@ const CertificateLogo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 15px;
+  margin: 0 auto 18px;
   color: ${props => props.color || '#05a0e8'};
   font-size: 35px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  
+  ${CertificateCard}:hover & {
+    transform: scale(1.1) rotate(5deg);
+  }
 `;
 
 const CertificateTitle = styled.h3`
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: 600;
-  margin: 0;
+  color: white;
+  margin-bottom: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 `;
 
 const CertificateBody = styled.div`
@@ -98,29 +135,35 @@ const CertificateBody = styled.div`
 `;
 
 const CertificateDescription = styled.p`
-  color: #535b61;
-  margin-bottom: 25px;
+  font-size: 0.95rem;
+  color: #475569;
   line-height: 1.6;
-  flex-grow: 1;
-  font-size: 16px;
+  margin-bottom: 20px;
 `;
 
 const CertificateFeatures = styled.ul`
   padding: 0;
-  margin: 0 0 20px 0;
+  margin: 0 0 25px 0;
   list-style: none;
+  flex-grow: 1;
 `;
 
 const CertificateFeature = styled.li`
-  padding: 8px 0;
+  padding: 10px 0;
   display: flex;
   align-items: flex-start;
+  color: #334155;
+  font-size: 0.9rem;
   
   svg {
-    color: #05a0e8;
-    margin-right: 10px;
+    color: ${props => props.color || '#05a0e8'};
+    margin-right: 12px;
     margin-top: 4px;
     flex-shrink: 0;
+  }
+  
+  & + & {
+    border-top: 1px dashed #e2e8f0;
   }
 `;
 
@@ -128,16 +171,20 @@ const CertificateButton = styled.button`
   background: transparent;
   color: ${props => props.color || '#05a0e8'};
   border: 2px solid ${props => props.color || '#05a0e8'};
-  padding: 10px 20px;
-  border-radius: 50px;
+  padding: 12px 24px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
+  margin-top: auto;
+  letter-spacing: 0.5px;
+  font-size: 0.95rem;
   
   &:hover {
     background: ${props => props.color || '#05a0e8'};
     color: white;
+    transform: translateY(-2px);
   }
 `;
 
@@ -226,46 +273,79 @@ const DetailsList = styled.ul`
 `;
 
 const CTAContainer = styled.div`
-  background: #0c2340;
-  padding: 80px 0;
+  background: linear-gradient(135deg, #0c2340, #0f172a);
+  padding: 100px 0;
   color: white;
   text-align: center;
-  margin-top: 80px;
+  margin-top: 100px;
+  border-top: 6px solid #05a0e8;
+  position: relative;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB4PSIwIiB5PSIwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgzMCkiPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuMDQiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjcGF0dGVybikiLz48L3N2Zz4=');
+    opacity: 0.8;
+  }
 `;
 
 const CTATitle = styled.h3`
-  font-size: 32px;
+  font-size: 2.5rem;
   margin-bottom: 20px;
   font-weight: 600;
+  position: relative;
 `;
 
 const CTAText = styled.p`
-  font-size: 18px;
+  font-size: 1.1rem;
   max-width: 700px;
-  margin: 0 auto 30px;
+  margin: 0 auto 40px;
   color: rgba(255, 255, 255, 0.9);
-  line-height: 1.6;
+  line-height: 1.7;
+  position: relative;
 `;
 
 const CTAButton = styled.a`
   display: inline-block;
   background: #05a0e8;
   color: white;
-  padding: 12px 30px;
-  border-radius: 50px;
+  padding: 14px 36px;
+  border-radius: 8px;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
+  position: relative;
+  font-size: 1rem;
+  box-shadow: 0 6px 15px rgba(5, 160, 232, 0.4);
   
   &:hover {
     background: white;
     color: #05a0e8;
     transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(5, 160, 232, 0.3);
   }
 `;
 
 const Certificates = () => {
   const [activeModal, setActiveModal] = useState(null);
+  const [visibleItems, setVisibleItems] = useState(0);
+  
+  useEffect(() => {
+    // Gradually reveal the certificates to create a nice animation
+    const interval = setInterval(() => {
+      setVisibleItems(prev => {
+        if (prev < certificatesData.length) return prev + 1;
+        clearInterval(interval);
+        return prev;
+      });
+    }, 150);
+    
+    return () => clearInterval(interval);
+  }, []);
   
   const certificatesData = [
     {
@@ -415,16 +495,15 @@ const Certificates = () => {
       <CertificatesSection id="certificates">
         <Container>
           <SectionHeader>
-            <SectionTitle>Global Certifications & Standards</SectionTitle>
+            <SectionTitle>Certifications & Compliance</SectionTitle>
             <SectionDescription>
-              Ocean Crown maintains the highest industry certifications and compliance standards,
-              ensuring quality, security, and sustainability across our global operations.
+              Ocean Crown adheres to the highest international standards. Our certifications demonstrate our commitment to quality, safety, environmental stewardship, and regulatory compliance.
             </SectionDescription>
           </SectionHeader>
           
           <CertificatesGrid>
-            {certificatesData.map(certificate => (
-              <CertificateCard key={certificate.id}>
+            {certificatesData.map((certificate, index) => (
+              <CertificateCard key={certificate.id} index={index}>
                 <CertificateHeader color={certificate.color}>
                   <CertificateLogo color={certificate.color}>
                     {certificate.icon}
@@ -438,8 +517,8 @@ const Certificates = () => {
                   </CertificateDescription>
                   
                   <CertificateFeatures>
-                    {certificate.features.map((feature, index) => (
-                      <CertificateFeature key={index}>
+                    {certificate.features.map((feature, idx) => (
+                      <CertificateFeature key={idx} color={certificate.color}>
                         <FaCheck /> {feature}
                       </CertificateFeature>
                     ))}
