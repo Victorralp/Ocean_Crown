@@ -17,25 +17,11 @@ const SectionTitle = styled.h2`
     bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 60%;
+    width: 80px;
     height: 4px;
-    background: #05a0e8;
+    background: linear-gradient(to right, #F6AD55, #ed8936);
     border-radius: 2px;
-    transform-origin: center;
-    animation: ${props => props.isHome ? 'expandWidth 1.5s ease-out forwards' : 'none'};
-    box-shadow: 0 2px 10px rgba(5, 160, 232, 0.3);
-    opacity: ${props => props.isHome ? 1 : 0};
-  }
-
-  @keyframes expandWidth {
-    0% {
-      width: 0;
-      opacity: 0;
-    }
-    100% {
-      width: 60%;
-      opacity: 1;
-    }
+    opacity: 1;
   }
 `;
 

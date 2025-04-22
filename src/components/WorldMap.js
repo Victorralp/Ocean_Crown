@@ -83,9 +83,6 @@ const SectionTitle = styled.h2`
   font-weight: 800;
   position: relative;
   display: inline-block;
-  background: linear-gradient(to right, #0c2340, #05a0e8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   
   &::after {
     content: '';
@@ -94,9 +91,10 @@ const SectionTitle = styled.h2`
     left: 50%;
     transform: translateX(-50%);
     width: 80px;
-    height: 3px;
-    background: linear-gradient(to right, #05a0e8, #0077cc);
-    border-radius: 3px;
+    height: 4px;
+    background: linear-gradient(to right, #F6AD55, #ed8936);
+    border-radius: 2px;
+    opacity: 1;
   }
 `;
 

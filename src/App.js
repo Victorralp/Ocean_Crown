@@ -209,7 +209,7 @@ const HeroTitle = styled.div`
   }
 
   h3 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 500;
     margin: 10px 0;
     color: #F6AD55;
@@ -230,12 +230,13 @@ const HeroTitle = styled.div`
   }
 
   h1 {
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 36px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0px;
+    letter-spacing: 1px;
     color: white;
     margin: 20px 0 0 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
 `;
 

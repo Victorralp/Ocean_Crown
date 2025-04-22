@@ -86,102 +86,115 @@ const SectionHeader = styled.div`
 `;
 
 const SectionDescription = styled.p`
-  font-size: 15px;
-  color: #4a5568;
-  max-width: 650px;
-  margin: 0 auto;
-  line-height: 1.5;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #495057;
+  text-align: center;
+  max-width: 800px;
+  margin: 30px auto 60px;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #F6AD55, #ed8936);
+    border-radius: 2px;
+  }
 `;
 
 const IndustriesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  
-  @media (max-width: 992px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (max-width: 576px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const IndustryCard = styled.div`
-  background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-  }
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
 `;
 
 const IndustryImage = styled.div`
-  height: 160px;
+  height: 240px;
   background-image: url(${props => props.image});
   background-size: cover;
   background-position: center;
+  transition: transform 0.4s ease;
   position: relative;
   
-  &:before {
+  &::after {
     content: '';
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(12, 35, 64, 0.2), rgba(12, 35, 64, 0.7));
+    height: 60%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
   }
 `;
 
 const IndustryTitle = styled.h3`
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
-  color: white;
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
+  color: #212529;
   margin: 0;
-  z-index: 1;
+  padding: 25px 30px 15px;
+  transition: color 0.3s ease;
+`;
+
+const IndustryCard = styled.div`
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  position: relative;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    
+    ${IndustryImage} {
+      transform: scale(1.05);
+    }
+    
+    ${IndustryTitle} {
+      color: #F6AD55;
+    }
+  }
 `;
 
 const IndustryContent = styled.div`
-  padding: 18px;
+  padding: 0 30px 30px;
 `;
 
 const IndustryDescription = styled.p`
-  font-size: 14px;
-  color: #4a5568;
-  line-height: 1.5;
-  margin-bottom: 16px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #6c757d;
+  margin-bottom: 20px;
 `;
 
 const IndustryLink = styled.a`
   display: inline-flex;
   align-items: center;
-  color: #05a0e8;
-  font-weight: 600;
-  font-size: 14px;
+  color: #F6AD55;
+  font-weight: 500;
   text-decoration: none;
-  transition: color 0.3s ease;
-  
-  &:hover {
-    color: #0481ba;
-  }
+  transition: all 0.3s ease;
   
   svg {
-    margin-left: 6px;
+    margin-left: 8px;
     transition: transform 0.3s ease;
-    font-size: 12px;
   }
   
-  &:hover svg {
-    transform: translateX(4px);
+  &:hover {
+    color: #ed8936;
+    
+    svg {
+      transform: translateX(4px);
+    }
   }
 `;
 
@@ -349,14 +362,18 @@ const CaseStudyDescription = styled.p`
 `;
 
 const IndustriesContainer = styled.section`
-  padding: 80px 0;
-  background-color: #f9f9f9;
+  padding: 120px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+  overflow: hidden;
 `;
 
 const IndustriesContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  position: relative;
+  z-index: 2;
 `;
 
 const Industries = () => {

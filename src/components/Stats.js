@@ -58,13 +58,35 @@ const StatsHeader = styled.div`
   animation: ${fadeIn} 0.8s ease-out forwards;
 `;
 
+const StatsTitle = styled.h2`
+  font-size: 42px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: inline-block;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(to right, #F6AD55, #ed8936);
+    border-radius: 2px;
+  }
+`;
+
 const StatsDescription = styled.p`
   font-size: 18px;
   max-width: 650px;
   margin: 30px auto 0;
   line-height: 1.6;
-  opacity: 0.9;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 `;
 
 const countUp = keyframes`
@@ -143,9 +165,10 @@ const StatLabel = styled.div`
   font-size: 16px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: white;
+  color: rgba(255, 255, 255, 0.95);
   font-weight: 500;
   position: relative;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   
   &::after {
     content: '';
@@ -162,13 +185,18 @@ const StatLabel = styled.div`
 
 const StatsContainer = styled.section`
   padding: 80px 0;
-  background-color: #f9f9f9;
+  background: linear-gradient(135deg, #0c2340 0%, #0d3a6a 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
 `;
 
 const StatsContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  position: relative;
+  z-index: 2;
 `;
 
 const Stats = () => {
@@ -195,8 +223,8 @@ const Stats = () => {
   return (
     <StatsContainer>
       <StatsContent>
-        <SectionTitle isHome={isHome}>Global Reach, Local Expertise</SectionTitle>
         <StatsHeader>
+          <StatsTitle>Global Reach, Local Expertise</StatsTitle>
           <StatsDescription>
             With decades of experience and a presence across continents, we connect businesses worldwide through reliable shipping and logistics solutions.
           </StatsDescription>
