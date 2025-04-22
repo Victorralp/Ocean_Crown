@@ -10,8 +10,8 @@ const IndustriesSection = styled.section`
 `;
 
 const HeroSection = styled.div`
-  background: linear-gradient(rgba(96, 125, 148, 0.6), rgba(76, 100, 120, 0.7)),
-              url('https://images.unsplash.com/photo-1599033090116-19d8d30b2239?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 20, 50, 0.6)),
+              url('/images/container-ship-hero.jpg') no-repeat center center;
   background-size: cover;
   height: 100vh;
   margin-top: 0;
@@ -376,14 +376,14 @@ const Industries = () => {
   const industriesData = [
     {
       id: 'automotive',
-      title: 'industries.automotive.title',
+      title: 'Automotive',
       image: 'https://images.unsplash.com/photo-1518987048-93e29699e79a?q=80&w=1000&auto=format&fit=crop',
-      shortDescription: 'industries.automotive.description',
+      shortDescription: 'Comprehensive logistics solutions for automotive manufacturers, suppliers, and dealers with global reach.',
       fullDescription: 'Ocean Crown provides comprehensive logistics solutions tailored to the unique challenges of the automotive industry. Our services ensure timely delivery of components to production facilities and finished vehicles to dealerships worldwide.',
       solutions: [
-        'industries.automotive.features.jit',
-        'industries.automotive.features.parts',
-        'industries.automotive.features.production'
+        'Just-in-time delivery for production lines',
+        'Specialized parts warehousing and distribution',
+        'Production planning and supply chain optimization'
       ],
       caseStudies: [
         {
@@ -398,9 +398,9 @@ const Industries = () => {
     },
     {
       id: 'electronics',
-      title: 'industries.electronics.title',
+      title: 'Electronics',
       image: 'https://images.unsplash.com/photo-1580584126903-c17d41830450?q=80&w=1000&auto=format&fit=crop',
-      shortDescription: 'industries.electronics.description',
+      shortDescription: 'Secure and precise logistics for sensitive electronic components and consumer devices.',
       fullDescription: 'The electronics industry demands precision logistics with careful handling of sensitive equipment and components. Ocean Crown delivers specialized solutions that ensure your technology products arrive safely and on schedule.',
       solutions: [
         'Climate-controlled transportation for sensitive components',
@@ -422,14 +422,14 @@ const Industries = () => {
     },
     {
       id: 'retail',
-      title: 'industries.retail.title',
+      title: 'Retail',
       image: 'https://images.unsplash.com/photo-1607083206968-13611e3d76db?q=80&w=1000&auto=format&fit=crop',
-      shortDescription: 'industries.retail.description',
+      shortDescription: 'Flexible retail logistics solutions for both brick-and-mortar and e-commerce channels.',
       fullDescription: 'In today\'s fast-paced retail environment, having a responsive and agile supply chain is crucial. Ocean Crown provides tailored logistics solutions that help retailers meet customer expectations for rapid delivery while managing inventory efficiently.',
       solutions: [
-        'industries.retail.features.distribution',
-        'industries.retail.features.inventory',
-        'industries.retail.features.ecommerce'
+        'Omnichannel distribution network management',
+        'Inventory optimization and demand forecasting',
+        'E-commerce fulfillment and returns management'
       ],
       caseStudies: [
         {
@@ -444,9 +444,9 @@ const Industries = () => {
     },
     {
       id: 'pharmaceutical',
-      title: 'industries.pharmaceutical.title',
+      title: 'Pharmaceutical',
       image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1000&auto=format&fit=crop',
-      shortDescription: 'industries.pharmaceutical.description',
+      shortDescription: 'Temperature-controlled, compliant logistics for pharmaceuticals and healthcare products.',
       fullDescription: 'Ocean Crown understands the critical nature of pharmaceutical and healthcare logistics. We maintain strict compliance with Good Distribution Practice (GDP) standards while ensuring temperature-sensitive products maintain their integrity throughout the supply chain.',
       solutions: [
         'Temperature-controlled transportation for vaccines and biologics',
@@ -468,9 +468,9 @@ const Industries = () => {
     },
     {
       id: 'manufacturing',
-      title: 'industries.manufacturing.title',
+      title: 'Manufacturing',
       image: 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=1000&auto=format&fit=crop',
-      shortDescription: 'industries.manufacturing.description',
+      shortDescription: 'End-to-end logistics support for manufacturing operations from raw materials to finished goods.',
       fullDescription: 'Manufacturing operations depend on reliable supply chains to maintain production schedules. Ocean Crown delivers logistics services that align with manufacturing requirements, from raw material delivery to finished product distribution.',
       solutions: [
         'Inbound logistics management for production materials',
@@ -492,9 +492,9 @@ const Industries = () => {
     },
     {
       id: 'energy',
-      title: 'industries.energy.title',
+      title: 'Energy',
       image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=1000&auto=format&fit=crop',
-      shortDescription: 'industries.energy.description',
+      shortDescription: 'Specialized logistics for the unique needs of traditional and renewable energy sectors.',
       fullDescription: 'The energy sector presents unique logistics challenges, from transporting oversized components for renewable energy projects to managing time-critical shipments for oil and gas operations. Ocean Crown has the expertise to handle these specialized requirements.',
       solutions: [
         'Heavy lift capabilities for wind turbines and solar equipment',
@@ -542,9 +542,9 @@ const Industries = () => {
       <IndustriesSection id="industries">
         <Container>
           <SectionHeader>
-            <SectionTitle>{t('industries.title')}</SectionTitle>
+            <SectionTitle>Industries We Serve</SectionTitle>
             <SectionDescription>
-              {t('industries.description')}
+              Customized logistics solutions for diverse industry sectors, each with unique supply chain requirements
             </SectionDescription>
           </SectionHeader>
           
@@ -555,11 +555,11 @@ const Industries = () => {
                 onClick={() => handleOpenModal(industry)}
               >
                 <IndustryImage image={industry.image}>
-                  <IndustryTitle>{t(industry.title)}</IndustryTitle>
+                  <IndustryTitle>{industry.title}</IndustryTitle>
                 </IndustryImage>
                 <IndustryContent>
                   <IndustryDescription>
-                    {t(industry.shortDescription)}
+                    {industry.shortDescription}
                   </IndustryDescription>
                   <IndustryLink href="#" onClick={(e) => {
                     e.preventDefault();
@@ -583,16 +583,16 @@ const Industries = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <ModalHeader image={selectedIndustry.image}>
-                <ModalTitle>{t(selectedIndustry.title)}</ModalTitle>
+                <ModalTitle>{selectedIndustry.title}</ModalTitle>
                 <ModalCloseButton onClick={handleCloseModal} />
               </ModalHeader>
               <ModalBody>
-                <p>{t(selectedIndustry.fullDescription)}</p>
+                <p>{selectedIndustry.fullDescription}</p>
                 
                 <h4>Our Solutions:</h4>
                 <SolutionsList>
                   {selectedIndustry.solutions.map((solution, index) => (
-                    <SolutionItem key={index}>{t(solution)}</SolutionItem>
+                    <SolutionItem key={index}>{solution}</SolutionItem>
                   ))}
                 </SolutionsList>
                 
