@@ -93,18 +93,6 @@ const SectionDescription = styled.p`
   max-width: 800px;
   margin: 30px auto 60px;
   position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(to right, #F6AD55, #ed8936);
-    border-radius: 2px;
-  }
 `;
 
 const IndustriesGrid = styled.div`
@@ -138,7 +126,7 @@ const IndustryTitle = styled.h3`
   font-weight: 600;
   color: #212529;
   margin: 0;
-  padding: 25px 30px 15px;
+  padding: 25px 30px 25px;
   transition: color 0.3s ease;
 `;
 
@@ -167,6 +155,7 @@ const IndustryCard = styled.div`
 
 const IndustryContent = styled.div`
   padding: 0 30px 30px;
+  margin-top: 15px;
 `;
 
 const IndustryDescription = styled.p`

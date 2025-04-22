@@ -7,7 +7,7 @@ import {
   FaBell, 
   FaEnvelope,
   FaArrowRight,
-  FaGlobe,
+  FaGlobe, 
   FaShieldAlt
 } from 'react-icons/fa';
 
@@ -153,7 +153,7 @@ const FeatureCard = styled(motion.div)`
   h3 {
     font-size: 1.8rem;
     margin-bottom: 15px;
-    color: white;
+  color: white;
   }
 
   p {
