@@ -784,8 +784,8 @@ function App() {
                     <HeroContent>
                       <HeroTitle>
                         <h2><HeroTranslation keyPath="hero.leaderIn" /></h2>
-                        <h3>SHIPPING AND LOGISTICS</h3>
                         <h1><HeroTranslation keyPath="hero.shippingLogistics" /></h1>
+                        <h3>SHIPPING AND LOGISTICS</h3>
                       </HeroTitle>
                     </HeroContent>
                   </Hero>

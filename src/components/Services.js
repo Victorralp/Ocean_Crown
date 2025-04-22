@@ -90,25 +90,52 @@ const ServiceCard = styled.div`
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 const ServiceIcon = styled.div`
-  font-size: 40px;
-  color: #F6AD55;
-  margin-bottom: 20px;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 25px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
 `;
 
 const ServiceTitle = styled.h3`
-  font-size: 22px;
+  font-size: 24px;
   margin-bottom: 15px;
   color: #0c2340;
   position: relative;
   display: inline-block;
+  font-weight: 600;
 `;
 
 const ServiceDescription = styled.p`
   color: #666;
   line-height: 1.6;
+  font-size: 16px;
+  max-width: 280px;
+  margin: 0 auto;
 `;
 
 const Services = () => {
@@ -120,32 +147,32 @@ const Services = () => {
     {
       title: 'Ocean Freight',
       description: 'Comprehensive ocean freight solutions for all your shipping needs.',
-      icon: '🚢'
+      image: '/images/services/ocean-freight.jpg'
     },
     {
       title: 'Air Freight',
       description: 'Fast and reliable air freight services worldwide.',
-      icon: '✈️'
+      image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1000'
     },
     {
       title: 'Inland Transportation',
       description: 'Efficient inland transportation for your cargo.',
-      icon: '🚛'
+      image: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1000'
     },
     {
       title: 'Warehousing & Distribution',
       description: 'Secure and efficient warehousing and distribution solutions.',
-      icon: '🏭'
+      image: '/images/services/warehousing.jpg'
     },
     {
       title: 'Import & Export',
       description: 'Comprehensive import and export services for global trade.',
-      icon: '🌐'
+      image: 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=1000'
     },
     {
       title: 'Customs Clearance',
       description: 'Expert customs clearance services to ensure smooth operations.',
-      icon: '📋'
+      image: '/images/services/regulatory.jpg'
     }
   ];
 
@@ -167,7 +194,9 @@ const Services = () => {
           <ServicesGrid>
             {services.map((service, index) => (
               <ServiceCard key={index}>
-                <ServiceIcon>{service.icon}</ServiceIcon>
+                <ServiceIcon>
+                  <img src={service.image} alt={service.title} />
+                </ServiceIcon>
                 <ServiceTitle>{service.title}</ServiceTitle>
                 <ServiceDescription>{service.description}</ServiceDescription>
               </ServiceCard>

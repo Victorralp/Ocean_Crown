@@ -325,94 +325,94 @@ const Contact = () => {
       <ContactContainer>
         <ContactContent>
           <SectionTitle isHome={isHome}>{t("contact.title")}</SectionTitle>
+        
+        <ContactGrid>
+          <ContactInfo>
+            <InfoTitle>{t("contact.info.title")}</InfoTitle>
+            <InfoList>
+              {contactInfo.map((item, index) => (
+                <InfoItem key={index}>
+                  <IconBox>{item.icon}</IconBox>
+                  <ItemContent>
+                    <ItemTitle>{t(item.title)}</ItemTitle>
+                    <ItemText>{t(item.text)}</ItemText>
+                  </ItemContent>
+                </InfoItem>
+              ))}
+            </InfoList>
+          </ContactInfo>
           
-          <ContactGrid>
-            <ContactInfo>
-              <InfoTitle>{t("contact.info.title")}</InfoTitle>
-              <InfoList>
-                {contactInfo.map((item, index) => (
-                  <InfoItem key={index}>
-                    <IconBox>{item.icon}</IconBox>
-                    <ItemContent>
-                      <ItemTitle>{t(item.title)}</ItemTitle>
-                      <ItemText>{t(item.text)}</ItemText>
-                    </ItemContent>
-                  </InfoItem>
-                ))}
-              </InfoList>
-            </ContactInfo>
-            
-            <FormContainer>
-              <FormTitle>{t("contact.form.title")}</FormTitle>
-              <Form onSubmit={handleSubmit}>
-                <FormGroup>
-                  <FormLabel>{t("contact.form.name")}</FormLabel>
-                  <FormInput
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </FormGroup>
-                
-                <FormGroup>
-                  <FormLabel>{t("contact.form.email")}</FormLabel>
-                  <FormInput
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </FormGroup>
-                
-                <FormGroup>
-                  <FormLabel>{t("contact.form.phone")}</FormLabel>
-                  <FormInput
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                </FormGroup>
-                
-                <FormGroup>
-                  <FormLabel>{t("contact.form.subject")}</FormLabel>
-                  <FormInput
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                  />
-                </FormGroup>
-                
-                <FormGroup fullWidth>
-                  <FormLabel>{t("contact.form.message")}</FormLabel>
-                  <FormTextarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                  />
-                </FormGroup>
-                
-                <FormGroup>
-                  <SubmitButton type="submit">
-                    {t("contact.form.submit")}
-                  </SubmitButton>
-                </FormGroup>
-              </Form>
+          <FormContainer>
+            <FormTitle>{t("contact.form.title")}</FormTitle>
+            <Form onSubmit={handleSubmit}>
+              <FormGroup>
+                <FormLabel>{t("contact.form.name")}</FormLabel>
+                <FormInput
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </FormGroup>
               
-              {submitted && (
-                <SuccessMessage>
-                  <CheckIcon />
-                  {t("contact.form.success")}
-                </SuccessMessage>
-              )}
-            </FormContainer>
-          </ContactGrid>
+              <FormGroup>
+                <FormLabel>{t("contact.form.email")}</FormLabel>
+                <FormInput
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </FormGroup>
+              
+              <FormGroup>
+                <FormLabel>{t("contact.form.phone")}</FormLabel>
+                <FormInput
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              
+              <FormGroup>
+                <FormLabel>{t("contact.form.subject")}</FormLabel>
+                <FormInput
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                />
+              </FormGroup>
+              
+              <FormGroup fullWidth>
+                <FormLabel>{t("contact.form.message")}</FormLabel>
+                <FormTextarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                />
+              </FormGroup>
+              
+              <FormGroup>
+                <SubmitButton type="submit">
+                  {t("contact.form.submit")}
+                </SubmitButton>
+              </FormGroup>
+            </Form>
+            
+            {submitted && (
+              <SuccessMessage>
+                <CheckIcon />
+                {t("contact.form.success")}
+              </SuccessMessage>
+            )}
+          </FormContainer>
+        </ContactGrid>
         </ContactContent>
       </ContactContainer>
     </>
