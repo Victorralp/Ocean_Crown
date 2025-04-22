@@ -50,6 +50,7 @@ const Footer = () => {
             <FooterLink as={Link} to="/sustainability">Sustainability</FooterLink>
             <FooterLink as={Link} to="/ebusiness">eBusiness</FooterLink>
             <FooterLink as={Link} to="/faq">FAQ</FooterLink>
+            <FooterLink as={Link} to="/contact">Contact Us</FooterLink>
           </FooterLinks>
         </FooterSection>
         
@@ -59,9 +60,8 @@ const Footer = () => {
             <ContactItem>
               <ContactIcon><FaMapMarkerAlt /></ContactIcon>
               <div>
-                123 Harbor Drive<br />
-                New York, NY 10001<br />
-                United States
+                7/9, Payne Crescent, Apapa, Lagos, Nigeria<br />
+                No 29, Payne Crescent, Apapa, Lagos, Nigeria
               </div>
             </ContactItem>
             <ContactItem>
@@ -211,8 +211,8 @@ const ContactItem = styled.div`
     color: #e0e0e0;
     text-decoration: none;
     transition: color 0.3s ease;
-    
-    &:hover {
+
+  &:hover {
       color: #F6AD55;
     }
   }

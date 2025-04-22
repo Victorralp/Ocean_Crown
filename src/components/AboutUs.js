@@ -742,7 +742,7 @@ const AboutUs = () => {
           <SectionTitle>Leadership Team</SectionTitle>
           <TeamContainer>
             <TeamMember>
-              <TeamMemberImage image="/images/IMG-20250416-WA0035.jpg" />
+              <TeamMemberImage image="/images/about%20us/WhatsApp%20Image%202025-04-22%20at%2013.33.21_58cde748.jpg" />
               <TeamMemberInfo>
                 <TeamMemberName>Chief Executive Officer</TeamMemberName>
                 <TeamMemberPosition>Leadership</TeamMemberPosition>

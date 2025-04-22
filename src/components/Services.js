@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { useLocation } from "react-router-dom";
-import { FaShip, FaClipboardCheck, FaGlobeAmericas, FaHandshake, FaBoxOpen, FaBalanceScale } from "react-icons/fa";
+import React from 'react';
+import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
+import SectionTitle from './shared/SectionTitle';
 
 const HeroSection = styled.div`
-  background: linear-gradient(rgba(96, 125, 148, 0.6), rgba(76, 100, 120, 0.7)),
-              url('https://images.pexels.com/photos/2226458/pexels-photo-2226458.jpeg?auto=compress&cs=tinysrgb&w=1920') no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 20, 50, 0.6)),
+              url('/images/MSC Michelle Cappellini in sunset view.jpg') no-repeat center center;
   background-size: cover;
   height: 100vh;
   margin-top: 0;
@@ -23,7 +23,7 @@ const HeroSection = styled.div`
     left: 0;
     right: 0;
     height: 6px;
-    background: linear-gradient(to right, #0ea5e9, #0f172a);
+    background: linear-gradient(to right, #05a0e8, #0c2340);
   }
 `;
 
@@ -37,7 +37,7 @@ const HeroContent = styled.div`
   border-radius: 20px;
   padding: 45px;
   backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 48, 87, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
 `;
 
@@ -61,152 +61,120 @@ const Subtitle = styled.p`
     display: block;
     width: 120px;
     height: 4px;
-    background: linear-gradient(to right, #0ea5e9, #0f172a);
+    background: linear-gradient(to right, #05a0e8, #0c2340);
     margin: 25px auto 0;
     border-radius: 2px;
   }
 `;
 
-const ServicesSection = styled.section`
-  padding: 60px 5%;
-  background-color: #f8fafc;
+const ServicesContainer = styled.section`
+  padding: 80px 0;
+  background-color: #f9f9f9;
 `;
 
-const Container = styled.div`
-  max-width: 1100px;
+const ServicesContent = styled.div`
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
 `;
 
-const SectionTitle = styled.h2`
-  font-size: 1.8rem;
-  text-align: center;
-  margin-bottom: 40px;
-  color: #0f172a;
-  position: relative;
-  
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: #05a0e8;
-  }
-`;
-
-const ServiceGrid = styled.div`
+const ServicesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
 `;
 
 const ServiceCard = styled.div`
-  background-color: #ffffff;
+  background: white;
+  padding: 30px;
   border-radius: 8px;
-  padding: 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s, box-shadow 0.3s;
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  }
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
 `;
 
-const IconWrapper = styled.div`
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #e0f2fe;
-  color: #0284c7;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  
-  svg {
-    font-size: 24px;
-  }
+const ServiceIcon = styled.div`
+  font-size: 40px;
+  color: #F6AD55;
+  margin-bottom: 20px;
 `;
 
 const ServiceTitle = styled.h3`
-  font-size: 1.1rem;
-  color: #0f172a;
-  margin-bottom: 10px;
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #0c2340;
+  position: relative;
+  display: inline-block;
 `;
 
 const ServiceDescription = styled.p`
-  font-size: 0.85rem;
-  color: #64748b;
+  color: #666;
   line-height: 1.6;
 `;
 
 const Services = () => {
   const location = useLocation();
-  const isStandalonePage = location.pathname === '/services';
+  const isServicesPage = location.pathname === '/services';
+  const isHome = location.pathname === '/';
   
   const services = [
     {
-      icon: <FaShip />,
-      title: "Ocean Freight",
-      description: "Reliable ocean freight services connecting major ports worldwide with scheduled departures and arrivals."
+      title: 'Ocean Freight',
+      description: 'Comprehensive ocean freight solutions for all your shipping needs.',
+      icon: '🚢'
     },
     {
-      icon: <FaClipboardCheck />,
-      title: "Customs Brokerage",
-      description: "Streamlined customs clearance services to navigate complex international trade regulations."
+      title: 'Air Freight',
+      description: 'Fast and reliable air freight services worldwide.',
+      icon: '✈️'
     },
     {
-      icon: <FaGlobeAmericas />,
-      title: "Global Logistics",
-      description: "End-to-end supply chain solutions tailored to your business needs and global requirements."
+      title: 'Inland Transportation',
+      description: 'Efficient inland transportation for your cargo.',
+      icon: '🚛'
     },
     {
-      icon: <FaHandshake />,
-      title: "Strategic Partnerships",
-      description: "Building long-term relationships with businesses to create customized logistics solutions."
+      title: 'Warehousing & Distribution',
+      description: 'Secure and efficient warehousing and distribution solutions.',
+      icon: '🏭'
     },
     {
-      icon: <FaBoxOpen />,
-      title: "Warehousing Solutions",
-      description: "Secure storage facilities with inventory management and distribution capabilities."
+      title: 'Import & Export',
+      description: 'Comprehensive import and export services for global trade.',
+      icon: '🌐'
     },
     {
-      icon: <FaBalanceScale />,
-      title: "Regulatory Compliance",
-      description: "Expert guidance on international shipping regulations and documentation requirements."
+      title: 'Customs Clearance',
+      description: 'Expert customs clearance services to ensure smooth operations.',
+      icon: '📋'
     }
   ];
-  
+
   return (
     <>
-      {isStandalonePage && (
+      {isServicesPage && (
         <HeroSection>
           <HeroContent>
-            <PageTitle>Our Services</PageTitle>
+            <PageTitle>Our Solutions</PageTitle>
             <Subtitle>
-              Comprehensive shipping and logistics solutions designed for your business needs
+              Comprehensive shipping and logistics services tailored to meet your global transportation needs.
             </Subtitle>
           </HeroContent>
         </HeroSection>
       )}
-      
-      <ServicesSection id="services">
-        <Container>
-          <SectionTitle>Our Services</SectionTitle>
-          <ServiceGrid>
+      <ServicesContainer>
+        <ServicesContent>
+          <SectionTitle isHome={isHome}>Our Services</SectionTitle>
+          <ServicesGrid>
             {services.map((service, index) => (
               <ServiceCard key={index}>
-                <IconWrapper>{service.icon}</IconWrapper>
+                <ServiceIcon>{service.icon}</ServiceIcon>
                 <ServiceTitle>{service.title}</ServiceTitle>
                 <ServiceDescription>{service.description}</ServiceDescription>
               </ServiceCard>
             ))}
-          </ServiceGrid>
-        </Container>
-      </ServicesSection>
+          </ServicesGrid>
+        </ServicesContent>
+      </ServicesContainer>
     </>
   );
 };

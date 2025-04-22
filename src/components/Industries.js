@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FaChevronRight } from 'react-icons/fa';
 import { useTranslation } from '../translations/useTranslation';
 import { useLocation } from 'react-router-dom';
+import SectionTitle from './shared/SectionTitle';
 
 const IndustriesSection = styled.section`
   padding: 60px 0;
@@ -82,26 +83,6 @@ const Container = styled.div`
 const SectionHeader = styled.div`
   text-align: center;
   margin-bottom: 40px;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 28px;
-  font-weight: 700;
-  color: #0c2340;
-  margin-bottom: 14px;
-  position: relative;
-  display: inline-block;
-  
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: #05a0e8;
-  }
 `;
 
 const SectionDescription = styled.p`
@@ -367,11 +348,23 @@ const CaseStudyDescription = styled.p`
   margin: 0;
 `;
 
+const IndustriesContainer = styled.section`
+  padding: 80px 0;
+  background-color: #f9f9f9;
+`;
+
+const IndustriesContent = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+`;
+
 const Industries = () => {
   const { t } = useTranslation();
   const [selectedIndustry, setSelectedIndustry] = useState(null);
   const location = useLocation();
   const isStandalonePage = location.pathname === '/industries';
+  const isHome = location.pathname === '/';
   
   const industriesData = [
     {
@@ -539,14 +532,12 @@ const Industries = () => {
         </HeroSection>
       )}
       
-      <IndustriesSection id="industries">
-        <Container>
-          <SectionHeader>
-            <SectionTitle>Industries We Serve</SectionTitle>
-            <SectionDescription>
-              Customized logistics solutions for diverse industry sectors, each with unique supply chain requirements
-            </SectionDescription>
-          </SectionHeader>
+      <IndustriesContainer>
+        <IndustriesContent>
+          <SectionTitle isHome={isHome}>Industries We Serve</SectionTitle>
+          <SectionDescription>
+            Customized logistics solutions for diverse industry sectors, each with unique supply chain requirements
+          </SectionDescription>
           
           <IndustriesGrid>
             {industriesData.map(industry => (
@@ -571,7 +562,7 @@ const Industries = () => {
               </IndustryCard>
             ))}
           </IndustriesGrid>
-        </Container>
+        </IndustriesContent>
         
         <ModalOverlay 
           isOpen={!!selectedIndustry}
@@ -609,7 +600,7 @@ const Industries = () => {
             </ModalContent>
           )}
         </ModalOverlay>
-      </IndustriesSection>
+      </IndustriesContainer>
     </>
   );
 };

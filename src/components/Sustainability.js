@@ -283,6 +283,8 @@ const InitiativeTitle = styled.h3`
   color: ${colors.oceanBlue};
   position: relative;
   padding-bottom: 15px;
+  white-space: normal;
+  word-break: break-word;
   
   &::after {
     content: '';
@@ -813,8 +815,6 @@ const Sustainability = () => {
           </InitiativeSection>
         </Container>
       </ContentSection>
-
-      <FullWidthImage src="https://images.unsplash.com/photo-1498092590708-048a21c99fd9?q=80&w=2070" />
 
       <ContentSection bgColor={colors.deepBlue}>
         <Container>

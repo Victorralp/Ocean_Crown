@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaShieldAlt, FaCheck, FaInfoCircle } from 'react-icons/fa';
+import { useLocation } from 'react-router-dom';
+import SectionTitle from './shared/SectionTitle';
 
 const CertificatesSection = styled.section`
   padding: 80px 0;
@@ -16,27 +18,6 @@ const Container = styled.div`
 const SectionHeader = styled.div`
   text-align: center;
   margin-bottom: 60px;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 2.2rem;
-  color: #0c2340;
-  margin-bottom: 16px;
-  font-weight: 700;
-  position: relative;
-  display: inline-block;
-  
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(to right, #05a0e8, #0284c7);
-    border-radius: 3px;
-  }
 `;
 
 const SectionDescription = styled.p`
@@ -293,13 +274,6 @@ const CTAContainer = styled.div`
   }
 `;
 
-const CTATitle = styled.h3`
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  font-weight: 600;
-  position: relative;
-`;
-
 const CTAText = styled.p`
   font-size: 1.1rem;
   max-width: 700px;
@@ -333,6 +307,8 @@ const CTAButton = styled.a`
 const Certificates = () => {
   const [activeModal, setActiveModal] = useState(null);
   const [visibleItems, setVisibleItems] = useState(0);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
   
   useEffect(() => {
     // Gradually reveal the certificates to create a nice animation
@@ -495,7 +471,7 @@ const Certificates = () => {
       <CertificatesSection id="certificates">
         <Container>
           <SectionHeader>
-            <SectionTitle>Certifications & Compliance</SectionTitle>
+            <SectionTitle isHome={isHome}>Certifications & Compliance</SectionTitle>
             <SectionDescription>
               Ocean Crown adheres to the highest international standards. Our certifications demonstrate our commitment to quality, safety, environmental stewardship, and regulatory compliance.
             </SectionDescription>
@@ -539,7 +515,7 @@ const Certificates = () => {
       
       <CTAContainer>
         <Container>
-          <CTATitle>Setting the Industry Standard</CTATitle>
+          <SectionTitle isHome={isHome} style={{ color: 'white' }}>Setting the Industry Standard</SectionTitle>
           <CTAText>
             At Ocean Crown, we're committed to maintaining the highest industry standards.
             Our certifications reflect our dedication to quality, safety, and sustainability

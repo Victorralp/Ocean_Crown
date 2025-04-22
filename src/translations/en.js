@@ -174,6 +174,36 @@ const en = {
     copyright: "© 2023 Ocean Crown. All rights reserved.",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service"
+  },
+  
+  // Contact Component
+  contact: {
+    title: "Contact Us",
+    info: {
+      title: "Contact Information",
+      address: {
+        title: "Address",
+        text: "29 Payne Crescent, Apapa, Lagos, Nigeria"
+      },
+      phone: {
+        title: "Phone",
+        text: "+234 123 456 7890"
+      },
+      email: {
+        title: "Email",
+        text: "info@oceancrown.com"
+      }
+    },
+    form: {
+      title: "Send Us a Message",
+      name: "Your Name",
+      email: "Your Email",
+      phone: "Your Phone",
+      subject: "Subject",
+      message: "Your Message",
+      submit: "Send Message",
+      success: "Thank you for your message. We'll get back to you soon!"
+    }
   }
 };
 

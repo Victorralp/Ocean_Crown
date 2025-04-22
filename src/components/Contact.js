@@ -2,34 +2,73 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaCheck } from "react-icons/fa";
 import { useTranslation } from "../App";
+import { useLocation } from 'react-router-dom';
+import SectionTitle from './shared/SectionTitle';
 
-const ContactSection = styled.section`
-  padding: 60px 5%;
-  background-color: #f1f5f9;
-`;
-
-const ContactContainer = styled.div`
-  max-width: 1100px;
-  margin: 0 auto;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 1.8rem;
-  text-align: center;
-  margin-bottom: 40px;
-  color: #0f172a;
+const HeroSection = styled.div`
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+              url('/images/contact-hero.jpg') no-repeat center center;
+  background-size: cover;
+  height: 60vh;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
   position: relative;
+  padding-top: 80px;
+`;
+
+const HeroContent = styled.div`
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+  background: rgba(12, 35, 64, 0.5);
+  border-radius: 16px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+`;
+
+const PageTitle = styled.h1`
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+`;
+
+const Subtitle = styled.p`
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
   
-  &:after {
+  &::after {
     content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: #05a0e8;
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: #05a0e8;
+    margin: 20px auto 0;
+    border-radius: 2px;
   }
+`;
+
+const ContactContainer = styled.section`
+  padding: 80px 0;
+  background-color: #f9f9f9;
+`;
+
+const ContactContent = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 `;
 
 const ContactGrid = styled.div`
@@ -222,6 +261,9 @@ const Contact = () => {
     message: ""
   });
   const [submitted, setSubmitted] = useState(false);
+  const location = useLocation();
+  const isStandalonePage = location.pathname === '/contact';
+  const isHome = location.pathname === '/';
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -233,11 +275,9 @@ const Contact = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would normally send the form data to your backend
     console.log("Form submitted:", formData);
     setSubmitted(true);
     
-    // Reset form after submission
     setFormData({
       name: "",
       email: "",
@@ -246,7 +286,6 @@ const Contact = () => {
       message: ""
     });
     
-    // Reset success message after 5 seconds
     setTimeout(() => {
       setSubmitted(false);
     }, 5000);
@@ -271,99 +310,112 @@ const Contact = () => {
   ];
 
   return (
-    <ContactSection id="contact">
+    <>
+      {isStandalonePage && (
+        <HeroSection>
+          <HeroContent>
+            <PageTitle>Contact Us</PageTitle>
+            <Subtitle>
+              Get in touch with our team of logistics experts. We're here to help you with all your shipping and transportation needs.
+            </Subtitle>
+          </HeroContent>
+        </HeroSection>
+      )}
+      
       <ContactContainer>
-        <SectionTitle>{t("contact.title")}</SectionTitle>
-        
-        <ContactGrid>
-          <ContactInfo>
-            <InfoTitle>{t("contact.info.title")}</InfoTitle>
-            <InfoList>
-              {contactInfo.map((item, index) => (
-                <InfoItem key={index}>
-                  <IconBox>{item.icon}</IconBox>
-                  <ItemContent>
-                    <ItemTitle>{t(item.title)}</ItemTitle>
-                    <ItemText>{t(item.text)}</ItemText>
-                  </ItemContent>
-                </InfoItem>
-              ))}
-            </InfoList>
-          </ContactInfo>
+        <ContactContent>
+          <SectionTitle isHome={isHome}>{t("contact.title")}</SectionTitle>
           
-          <FormContainer>
-            <FormTitle>{t("contact.form.title")}</FormTitle>
-            <Form onSubmit={handleSubmit}>
-              <FormGroup>
-                <FormLabel>{t("contact.form.name")}</FormLabel>
-                <FormInput
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
-              
-              <FormGroup>
-                <FormLabel>{t("contact.form.email")}</FormLabel>
-                <FormInput
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
-              
-              <FormGroup>
-                <FormLabel>{t("contact.form.phone")}</FormLabel>
-                <FormInput
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                />
-              </FormGroup>
-              
-              <FormGroup>
-                <FormLabel>{t("contact.form.subject")}</FormLabel>
-                <FormInput
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
-              
-              <FormGroup fullWidth>
-                <FormLabel>{t("contact.form.message")}</FormLabel>
-                <FormTextarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                />
-              </FormGroup>
-              
-              <FormGroup>
-                <SubmitButton type="submit">
-                  {t("contact.form.submit")}
-                </SubmitButton>
-              </FormGroup>
-            </Form>
+          <ContactGrid>
+            <ContactInfo>
+              <InfoTitle>{t("contact.info.title")}</InfoTitle>
+              <InfoList>
+                {contactInfo.map((item, index) => (
+                  <InfoItem key={index}>
+                    <IconBox>{item.icon}</IconBox>
+                    <ItemContent>
+                      <ItemTitle>{t(item.title)}</ItemTitle>
+                      <ItemText>{t(item.text)}</ItemText>
+                    </ItemContent>
+                  </InfoItem>
+                ))}
+              </InfoList>
+            </ContactInfo>
             
-            {submitted && (
-              <SuccessMessage>
-                <CheckIcon />
-                {t("contact.form.success")}
-              </SuccessMessage>
-            )}
-          </FormContainer>
-        </ContactGrid>
+            <FormContainer>
+              <FormTitle>{t("contact.form.title")}</FormTitle>
+              <Form onSubmit={handleSubmit}>
+                <FormGroup>
+                  <FormLabel>{t("contact.form.name")}</FormLabel>
+                  <FormInput
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormGroup>
+                
+                <FormGroup>
+                  <FormLabel>{t("contact.form.email")}</FormLabel>
+                  <FormInput
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormGroup>
+                
+                <FormGroup>
+                  <FormLabel>{t("contact.form.phone")}</FormLabel>
+                  <FormInput
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                  />
+                </FormGroup>
+                
+                <FormGroup>
+                  <FormLabel>{t("contact.form.subject")}</FormLabel>
+                  <FormInput
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormGroup>
+                
+                <FormGroup fullWidth>
+                  <FormLabel>{t("contact.form.message")}</FormLabel>
+                  <FormTextarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                  />
+                </FormGroup>
+                
+                <FormGroup>
+                  <SubmitButton type="submit">
+                    {t("contact.form.submit")}
+                  </SubmitButton>
+                </FormGroup>
+              </Form>
+              
+              {submitted && (
+                <SuccessMessage>
+                  <CheckIcon />
+                  {t("contact.form.success")}
+                </SuccessMessage>
+              )}
+            </FormContainer>
+          </ContactGrid>
+        </ContactContent>
       </ContactContainer>
-    </ContactSection>
+    </>
   );
 };
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaChevronDown, FaAnchor, FaShip, FaCompass, FaWater } from 'react-icons/fa';
+import { useLocation } from 'react-router-dom';
+import SectionTitle from './shared/SectionTitle';
 
 // FAQ Data with categories
 const faqCategories = [
@@ -110,9 +112,15 @@ const faqData = [
 ];
 
 // Styled components
-const FAQSection = styled.section`
-  padding: 80px 20px;
-  background: #f7f9fc;
+const FAQContainer = styled.section`
+  padding: 80px 0;
+  background-color: #f9f9f9;
+`;
+
+const FAQContent = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 `;
 
 const CategoryDistribution = styled.div`
@@ -260,11 +268,6 @@ const CategoryButton = styled.button`
   }
 `;
 
-const FAQContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-`;
-
 const FAQHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -343,6 +346,8 @@ const FAQAnswer = styled.div`
 
 // FAQ Component
 const FAQ = () => {
+  const location = useLocation();
+  const isHome = location.pathname === '/';
   const [activeCategory, setActiveCategory] = useState('all');
   const [openItems, setOpenItems] = useState(new Set([1]));
   
@@ -383,94 +388,97 @@ const FAQ = () => {
     : faqData.filter(faq => faq.category === activeCategory);
     
   return (
-    <FAQSection>
-      <CategoryHeader>FAQ Category Distribution</CategoryHeader>
-      
-      <CategoryBar>
-        {categoryStats.map(cat => (
-          <CategorySegment 
-            key={cat.id}
-            percentage={cat.percentage}
-            color={cat.color}
-          >
-            {cat.icon}
-          </CategorySegment>
-        ))}
-      </CategoryBar>
-      
-      {categoryStats.map(cat => (
-        <CategoryInfo key={cat.id}>
-          <CategoryName color={cat.color}>
-            {cat.icon} {cat.name}
-          </CategoryName>
-          <CategoryCount>{cat.count} questions</CategoryCount>
-          <CategoryPercent percentage={cat.percentage} color={cat.color} />
-          <div style={{ fontSize: '14px', color: '#666', marginTop: '5px' }}>
-            {cat.percentage.toFixed(0)}%
-          </div>
-        </CategoryInfo>
-      ))}
-      
-      <FilterSection>
-        <FilterTitle>Filter by Category</FilterTitle>
-        <FilterHint>Select a category to narrow down your search</FilterHint>
-        
-        <FilterButtons>
-          <CategoryButton 
-            active={activeCategory === 'all'}
-            onClick={() => setActiveCategory('all')}
-            color="#4a5568"
-          >
-            All Categories
-            <span className="count">{totalQuestions}</span>
-          </CategoryButton>
-          
-          {faqCategories.map(category => (
-            <CategoryButton 
-              key={category.id}
-              active={activeCategory === category.id}
-              onClick={() => setActiveCategory(category.id)}
-              color={category.color}
-            >
-              {category.icon} {category.name}
-              <span className="count">{categoryCount[category.id] || 0}</span>
-            </CategoryButton>
-          ))}
-        </FilterButtons>
-      </FilterSection>
-      
-      <FAQContainer>
-        <FAQHeader>
-          <FAQCount>
-            {filteredFaqs.length} FAQs in {activeCategory === 'all' ? 'All Categories' : faqCategories.find(c => c.id === activeCategory)?.name}
-          </FAQCount>
-          
-          {activeCategory !== 'all' && (
-            <ResetButton onClick={resetFilters}>
-              <FaChevronDown style={{ transform: 'rotate(90deg)' }} /> Reset
-            </ResetButton>
-          )}
-        </FAQHeader>
-        
-        <FAQList>
-          {filteredFaqs.map(faq => (
-            <FAQItem key={faq.id}>
-              <FAQQuestion 
-                isOpen={openItems.has(faq.id)}
-                onClick={() => toggleItem(faq.id)}
+    <FAQContainer>
+      <FAQContent>
+        <SectionTitle isHome={isHome}>FAQ Category Distribution</SectionTitle>
+        <CategoryDistribution>
+          <CategoryBar>
+            {categoryStats.map(cat => (
+              <CategorySegment 
+                key={cat.id}
+                percentage={cat.percentage}
+                color={cat.color}
               >
-                {faq.question}
-                <FaChevronDown className="icon" />
-              </FAQQuestion>
-              
-              <FAQAnswer isOpen={openItems.has(faq.id)}>
-                {faq.answer}
-              </FAQAnswer>
-            </FAQItem>
+                {cat.icon}
+              </CategorySegment>
+            ))}
+          </CategoryBar>
+          
+          {categoryStats.map(cat => (
+            <CategoryInfo key={cat.id}>
+              <CategoryName color={cat.color}>
+                {cat.icon} {cat.name}
+              </CategoryName>
+              <CategoryCount>{cat.count} questions</CategoryCount>
+              <CategoryPercent percentage={cat.percentage} color={cat.color} />
+              <div style={{ fontSize: '14px', color: '#666', marginTop: '5px' }}>
+                {cat.percentage.toFixed(0)}%
+              </div>
+            </CategoryInfo>
           ))}
-        </FAQList>
-      </FAQContainer>
-    </FAQSection>
+        </CategoryDistribution>
+        
+        <FilterSection>
+          <FilterTitle>Filter by Category</FilterTitle>
+          <FilterHint>Select a category to narrow down your search</FilterHint>
+          
+          <FilterButtons>
+            <CategoryButton 
+              active={activeCategory === 'all'}
+              onClick={() => setActiveCategory('all')}
+              color="#4a5568"
+            >
+              All Categories
+              <span className="count">{totalQuestions}</span>
+            </CategoryButton>
+            
+            {faqCategories.map(category => (
+              <CategoryButton 
+                key={category.id}
+                active={activeCategory === category.id}
+                onClick={() => setActiveCategory(category.id)}
+                color={category.color}
+              >
+                {category.icon} {category.name}
+                <span className="count">{categoryCount[category.id] || 0}</span>
+              </CategoryButton>
+            ))}
+          </FilterButtons>
+        </FilterSection>
+        
+        <FAQContainer>
+          <FAQHeader>
+            <FAQCount>
+              {filteredFaqs.length} FAQs in {activeCategory === 'all' ? 'All Categories' : faqCategories.find(c => c.id === activeCategory)?.name}
+            </FAQCount>
+            
+            {activeCategory !== 'all' && (
+              <ResetButton onClick={resetFilters}>
+                <FaChevronDown style={{ transform: 'rotate(90deg)' }} /> Reset
+              </ResetButton>
+            )}
+          </FAQHeader>
+          
+          <FAQList>
+            {filteredFaqs.map(faq => (
+              <FAQItem key={faq.id}>
+                <FAQQuestion 
+                  isOpen={openItems.has(faq.id)}
+                  onClick={() => toggleItem(faq.id)}
+                >
+                  {faq.question}
+                  <FaChevronDown className="icon" />
+                </FAQQuestion>
+                
+                <FAQAnswer isOpen={openItems.has(faq.id)}>
+                  {faq.answer}
+                </FAQAnswer>
+              </FAQItem>
+            ))}
+          </FAQList>
+        </FAQContainer>
+      </FAQContent>
+    </FAQContainer>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -33,9 +33,20 @@ const icons = {
   headquarters: createCustomIcon('violet')
 };
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const MapSection = styled.section`
-  padding: 60px 0;
-  background: linear-gradient(to bottom, #f7f9fc, #e6f0f9);
+  padding: 100px 0;
+  background: linear-gradient(to bottom, #f0f8ff, #e6f0f9);
   position: relative;
   overflow: hidden;
 
@@ -45,14 +56,14 @@ const MapSection = styled.section`
     top: 0;
     left: 0;
     right: 0;
-    height: 150px;
-    background: linear-gradient(to bottom, rgba(5, 160, 232, 0.05), rgba(5, 160, 232, 0));
-    z-index: 0;
+    height: 6px;
+    background: linear-gradient(to right, #05a0e8, #0077cc);
+    z-index: 2;
   }
 `;
 
 const Container = styled.div`
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   position: relative;
@@ -61,45 +72,60 @@ const Container = styled.div`
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
+  animation: ${fadeIn} 0.8s ease-out forwards;
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 28px;
+  font-size: 42px;
   color: #0c2340;
-  margin-bottom: 14px;
-  font-weight: 700;
+  margin-bottom: 20px;
+  font-weight: 800;
   position: relative;
   display: inline-block;
+  background: linear-gradient(to right, #0c2340, #05a0e8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   
   &::after {
     content: '';
     position: absolute;
-    bottom: -8px;
+    bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
+    width: 80px;
     height: 3px;
-    background: #05a0e8;
+    background: linear-gradient(to right, #05a0e8, #0077cc);
     border-radius: 3px;
   }
 `;
 
 const SectionDescription = styled.p`
-  font-size: 15px;
-  color: #666;
-  max-width: 650px;
-  margin: 0 auto;
-  line-height: 1.5;
+  font-size: 18px;
+  color: #334155;
+  max-width: 700px;
+  margin: 30px auto 0;
+  line-height: 1.7;
 `;
 
 const LeafletMapContainer = styled.div`
   width: 100%;
-  height: 500px;
-  border-radius: 12px;
+  height: 550px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
   position: relative;
+  transform: translateY(0);
+  transition: all 0.5s ease;
+  border: 1px solid rgba(5, 160, 232, 0.1);
+  animation: ${fadeIn} 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+  
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(5, 160, 232, 0.2);
+  }
   
   .leaflet-container {
     width: 100%;
@@ -110,18 +136,18 @@ const LeafletMapContainer = styled.div`
   
   .leaflet-popup-content-wrapper {
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     padding: 0;
     overflow: hidden;
   }
   
   .leaflet-popup-content {
     margin: 0;
-    width: 250px !important;
+    width: 280px !important;
   }
   
   .leaflet-popup-tip {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   }
 `;
 
@@ -153,67 +179,101 @@ const MapOverlay = styled.div`
 const RegionTabs = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
+  animation: ${fadeIn} 0.8s ease-out forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
 `;
 
 const RegionTab = styled.button`
-  background: ${props => props.active ? '#05a0e8' : 'white'};
+  background: ${props => props.active ? 'linear-gradient(135deg, #05a0e8, #0077cc)' : 'white'};
   color: ${props => props.active ? '#fff' : '#555'};
-  border: 2px solid ${props => props.active ? '#05a0e8' : '#ddd'};
-  padding: 8px 16px;
-  border-radius: 25px;
-  font-size: 13px;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: ${props => props.active ? '0 4px 12px rgba(5, 160, 232, 0.3)' : '0 2px 6px rgba(0, 0, 0, 0.05)'};
+  box-shadow: ${props => props.active ? '0 8px 20px rgba(5, 160, 232, 0.4)' : '0 4px 12px rgba(0, 0, 0, 0.05)'};
   
   &:hover {
-    background: ${props => props.active ? '#05a0e8' : 'rgba(5, 160, 232, 0.1)'};
-    border-color: #05a0e8;
+    background: ${props => props.active ? 'linear-gradient(135deg, #05a0e8, #0077cc)' : 'rgba(5, 160, 232, 0.1)'};
     color: ${props => props.active ? '#fff' : '#05a0e8'};
-    transform: translateY(-2px);
-    box-shadow: ${props => props.active ? '0 6px 16px rgba(5, 160, 232, 0.4)' : '0 4px 12px rgba(5, 160, 232, 0.2)'};
+    transform: translateY(-3px);
+    box-shadow: ${props => props.active ? '0 12px 24px rgba(5, 160, 232, 0.5)' : '0 8px 20px rgba(5, 160, 232, 0.2)'};
   }
   
   &:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+const slideInRight = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 `;
 
 const StatsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 50px;
+  margin-top: 70px;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 30px;
 `;
 
 const StatItem = styled.div`
   flex: 1;
   min-width: 180px;
   text-align: center;
-  padding: 24px 16px;
+  padding: 30px 20px;
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  animation: ${slideInRight} 0.6s ease-out forwards;
+  animation-delay: ${props => props.delay || '0s'};
+  opacity: 0;
   
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(5, 160, 232, 0.15);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(5, 160, 232, 0.15);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #05a0e8, #0077cc);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::before {
+    opacity: 1;
   }
 `;
 
 const StatNumber = styled.div`
-  font-size: 36px;
+  font-size: 46px;
   font-weight: 800;
   color: #05a0e8;
-  margin-bottom: 8px;
-  background: linear-gradient(135deg, #05a0e8, #0c2340);
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #05a0e8, #0077cc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
@@ -564,10 +624,9 @@ const WorldMap = () => {
   ];
 
   const stats = [
-    { number: '70+', label: 'Countries Served' },
-    { number: '100+', label: 'Major Ports' },
-    { number: '30+', label: 'Years Experience' },
-    { number: '1.5M+', label: 'TEUs Annually' }
+    { number: '70+', label: 'Countries Served', delay: '0.1s' },
+    { number: '100+', label: 'Major Ports', delay: '0.2s' },
+    { number: '30+', label: 'Years Experience', delay: '0.3s' }
   ];
 
   const handleSetRegion = useCallback((regionId) => {
@@ -751,7 +810,7 @@ const WorldMap = () => {
         
         <StatsContainer>
           {stats.map((stat, index) => (
-            <StatItem key={index}>
+            <StatItem key={index} delay={stat.delay}>
               <StatNumber>{stat.number}</StatNumber>
               <StatLabel>{stat.label}</StatLabel>
             </StatItem>

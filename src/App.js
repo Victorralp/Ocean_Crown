@@ -71,7 +71,7 @@ const Logo = styled.div`
   transform: translateX(-50%);
   
   img {
-    height: 45px;
+    height: 60px;
     width: auto;
     object-fit: contain;
     filter: ${props => props.scrolled ? 'none' : 'brightness(0) invert(1)'};
@@ -193,28 +193,49 @@ const HeroContent = styled.div`
   margin: 0 auto;
   width: 100%;
   padding: 0 2rem;
-  text-align: center;
+  text-align: left;
   margin-top: 160px;
 `;
 
 const HeroTitle = styled.div`
-  text-align: center;
+  text-align: left;
   margin-bottom: 40px;
 
   h2 {
-    font-size: 36px;
-    font-weight: 400;
+    font-size: 52px;
+    font-weight: 700;
     margin-bottom: 5px;
     color: white;
   }
 
+  h3 {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 10px 0;
+    color: #F6AD55;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: inline-block;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 80px;
+      height: 2px;
+      background: #F6AD55;
+    }
+  }
+
   h1 {
-    font-size: 52px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0px;
     color: white;
-    margin: 0;
+    margin: 20px 0 0 0;
   }
 `;
 
@@ -412,26 +433,74 @@ const Contact = () => {
   const { t } = useTranslation();
 
   return (
-    <section style={{ 
-      padding: '80px 0', 
-      backgroundColor: '#f9f9f9' 
-    }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px' }}>
-        <h2 style={{ 
-          textAlign: 'center', 
-          marginBottom: '40px', 
-          fontSize: '36px',
-          color: '#333'
-        }}>Contact Us</h2>
-        
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+    <>
+      <div style={{
+        background: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url("https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3") no-repeat center center',
+        backgroundSize: 'cover',
+        height: '60vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        marginTop: '0',
+        color: 'white',
+      }}>
+        <div style={{
+          textAlign: 'center',
+          maxWidth: '1000px',
+          margin: '0 auto',
+          padding: '40px',
+          background: 'rgba(12, 35, 64, 0.5)',
+          borderRadius: '16px',
+          backdropFilter: 'blur(10px)',
+        }}>
+          <h1 style={{
+            fontSize: '3.5rem',
+            marginBottom: '1rem',
+            fontWeight: '600',
+            color: 'white',
+            textTransform: 'uppercase',
+            letterSpacing: '1px',
+          }}>Contact Us</h1>
+          <p style={{
+            fontSize: '1.25rem',
+            maxWidth: '800px',
+            margin: '0 auto',
+            lineHeight: '1.6',
+            color: 'rgba(255, 255, 255, 0.9)',
+            fontWeight: '300',
+            position: 'relative',
+            paddingBottom: '30px',
+          }}>
+            We'd love to hear from you. Please reach out to us using any of the methods below.
+            <span style={{
+              display: 'block',
+              width: '100px',
+              height: '4px',
+              background: '#05a0e8',
+              margin: '20px auto 0',
+              borderRadius: '2px',
+              position: 'absolute',
+              bottom: '0',
+              left: '50%',
+              transform: 'translateX(-50%)',
+            }}></span>
+          </p>
+        </div>
+      </div>
+
+      <section style={{ 
+        padding: '80px 0', 
+        backgroundColor: '#f9f9f9' 
+      }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px' }}>
           <div style={{ textAlign: 'center' }}>
             <p style={{ 
               fontSize: '18px', 
               marginBottom: '30px',
               color: '#666'
             }}>
-              We'd love to hear from you. Please reach out to us using any of the methods below.
+              Get in touch with our team of logistics experts. We're here to help you with all your shipping and transportation needs.
             </p>
           </div>
           
@@ -545,8 +614,8 @@ const Contact = () => {
             </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
@@ -715,6 +784,7 @@ function App() {
                     <HeroContent>
                       <HeroTitle>
                         <h2><HeroTranslation keyPath="hero.leaderIn" /></h2>
+                        <h3>SHIPPING AND LOGISTICS</h3>
                         <h1><HeroTranslation keyPath="hero.shippingLogistics" /></h1>
                       </HeroTitle>
                     </HeroContent>
@@ -726,7 +796,6 @@ function App() {
                   <WorldMap />
                   <Certificates />
                   <FAQ />
-                  <Contact />
                 </>
               } />
 
