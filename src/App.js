@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { 
   FaSearch, FaGlobe, FaBars, FaClipboardList, FaEnvelope, FaPhone,
   FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube,
-  FaMapMarkerAlt
+  FaMapMarkerAlt, FaWhatsapp
 } from 'react-icons/fa';
 import Services from './components/Services';
 import WorldMap from './components/WorldMap';
@@ -16,6 +16,7 @@ import Industries from './components/Industries';
 import AboutUs from './components/AboutUs';
 import Sustainability from './components/Sustainability';
 import EBusiness from './components/EBusiness';
+import GetFreeQuote from './components/GetFreeQuote';
 import { useTranslation } from './translations/useTranslation';
 
 // Re-export the hook for backward compatibility - many components import from App.js
@@ -535,7 +536,7 @@ const Contact = () => {
                 Our team typically responds within 24 hours.
               </p>
               <a 
-                href="mailto:info@ocean-crown.com" 
+                href="mailto:operations@ocmultilink.com" 
                 style={{ 
                   display: 'inline-block',
                   padding: '12px 25px',
@@ -573,20 +574,64 @@ const Contact = () => {
               }}>
                 Available Monday-Friday, 9am-5pm
               </p>
-              <a 
-                href="tel:+18005551234" 
-                style={{ 
-                  display: 'inline-block',
-                  padding: '12px 25px',
-                  backgroundColor: '#F6AD55',
-                  color: 'white',
-                  borderRadius: '4px',
-                  textDecoration: 'none',
-                  fontWeight: '500'
-                }}
-              >
-                +1 (800) 555-1234
-              </a>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+                alignItems: 'center'
+              }}>
+                <a 
+                  href="tel:+2348053408828" 
+                  style={{ 
+                    display: 'inline-block',
+                    padding: '12px 25px',
+                    backgroundColor: '#F6AD55',
+                    color: 'white',
+                    borderRadius: '4px',
+                    textDecoration: 'none',
+                    fontWeight: '500'
+                  }}
+                >
+                  +234 805 340 8828
+                </a>
+                <a 
+                  href="https://wa.me/2348053408828" 
+                  style={{ 
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '8px 15px',
+                    backgroundColor: '#25D366',
+                    color: 'white',
+                    borderRadius: '4px',
+                    textDecoration: 'none',
+                    fontWeight: '500',
+                    fontSize: '14px'
+                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaWhatsapp /> Chat on WhatsApp
+                </a>
+                <p style={{ marginTop: '10px', marginBottom: '5px', fontSize: '15px', color: '#666' }}>
+                  Customer Care:
+                </p>
+                <a 
+                  href="tel:+2349073560121" 
+                  style={{ 
+                    display: 'inline-block',
+                    padding: '8px 15px',
+                    backgroundColor: '#0c2340',
+                    color: 'white',
+                    borderRadius: '4px',
+                    textDecoration: 'none',
+                    fontWeight: '500',
+                    fontSize: '14px'
+                  }}
+                >
+                  +234 907 356 0121
+                </a>
+              </div>
             </div>
           </div>
           
@@ -608,10 +653,12 @@ const Contact = () => {
               lineHeight: '1.6',
               color: '#666'
             }}>
-              Ocean Crown Multi-links Enterprises Ltd.<br />
+              OCEAN CROWN MULTILINKS ENTERPRISES LTD<br />
               Shipping Services<br />
               📍 67 Payne Crescent<br />
-              Lagos apapa, Nigeria
+              📍 7/9, Payne Crescent<br />
+              📍 No 29, Payne Crescent<br />
+              Apapa, Lagos, Nigeria
             </p>
           </div>
         </div>
@@ -736,6 +783,9 @@ function App() {
                 <FaEnvelope />
                 Contact
               </ContactButton>
+              <UtilityButton as={Link} to="/quote" scrolled={scrolled}>
+                Get a Free Quote
+              </UtilityButton>
             </UtilityNav>
           </MainNav>
 
@@ -761,6 +811,9 @@ function App() {
                 <MainNavLink as={Link} to="/about" onClick={toggleNav}>
                   <MenuTranslation keyPath="menu.aboutUs" />
                 </MainNavLink>
+                <MainNavLink as={Link} to="/quote" onClick={toggleNav}>
+                  Get a Free Quote
+                </MainNavLink>
               </MainLinks>
               <Divider />
               <QuickLinks>
@@ -784,8 +837,8 @@ function App() {
                   <Hero>
                     <HeroContent>
                       <HeroTitle>
-                        <h2><HeroTranslation keyPath="hero.leaderIn" /></h2>
-                        <h1><HeroTranslation keyPath="hero.shippingLogistics" /></h1>
+                        <h2>OCEAN CROWN</h2>
+                        <h1>MULTILINKS ENTERPRISES LTD</h1>
                         <h3>SHIPPING AND LOGISTICS</h3>
                       </HeroTitle>
                     </HeroContent>
@@ -797,6 +850,7 @@ function App() {
                   <WorldMap />
                   <Certificates />
                   <FAQ />
+                  <GetFreeQuote />
                 </>
               } />
 
@@ -808,6 +862,7 @@ function App() {
               <Route path="/certificates" element={<Certificates />} />
               <Route path="/blog" element={<FAQ />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/quote" element={<GetFreeQuote />} />
               
               {/* Other static pages */}
               <Route path="/ebusiness" element={<EBusiness />} />

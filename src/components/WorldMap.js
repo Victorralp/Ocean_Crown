@@ -622,8 +622,8 @@ const WorldMap = () => {
   ];
 
   const stats = [
-    { number: '70+', label: 'Countries Served', delay: '0.1s' },
-    { number: '100+', label: 'Major Ports', delay: '0.2s' },
+    { number: '7', label: 'Major Ports', delay: '0.1s' },
+    { number: '24/7', label: 'Customer Service', delay: '0.2s' },
     { number: '30+', label: 'Years Experience', delay: '0.3s' }
   ];
 
@@ -818,18 +818,23 @@ const WorldMap = () => {
         <KeyLocationsInfo>
           <h3>Key Locations</h3>
           <LocationGrid>
-            {locations
-              .filter(loc => loc.isKeyLocation === true)
-              .map(location => (
-                <LocationCard 
-                  key={location.id}
-                  color={location.isHQ ? '#6200ea' : icons[location.region] ? '#05a0e8' : '#05a0e8'}
-                >
-                  <h4>{location.name}</h4>
-                  <p>{location.type}</p>
-                </LocationCard>
-              ))
-            }
+            {[
+              { id: 'port1', name: 'Apapa Port', type: 'Major Container Terminal' },
+              { id: 'port2', name: 'Tin Can Island Port', type: 'Bulk Cargo Terminal' },
+              { id: 'port3', name: 'Rivers Port', type: 'Oil & Gas Terminal' },
+              { id: 'port4', name: 'Delta Port', type: 'Multipurpose Terminal' },
+              { id: 'port5', name: 'Onne Port', type: 'Energy & Logistics Hub' },
+              { id: 'port6', name: 'Calabar Port', type: 'Container Terminal' },
+              { id: 'port7', name: 'Lekki Deep Sea Port', type: 'Modern Container Facility' }
+            ].map(port => (
+              <LocationCard 
+                key={port.id}
+                color="#9900cc"
+              >
+                <h4>{port.name}</h4>
+                <p>{port.type}</p>
+              </LocationCard>
+            ))}
           </LocationGrid>
         </KeyLocationsInfo>
       </Container>

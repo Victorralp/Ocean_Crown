@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { 
   FaEnvelope, FaPhone, FaMapMarkerAlt,
-  FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube
+  FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube,
+  FaWhatsapp
 } from 'react-icons/fa';
 import { useTranslation } from '../App';
 
@@ -23,17 +24,17 @@ const Footer = () => {
             your supply chain and enhance your business performance.
           </FooterText>
           <FooterSocial>
-            <SocialLink href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            <SocialLink href="https://www.facebook.com/share/16ZSBRcQno/" target="_blank" rel="noopener noreferrer" title="Visit our Facebook page">
               <FaFacebookF />
             </SocialLink>
-            <SocialLink href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <FaTwitter />
+            <SocialLink href="https://www.instagram.com/ocmultilink?igsh=MTB3NHY2eDM5bGt2dg==" target="_blank" rel="noopener noreferrer" title="Follow us on Instagram">
+              <FaInstagram />
             </SocialLink>
             <SocialLink href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
               <FaLinkedinIn />
             </SocialLink>
-            <SocialLink href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <FaInstagram />
+            <SocialLink href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+              <FaTwitter />
             </SocialLink>
             <SocialLink href="https://youtube.com" target="_blank" rel="noopener noreferrer">
               <FaYoutube />
@@ -60,6 +61,7 @@ const Footer = () => {
             <ContactItem>
               <ContactIcon><FaMapMarkerAlt /></ContactIcon>
               <div>
+                67 Payne Crescent, Apapa, Lagos, Nigeria<br />
                 7/9, Payne Crescent, Apapa, Lagos, Nigeria<br />
                 No 29, Payne Crescent, Apapa, Lagos, Nigeria
               </div>
@@ -67,13 +69,25 @@ const Footer = () => {
             <ContactItem>
               <ContactIcon><FaPhone /></ContactIcon>
               <div>
-                <a href="tel:+18005551234">+1 (800) 555-1234</a>
+                <a href="tel:+2348053408828">+234 805 340 8828</a> 
+                <ContactLinkWrapper>
+                  <ContactLink href="https://wa.me/2348053408828" target="_blank" rel="noopener noreferrer">
+                    <FaWhatsapp /> WhatsApp
+                  </ContactLink>
+                </ContactLinkWrapper>
+              </div>
+            </ContactItem>
+            <ContactItem>
+              <ContactIcon><FaPhone /></ContactIcon>
+              <div>
+                <a href="tel:+2349073560121">+234 907 356 0121</a>
+                <small> (Customer Care)</small>
               </div>
             </ContactItem>
             <ContactItem>
               <ContactIcon><FaEnvelope /></ContactIcon>
               <div>
-                <a href="mailto:info@ocean-crown.com">info@ocean-crown.com</a>
+                <a href="mailto:operations@ocmultilinks.com">operations@ocmultilinks.com</a>
               </div>
             </ContactItem>
           </ContactInfo>
@@ -82,7 +96,7 @@ const Footer = () => {
       
       <FooterBottom>
         <Copyright>
-          © {currentYear} Ocean Crown Logistics. All rights reserved.
+          © {currentYear} OCEAN CROWN MULTILINKS ENTERPRISES LTD. All rights reserved.
         </Copyright>
         <FooterBottomLinks>
           <FooterBottomLink as={Link} to="/privacy-policy">Privacy Policy</FooterBottomLink>
@@ -257,6 +271,29 @@ const FooterBottomLink = styled.a`
   &:hover {
     color: #F6AD55;
     opacity: 1;
+  }
+`;
+
+const ContactLinkWrapper = styled.div`
+  margin-top: 5px;
+  font-size: 13px;
+`;
+
+const ContactLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #F6AD55;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: white;
+    text-decoration: underline;
+  }
+  
+  svg {
+    font-size: 14px;
   }
 `;
 
