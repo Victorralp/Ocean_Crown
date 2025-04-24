@@ -52,6 +52,10 @@ const MainNav = styled.nav`
     background: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+  
+  @media (max-width: 768px) {
+    padding: 15px 20px;
+  }
 `;
 
 const MenuButton = styled.button`
@@ -78,12 +82,32 @@ const Logo = styled.div`
     filter: ${props => props.scrolled ? 'none' : 'brightness(0) invert(1)'};
     transition: all 0.3s ease;
   }
+  
+  @media (max-width: 768px) {
+    img {
+      height: 50px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    img {
+      height: 40px;
+    }
+  }
 `;
 
 const UtilityNav = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+  
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+  
+  @media (max-width: 576px) {
+    gap: 5px;
+  }
 `;
 
 const UtilityLink = styled.a`
@@ -125,6 +149,12 @@ const LanguageButton = styled(UtilityLink)`
       opacity: 1;
     }
   }
+  
+  @media (max-width: 576px) {
+    span {
+      display: none;
+    }
+  }
 `;
 
 const ContactButton = styled(UtilityLink)`
@@ -145,6 +175,10 @@ const ContactButton = styled(UtilityLink)`
       opacity: 1;
     }
   }
+  
+  @media (max-width: 576px) {
+    display: none;
+  }
 `;
 
 const UtilityButton = styled(UtilityLink)`
@@ -156,6 +190,17 @@ const UtilityButton = styled(UtilityLink)`
   &:hover {
     background: #ed8936;
     color: white;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 6px 12px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  
+  @media (max-width: 576px) {
+    padding: 6px 8px;
+    font-size: 9px;
   }
 `;
 
@@ -207,6 +252,14 @@ const HeroTitle = styled.div`
     font-weight: 700;
     margin-bottom: 5px;
     color: white;
+    
+    @media (max-width: 768px) {
+      font-size: 42px;
+    }
+    
+    @media (max-width: 576px) {
+      font-size: 32px;
+    }
   }
 
   h3 {
@@ -219,6 +272,15 @@ const HeroTitle = styled.div`
     position: relative;
     display: inline-block;
     
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
+    
+    @media (max-width: 576px) {
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+    
     &::after {
       content: '';
       position: absolute;
@@ -227,6 +289,10 @@ const HeroTitle = styled.div`
       width: 80px;
       height: 2px;
       background: #F6AD55;
+      
+      @media (max-width: 576px) {
+        width: 60px;
+      }
     }
   }
 
@@ -238,6 +304,15 @@ const HeroTitle = styled.div`
     color: white;
     margin: 20px 0 0 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    
+    @media (max-width: 768px) {
+      font-size: 28px;
+    }
+    
+    @media (max-width: 576px) {
+      font-size: 22px;
+      letter-spacing: 0.5px;
+    }
   }
 `;
 
