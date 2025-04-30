@@ -622,7 +622,6 @@ const WorldMap = () => {
   ];
 
   const stats = [
-    { number: '7', label: 'Major Ports', delay: '0.1s' },
     { number: '24/7', label: 'Customer Service', delay: '0.2s' },
     { number: '30+', label: 'Years Experience', delay: '0.3s' }
   ];
@@ -814,29 +813,6 @@ const WorldMap = () => {
             </StatItem>
           ))}
         </StatsContainer>
-        
-        <KeyLocationsInfo>
-          <h3>Key Locations</h3>
-          <LocationGrid>
-            {[
-              { id: 'port1', name: 'Apapa Port', type: 'Major Container Terminal' },
-              { id: 'port2', name: 'Tin Can Island Port', type: 'Bulk Cargo Terminal' },
-              { id: 'port3', name: 'Rivers Port', type: 'Oil & Gas Terminal' },
-              { id: 'port4', name: 'Delta Port', type: 'Multipurpose Terminal' },
-              { id: 'port5', name: 'Onne Port', type: 'Energy & Logistics Hub' },
-              { id: 'port6', name: 'Calabar Port', type: 'Container Terminal' },
-              { id: 'port7', name: 'Lekki Deep Sea Port', type: 'Modern Container Facility' }
-            ].map(port => (
-              <LocationCard 
-                key={port.id}
-                color="#9900cc"
-              >
-                <h4>{port.name}</h4>
-                <p>{port.type}</p>
-              </LocationCard>
-            ))}
-          </LocationGrid>
-        </KeyLocationsInfo>
       </Container>
     </MapSection>
   );

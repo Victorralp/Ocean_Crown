@@ -62,8 +62,6 @@ const Footer = () => {
               <ContactIcon><FaMapMarkerAlt /></ContactIcon>
               <div>
                 67 Payne Crescent, Apapa, Lagos, Nigeria<br />
-                7/9, Payne Crescent, Apapa, Lagos, Nigeria<br />
-                No 29, Payne Crescent, Apapa, Lagos, Nigeria
               </div>
             </ContactItem>
             <ContactItem>

@@ -3,7 +3,6 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { useTranslation } from '../App';
-import LanguageDropdown from './LanguageDropdown';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,13 +78,9 @@ const Navbar = () => {
               {t('contact')}
             </NavLinkStyled>
           </NavItem>
-          <NavItem>
-            <LanguageDropdown />
-          </NavItem>
         </NavMenu>
         
         <MobileControls>
-          <LanguageDropdown mobile />
           <MenuToggle onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <FaTimes /> : <FaBars />}
           </MenuToggle>
@@ -204,6 +199,7 @@ const MobileControls = styled.div`
   
   @media (max-width: 992px) {
     display: flex;
+    gap: 10px;
   }
 `;
 

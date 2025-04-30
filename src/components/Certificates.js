@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaShieldAlt, FaCheck, FaInfoCircle } from 'react-icons/fa';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import SectionTitle from './shared/SectionTitle';
 
 const CertificatesSection = styled.section`
@@ -283,18 +283,19 @@ const CTAText = styled.p`
   position: relative;
 `;
 
-const CTAButton = styled.a`
+const CTAButton = styled.button`
   display: inline-block;
   background: #05a0e8;
   color: white;
   padding: 14px 36px;
   border-radius: 8px;
   font-weight: 600;
-  text-decoration: none;
+  border: none;
   transition: all 0.3s ease;
   position: relative;
   font-size: 1rem;
   box-shadow: 0 6px 15px rgba(5, 160, 232, 0.4);
+  cursor: pointer;
   
   &:hover {
     background: white;
@@ -308,6 +309,7 @@ const Certificates = () => {
   const [activeModal, setActiveModal] = useState(null);
   const [visibleItems, setVisibleItems] = useState(0);
   const location = useLocation();
+  const navigate = useNavigate();
   const isHome = location.pathname === '/';
   
   useEffect(() => {
@@ -521,7 +523,9 @@ const Certificates = () => {
             Our certifications reflect our dedication to quality, safety, and sustainability
             in every aspect of our operations.
           </CTAText>
-          <CTAButton href="#contact">Contact Our Compliance Team</CTAButton>
+          <CTAButton onClick={() => navigate('/contact')}>
+            Contact Our Compliance Team
+          </CTAButton>
         </Container>
       </CTAContainer>
       

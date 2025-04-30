@@ -131,32 +131,6 @@ const UtilityLink = styled.a`
   }
 `;
 
-const LanguageButton = styled(UtilityLink)`
-  padding: 5px;
-  background: transparent;
-  border: none;
-  
-  svg {
-    filter: ${props => props.scrolled ? 'none' : 'brightness(0) invert(0.8) sepia(0.8) saturate(5) hue-rotate(335deg)'};
-    transition: all 0.3s ease;
-    opacity: 0.9;
-    color: ${props => props.scrolled ? '#F6AD55' : '#F6AD55'};
-  }
-  
-  &:hover {
-    svg {
-      color: #F6AD55;
-      opacity: 1;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    span {
-      display: none;
-    }
-  }
-`;
-
 const ContactButton = styled(UtilityLink)`
   padding: 5px;
   background: transparent;
@@ -174,10 +148,6 @@ const ContactButton = styled(UtilityLink)`
       color: #F6AD55;
       opacity: 1;
     }
-  }
-  
-  @media (max-width: 576px) {
-    display: none;
   }
 `;
 
@@ -444,67 +414,6 @@ const ScrollToTop = () => {
   return null;
 };
 
-// Updated LanguageDropdown component
-const LanguageDropdown = ({ isOpen, onClose }) => {
-  const { language, setLanguage } = useContext(LanguageContext);
-  
-  const languages = [
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-    { code: 'zh', name: '中文', flag: '🇨🇳' },
-    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'ja', name: '日本語', flag: '🇯🇵' },
-    { code: 'ru', name: 'Русский', flag: '🇷🇺' }
-  ];
-  
-  if (!isOpen) return null;
-  
-  return (
-    <div style={{
-      position: 'absolute',
-      top: '80px',
-      right: '100px',
-      background: 'white',
-      borderRadius: '8px',
-      boxShadow: '0 5px 15px rgba(0,0,0,0.1)',
-      padding: '15px',
-      zIndex: 1000,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '8px',
-      minWidth: '180px'
-    }}>
-      {languages.map(lang => (
-        <button 
-          key={lang.code}
-          onClick={() => {
-            setLanguage(lang.code);
-            onClose();
-          }}
-          style={{ 
-            padding: '10px 15px',
-            background: language === lang.code ? '#F6AD55' : 'transparent',
-            color: language === lang.code ? 'white' : '#333',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            textAlign: 'left',
-            width: '100%'
-          }}
-        >
-          <span style={{ fontSize: '18px' }}>{lang.flag}</span>
-          <span>{lang.name}</span>
-        </button>
-      ))}
-    </div>
-  );
-};
-
 // Simple Contact component that doesn't require a backend
 const Contact = () => {
   const { t } = useTranslation();
@@ -731,8 +640,6 @@ const Contact = () => {
               OCEAN CROWN MULTILINKS ENTERPRISES LTD<br />
               Shipping Services<br />
               📍 67 Payne Crescent<br />
-              📍 7/9, Payne Crescent<br />
-              📍 No 29, Payne Crescent<br />
               Apapa, Lagos, Nigeria
             </p>
           </div>
@@ -745,7 +652,6 @@ const Contact = () => {
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
   const [language, setLanguage] = useState(() => {
     // Get language from localStorage or default to English
     return localStorage.getItem('language') || 'en';
@@ -808,21 +714,6 @@ function App() {
     setIsNavOpen(!isNavOpen);
   };
 
-  // Get current language flag
-  const getLanguageFlag = () => {
-    const flags = {
-      en: '🇬🇧',
-      fr: '🇫🇷',
-      es: '🇪🇸',
-      ar: '🇸🇦',
-      zh: '🇨🇳',
-      de: '🇩🇪',
-      ja: '🇯🇵',
-      ru: '🇷🇺'
-    };
-    return flags[language] || flags.en;
-  };
-
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>
       <Router>
@@ -842,18 +733,6 @@ function App() {
               </Link>
             </Logo>
             <UtilityNav>
-              <LanguageButton 
-                as="button" 
-                onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)} 
-                scrolled={scrolled}
-              >
-                <FaGlobe />
-                {getLanguageFlag()}
-              </LanguageButton>
-              <LanguageDropdown 
-                isOpen={isLangDropdownOpen} 
-                onClose={() => setIsLangDropdownOpen(false)} 
-              />
               <ContactButton as={Link} to="/contact" scrolled={scrolled}>
                 <FaEnvelope />
                 Contact
