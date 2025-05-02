@@ -17,6 +17,9 @@ import AboutUs from './components/AboutUs';
 import Sustainability from './components/Sustainability';
 import EBusiness from './components/EBusiness';
 import GetFreeQuote from './components/GetFreeQuote';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
+import Sitemap from './components/Sitemap';
 import { useTranslation } from './translations/useTranslation';
 
 // Re-export the hook for backward compatibility - many components import from App.js
@@ -177,7 +180,7 @@ const UtilityButton = styled(UtilityLink)`
 const Hero = styled.section`
   position: relative;
   height: 100vh;
-  background: url('https://images.unsplash.com/photo-1524522173746-f628baad3644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1831&q=80') center/cover;
+  background-color: #0c2340; /* Placeholder color while loading */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -649,6 +652,56 @@ const Contact = () => {
   );
 };
 
+// Component to handle progressive image loading
+const ProgressiveHeroImage = () => {
+  const [loaded, setLoaded] = useState(false);
+  
+  useEffect(() => {
+    // Load a low-quality version first
+    const lowQualityImg = new Image();
+    lowQualityImg.src = 'https://images.unsplash.com/photo-1524522173746-f628baad3644?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=40';
+    lowQualityImg.onload = () => {
+      document.getElementById('hero-background').style.backgroundImage = `url(${lowQualityImg.src})`;
+      
+      // Then load the higher quality version
+      const highQualityImg = new Image();
+      highQualityImg.src = 'https://images.unsplash.com/photo-1524522173746-f628baad3644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=75';
+      highQualityImg.onload = () => {
+        document.getElementById('hero-background').style.backgroundImage = `url(${highQualityImg.src})`;
+        setLoaded(true);
+      };
+    };
+    
+    // Fallback for slow connections
+    const timeout = setTimeout(() => {
+      if (!loaded) {
+        document.getElementById('hero-background').style.backgroundImage = 
+          'url(https://images.unsplash.com/photo-1524522173746-f628baad3644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=75)';
+        setLoaded(true);
+      }
+    }, 3000);
+    
+    return () => clearTimeout(timeout);
+  }, [loaded]);
+  
+  return (
+    <div 
+      id="hero-background" 
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        transition: 'background-image 0.5s ease-in',
+        zIndex: 0
+      }}
+    />
+  );
+};
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -729,7 +782,13 @@ function App() {
             </MenuButton>
             <Logo scrolled={scrolled}>
               <Link to="/">
-                <img src="/images/ChatGPT Image Apr 20, 2025, 11_29_19 AM.png" alt="Ocean Crown Logo" />
+                <img 
+                  src="/images/ChatGPT Image Apr 20, 2025, 11_29_19 AM.png" 
+                  alt="Ocean Crown Logo" 
+                  loading="lazy"
+                  width="180"
+                  height="60"
+                />
               </Link>
             </Logo>
             <UtilityNav>
@@ -789,6 +848,7 @@ function App() {
               <Route path="/" element={
                 <>
                   <Hero>
+                    <ProgressiveHeroImage />
                     <HeroContent>
                       <HeroTitle>
                         <h2>OCEAN CROWN</h2>
@@ -822,6 +882,11 @@ function App() {
               <Route path="/ebusiness" element={<EBusiness />} />
               <Route path="/sustainability" element={<Sustainability />} />
               <Route path="/about" element={<AboutUs />} />
+              
+              {/* New routes for footer pages */}
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/sitemap" element={<Sitemap />} />
             </Routes>
           </MainContent>
           <Footer />
