@@ -739,41 +739,57 @@ const AboutUs = () => {
             </PartnersGrid>
           </PartnersSection>
           
-          <SectionTitle>Leadership Team</SectionTitle>
-          <TeamContainer>
-            <TeamMember>
-              <TeamMemberImage image="/images/about%20us/WhatsApp%20Image%202025-04-22%20at%2013.33.21_58cde748.jpg" />
-              <TeamMemberInfo>
-                <TeamMemberName>Chief Executive Officer</TeamMemberName>
-                <TeamMemberPosition>Leadership</TeamMemberPosition>
-                <TeamMemberBio>
-                  With extensive experience in logistics and international trade, our CEO provides strategic direction and leadership for Ocean Crown's operations and growth initiatives.
-                </TeamMemberBio>
-              </TeamMemberInfo>
-            </TeamMember>
-            
-            <TeamMember>
-              <TeamMemberImage image="/images/IMG-20250416-WA0034.jpg" />
-              <TeamMemberInfo>
-                <TeamMemberName>Operations Director</TeamMemberName>
-                <TeamMemberPosition>Operations</TeamMemberPosition>
-                <TeamMemberBio>
-                  Responsible for overseeing all operational activities, ensuring the efficient execution of logistics services and maintaining the highest standards of quality and reliability.
-                </TeamMemberBio>
-              </TeamMemberInfo>
-            </TeamMember>
-            
-            <TeamMember>
-              <TeamMemberImage image="/images/IMG-20250416-WA0039.jpg" />
-              <TeamMemberInfo>
-                <TeamMemberName>Commercial Director</TeamMemberName>
-                <TeamMemberPosition>Commercial</TeamMemberPosition>
-                <TeamMemberBio>
-                  Leads our commercial strategy, developing client relationships, identifying new business opportunities, and ensuring that our service offerings meet market demands.
-                </TeamMemberBio>
-              </TeamMemberInfo>
-            </TeamMember>
-          </TeamContainer>
+          <SectionTitle>A Message from Management</SectionTitle>
+          <TwoColumnSection>
+            <LeftColumn>
+              <div style={{ 
+                position: 'relative',
+                width: '100%', 
+                height: '750px',
+                borderRadius: '8px',
+                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)',
+                background: '#f0f0f0', /* Placeholder color while loading */
+                overflow: 'hidden'
+              }}>
+                <TeamMemberImage 
+                  image="/images/about%20us/WhatsApp%20Image%202025-04-22%20at%2013.33.21_58cde748.jpg" 
+                  style={{ height: '100%', width: '100%' }}
+                  loading="lazy"
+                />
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  background: 'linear-gradient(rgba(255,255,255,0.1), rgba(0,0,0,0.05))'
+                }}></div>
+              </div>
+            </LeftColumn>
+            <RightColumn>
+              <AboutParagraph>
+                Welcome to OCEAN CROWN MULTILINKS ENTERPRISES LTD, and thank you for considering us for your logistics and shipping needs.
+              </AboutParagraph>
+              <AboutParagraph>
+                As an industry leader committed to operational excellence, we take pride in offering secure, timely, and cost-effective shipping solutions tailored to meet the demands of today's global marketplace. Our company is built on a foundation of integrity, innovation, and customer focus-principles that guide every shipment we handle.
+              </AboutParagraph>
+              <AboutParagraph>
+                We continuously invest in technology, infrastructure, and people to ensure that our customers receive the highest standards of service. Whether you are a small business or a large enterprise, our team is dedicated to delivering reliability, visibility, and performance at every stage of the logistics process.
+              </AboutParagraph>
+              <AboutParagraph>
+                Thank you for choosing OCMULTILINKS. We look forward to supporting your success and exceeding your expectations.
+              </AboutParagraph>
+              <AboutParagraph style={{ marginTop: '30px', fontWeight: 'bold' }}>
+                Sincerely,
+              </AboutParagraph>
+              <AboutParagraph style={{ fontWeight: 'bold' }}>
+                OGUNNUPE SHERIFF BABATUNDE
+              </AboutParagraph>
+              <AboutParagraph>
+                Chief Executive Officer
+              </AboutParagraph>
+            </RightColumn>
+          </TwoColumnSection>
           
           <SectionTitle>Company Information</SectionTitle>
           <ContactInfo>
