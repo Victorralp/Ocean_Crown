@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { 
   FaEnvelope, FaPhone, FaMapMarkerAlt,
-  FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube,
+  FaFacebookF, FaTwitter, FaInstagram,
   FaWhatsapp
 } from 'react-icons/fa';
 import { useTranslation } from '../App';
@@ -17,7 +17,13 @@ const Footer = () => {
       <FooterContent>
         <FooterSection>
           <FooterLogo>
-            <img src="/images/ChatGPT Image Apr 20, 2025, 11_29_19 AM.png" alt="Ocean Crown Logo" />
+            <img 
+              src="/images/ChatGPT Image Apr 20, 2025, 11_29_19 AM.png" 
+              alt="Ocean Crown Logo" 
+              loading="lazy"
+              width="120"
+              height="50"
+            />
           </FooterLogo>
           <FooterText>
             Ocean Crown delivers comprehensive shipping and logistics services designed to optimize 
@@ -30,14 +36,8 @@ const Footer = () => {
             <SocialLink href="https://www.instagram.com/ocmultilink?igsh=MTB3NHY2eDM5bGt2dg==" target="_blank" rel="noopener noreferrer" title="Follow us on Instagram">
               <FaInstagram />
             </SocialLink>
-            <SocialLink href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-              <FaLinkedinIn />
-            </SocialLink>
-            <SocialLink href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            <SocialLink href="https://x.com/ocmultinks?s=21&t=lR40FNSPfyH35SAhwZb-YQ" target="_blank" rel="noopener noreferrer" title="Follow us on X/Twitter">
               <FaTwitter />
-            </SocialLink>
-            <SocialLink href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-              <FaYoutube />
             </SocialLink>
           </FooterSocial>
         </FooterSection>
