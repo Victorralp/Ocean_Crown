@@ -6,6 +6,10 @@ import { FaShip, FaAward, FaHandshake, FaGlobeAfrica, FaChartLine, FaUsers, FaBu
 const AboutSection = styled.section`
   padding: 60px 0;
   background-color: #f8fafc;
+  
+  @media (max-width: 768px) {
+    padding: 40px 0;
+  }
 `;
 
 const HeroSection = styled.div`
@@ -40,6 +44,11 @@ const HeroTitle = styled.h1`
   font-size: 48px;
   font-weight: 700;
   margin-bottom: 20px;
+  
+  @media (max-width: 768px) {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
 `;
 
 const HeroSubtitle = styled.p`
@@ -48,6 +57,11 @@ const HeroSubtitle = styled.p`
   margin: 0 auto;
   line-height: 1.6;
   opacity: 0.9;
+  
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 1.5;
+  }
 `;
 
 const AboutContainer = styled.div`
@@ -68,6 +82,11 @@ const PageTitle = styled.h1`
   font-size: 48px;
   font-weight: 700;
   margin-bottom: 20px;
+  
+  @media (max-width: 768px) {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
 `;
 
 const Subtitle = styled.p`
@@ -76,6 +95,11 @@ const Subtitle = styled.p`
   margin: 0 auto;
   line-height: 1.6;
   opacity: 0.9;
+  
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 1.5;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -95,6 +119,11 @@ const SectionTitle = styled.h2`
     height: 3px;
     background: #05a0e8;
   }
+  
+  @media (max-width: 768px) {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
 `;
 
 const TwoColumnSection = styled.div`
@@ -105,6 +134,7 @@ const TwoColumnSection = styled.div`
   
   @media (max-width: 992px) {
     flex-direction: column;
+    gap: 30px;
   }
 `;
 
@@ -129,6 +159,12 @@ const AboutParagraph = styled.p`
   margin-bottom: 1.5rem;
   max-width: 800px;
   margin: 0 auto 1.5rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+  }
 `;
 
 const ValuesContainer = styled.div`
@@ -169,18 +205,34 @@ const ValueIcon = styled.div`
   margin-bottom: 20px;
   color: #05a0e8;
   font-size: 30px;
+  
+  @media (max-width: 768px) {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
 `;
 
 const ValueTitle = styled.h3`
   font-size: 20px;
   color: #0c2340;
   margin-bottom: 15px;
+  
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
 `;
 
 const ValueDescription = styled.p`
   font-size: 16px;
   color: #555;
   line-height: 1.6;
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+    line-height: 1.5;
+  }
 `;
 
 const TimelineContainer = styled.div`
@@ -250,18 +302,33 @@ const TimelineYear = styled.div`
   font-weight: 700;
   color: #05a0e8;
   margin-bottom: 10px;
+  
+  @media (max-width: 768px) {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
 `;
 
 const TimelineTitle = styled.h3`
   font-size: 20px;
   color: #0c2340;
   margin-bottom: 15px;
+  
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
 `;
 
 const TimelineText = styled.p`
   font-size: 15px;
   color: #555;
   line-height: 1.6;
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+    line-height: 1.5;
+  }
 `;
 
 const TeamContainer = styled.div`
@@ -296,6 +363,10 @@ const TeamMemberImage = styled.div`
   background-image: url(${props => props.image});
   background-size: cover;
   background-position: center;
+  
+  @media (max-width: 768px) {
+    height: 200px;
+  }
 `;
 
 const TeamMemberInfo = styled.div`
@@ -307,18 +378,32 @@ const TeamMemberName = styled.h3`
   font-size: 20px;
   color: #0c2340;
   margin-bottom: 5px;
+  
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const TeamMemberPosition = styled.div`
   font-size: 16px;
   color: #05a0e8;
   margin-bottom: 15px;
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
 `;
 
 const TeamMemberBio = styled.p`
   font-size: 15px;
   color: #555;
   line-height: 1.6;
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+    line-height: 1.5;
+  }
 `;
 
 const StatsContainer = styled.div`
@@ -348,12 +433,21 @@ const StatNumber = styled.div`
   font-weight: 700;
   color: #05a0e8;
   margin-bottom: 10px;
+  
+  @media (max-width: 768px) {
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
 `;
 
 const StatLabel = styled.div`
   font-size: 16px;
   color: #0c2340;
   font-weight: 500;
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 const ContactInfo = styled.div`
@@ -378,6 +472,11 @@ const ContactTitle = styled.h3`
   font-size: 20px;
   color: #0c2340;
   margin-bottom: 20px;
+  
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
 `;
 
 const ContactDetail = styled.div`
@@ -393,10 +492,19 @@ const ContactLabel = styled.div`
   font-weight: 600;
   color: #444;
   width: 120px;
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+    width: 100px;
+  }
 `;
 
 const ContactValue = styled.div`
   color: #666;
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 const PartnersSection = styled.div`
@@ -460,6 +568,10 @@ const PartnerName = styled.div`
   font-weight: 600;
   color: #0c2340;
   font-size: 16px;
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 const PartnerCategory = styled.h3`
@@ -477,6 +589,11 @@ const PartnerCategory = styled.h3`
     width: 50px;
     height: 3px;
     background: #05a0e8;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 18px;
+    margin-bottom: 25px;
   }
 `;
 
@@ -520,6 +637,62 @@ const BiographyQuote = styled.blockquote`
     bottom: -50px;
     right: 0;
   }
+  
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 0 25px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    
+    &:before, &:after {
+      font-size: 34px;
+    }
+    
+    &:before {
+      top: -15px;
+    }
+    
+    &:after {
+      bottom: -35px;
+    }
+  }
+`;
+
+const ManagementImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-height: 450px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background: #f0f0f0;
+  overflow: hidden;
+  margin: 0 auto;
+  
+  @media (min-width: 992px) {
+    max-height: 1600px;
+  }
+`;
+
+const ManagementImage = styled.img`
+  width: 100%;
+  height: auto;
+  min-height: 450px;
+  display: block;
+  object-fit: cover;
+  
+  @media (min-width: 992px) {
+    min-height: 700px;
+  }
+`;
+
+const ManagementImageOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(255,255,255,0.1), rgba(0,0,0,0.05));
 `;
 
 const AboutUs = () => {
@@ -742,29 +915,14 @@ const AboutUs = () => {
           <SectionTitle>A Message from Management</SectionTitle>
           <TwoColumnSection>
             <LeftColumn>
-              <div style={{ 
-                position: 'relative',
-                width: '100%', 
-                height: '750px',
-                borderRadius: '8px',
-                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)',
-                background: '#f0f0f0', /* Placeholder color while loading */
-                overflow: 'hidden'
-              }}>
-                <TeamMemberImage 
-                  image="/images/about%20us/WhatsApp%20Image%202025-04-22%20at%2013.33.21_58cde748.jpg" 
-                  style={{ height: '100%', width: '100%' }}
+              <ManagementImageContainer>
+                <ManagementImage 
+                  src="/images/about%20us/WhatsApp%20Image%202025-04-22%20at%2013.33.21_58cde748.jpg" 
+                  alt="Management portrait"
                   loading="lazy"
                 />
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(rgba(255,255,255,0.1), rgba(0,0,0,0.05))'
-                }}></div>
-              </div>
+                <ManagementImageOverlay />
+              </ManagementImageContainer>
             </LeftColumn>
             <RightColumn>
               <AboutParagraph>
