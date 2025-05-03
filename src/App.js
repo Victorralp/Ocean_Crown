@@ -225,8 +225,9 @@ const HeroTitle = styled.div`
     font-weight: 700;
     margin-bottom: 5px;
     color: white;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: 'Montserrat', sans-serif;
     
     @media (max-width: 768px) {
       font-size: 42px;
@@ -264,11 +265,11 @@ const HeroTitle = styled.div`
     font-size: 36px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.8px;
     color: white;
-    margin: 20px 0 0 0;
+    margin: 15px 0 0 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     
     @media (max-width: 768px) {
       font-size: 28px;
@@ -276,7 +277,7 @@ const HeroTitle = styled.div`
     
     @media (max-width: 576px) {
       font-size: 22px;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
   }
 `;

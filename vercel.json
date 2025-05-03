@@ -1,0 +1,10 @@
+{
+    "redirects": [
+      {
+        "source": "http://oceancrown.com.ng",
+        "destination": "https://www.oceancrown.com.ng",
+        "permanent": true
+      }
+    ]
+  }
+  
