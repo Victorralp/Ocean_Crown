@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import { useTranslation } from '../App';
+import { FaBars, FaTimes, FaCalendarAlt } from 'react-icons/fa';
+import { useTranslation } from '../translations/useTranslation';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const location = useLocation();
   const { t } = useTranslation();
 
@@ -22,6 +23,15 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     setIsOpen(false);
@@ -30,61 +40,76 @@ const Navbar = () => {
   return (
     <NavContainer scrolled={scrolled}>
       <NavWrapper>
-        <LogoContainer to="/">
+        <MobileControls>
+          <MenuToggle onClick={() => setIsOpen(!isOpen)} scrolled={scrolled}>
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </MenuToggle>
+        </MobileControls>
+
+        <LogoContainer to="/" scrolled={scrolled}>
           <img 
             src="/images/ChatGPT Image Apr 20, 2025, 11_29_19 AM.png" 
-            alt="Ocean Crown Logo" 
+            alt={t('footer.logoAlt', 'Ocean Crown Logo')} 
           />
         </LogoContainer>
         
         <NavMenu isOpen={isOpen}>
           <NavItem>
-            <NavLinkStyled to="/" end>
-              {t('home')}
+            <NavLinkStyled to="/" end scrolled={scrolled}>
+              {t('navigation.home', 'Home')}
             </NavLinkStyled>
           </NavItem>
           <NavItem>
-            <NavLinkStyled to="/services">
-              {t('services')}
+            <NavLinkStyled to="/services" scrolled={scrolled}>
+              {t('menu.services', 'Our Services')}
             </NavLinkStyled>
           </NavItem>
           <NavItem>
-            <NavLinkStyled to="/industries">
-              {t('industries')}
+            <NavLinkStyled to="/industries" scrolled={scrolled}>
+              {t('menu.industries', 'Industries')}
             </NavLinkStyled>
           </NavItem>
           <NavItem>
-            <NavLinkStyled to="/about">
-              {t('about')}
+            <NavLinkStyled to="/about" scrolled={scrolled}>
+              {t('menu.aboutUs', 'About Us')}
             </NavLinkStyled>
           </NavItem>
           <NavItem>
-            <NavLinkStyled to="/sustainability">
-              {t('sustainability')}
+            <NavLinkStyled to="/sustainability" scrolled={scrolled}>
+              {t('menu.sustainability', 'Sustainability')}
             </NavLinkStyled>
           </NavItem>
           <NavItem>
-            <NavLinkStyled to="/ebusiness">
-              {t('ebusiness')}
+            <NavLinkStyled to="/ebusiness" scrolled={scrolled}>
+              {t('menu.ebusiness', 'eBusiness')}
             </NavLinkStyled>
           </NavItem>
           <NavItem>
-            <NavLinkStyled to="/faq">
-              FAQ
+            <NavLinkStyled to="/faq" scrolled={scrolled}>
+              {t('menu.faq', 'FAQ')}
             </NavLinkStyled>
           </NavItem>
           <NavItem>
-            <NavLinkStyled to="/contact">
-              {t('contact')}
+            <NavLinkStyled to="/contact" scrolled={scrolled}>
+              {t('menu.contact', 'Contact Us')}
             </NavLinkStyled>
           </NavItem>
         </NavMenu>
         
-        <MobileControls>
-          <MenuToggle onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <FaTimes /> : <FaBars />}
-          </MenuToggle>
-        </MobileControls>
+        <HeaderButtons>
+          <ContactButton to="/contact">
+            {t('header.contact', 'Contact')}
+          </ContactButton>
+          {isMobile ? (
+            <IconQuoteButton to="/quote" title={t('header.getQuote', 'Get a Free Quote')}>
+              <FaCalendarAlt />
+            </IconQuoteButton>
+          ) : (
+            <QuoteButton to="/quote">
+              {t('header.getQuote', 'Get a Free Quote')}
+            </QuoteButton>
+          )}
+        </HeaderButtons>
       </NavWrapper>
     </NavContainer>
   );
@@ -96,10 +121,11 @@ const NavContainer = styled.nav`
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: ${props => props.scrolled ? 'white' : 'transparent'};
+  background-color: ${props => props.scrolled ? 'white' : '#0c2340'};
   box-shadow: ${props => props.scrolled ? '0 2px 10px rgba(0, 0, 0, 0.1)' : 'none'};
   transition: all 0.3s ease-in-out;
-  padding: ${props => props.scrolled ? '10px 0' : '20px 0'};
+  padding: ${props => props.scrolled ? '5px 0' : '10px 0'};
+  height: auto;
 `;
 
 const NavWrapper = styled.div`
@@ -109,6 +135,11 @@ const NavWrapper = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  width: 100%;
+  
+  @media (max-width: 992px) {
+    justify-content: space-between;
+  }
 `;
 
 const LogoContainer = styled(Link)`
@@ -117,8 +148,17 @@ const LogoContainer = styled(Link)`
   
   img {
     height: 40px;
-    filter: ${props => props.scrolled ? 'none' : 'brightness(0) invert(1)'};
-    transition: filter 0.3s ease;
+    transition: all 0.3s ease;
+    
+    @media (max-width: 992px) {
+      height: 30px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 
@@ -126,18 +166,20 @@ const NavMenu = styled.ul`
   display: flex;
   align-items: center;
   list-style: none;
+  margin: 0;
+  padding: 0;
   
   @media (max-width: 992px) {
     flex-direction: column;
     position: fixed;
-    top: 70px;
-    right: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
-    width: 280px;
-    height: calc(100vh - 70px);
-    background-color: white;
+    top: 60px;
+    left: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
+    width: 270px;
+    height: 100vh;
+    background-color: #0c2340;
     padding: 20px 0;
-    transition: right 0.3s ease;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     z-index: 999;
     overflow-y: auto;
   }
@@ -147,9 +189,9 @@ const NavItem = styled.li`
   margin: 0 12px;
   
   @media (max-width: 992px) {
-    margin: 5px 0;
+    margin: 0;
     width: 100%;
-    text-align: center;
+    text-align: left;
   }
 `;
 
@@ -157,6 +199,7 @@ const NavLinkStyled = styled(NavLink)`
   color: ${props => props.scrolled ? '#333' : 'white'};
   text-decoration: none;
   font-weight: 500;
+  font-size: 16px;
   padding: 8px;
   border-radius: 4px;
   transition: all 0.3s ease;
@@ -184,37 +227,109 @@ const NavLinkStyled = styled(NavLink)`
   
   @media (max-width: 992px) {
     display: block;
-    color: #333;
-    padding: 12px 20px;
+    color: white;
+    padding: 15px 20px;
+    font-size: 14px;
     
     &:hover, &.active {
       background-color: rgba(246, 173, 85, 0.1);
+    }
+    
+    &:after {
+      display: none;
     }
   }
 `;
 
 const MobileControls = styled.div`
   display: none;
-  align-items: center;
   
   @media (max-width: 992px) {
     display: flex;
-    gap: 10px;
+    align-items: center;
   }
 `;
 
 const MenuToggle = styled.button`
-  display: none;
   background: none;
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #333;
+  color: white;
   padding: 5px;
-  margin-left: 15px;
+  transition: color 0.3s ease;
   
   @media (max-width: 992px) {
     display: block;
+  }
+`;
+
+const HeaderButtons = styled.div`
+  display: flex;
+  gap: 10px;
+  
+  @media (max-width: 768px) {
+    gap: 5px;
+  }
+`;
+
+const ContactButton = styled(Link)`
+  background: transparent;
+  color: #F6AD55;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(246, 173, 85, 0.1);
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+`;
+
+const QuoteButton = styled(Link)`
+  background: #F6AD55;
+  color: #0c2340;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #ed8936;
+  }
+`;
+
+const IconQuoteButton = styled(Link)`
+  background: #F6AD55;
+  color: #0c2340;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  svg {
+    font-size: 16px;
+  }
+  
+  &:hover {
+    background: #ed8936;
   }
 `;
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
@@ -17,12 +17,13 @@ L.Icon.Default.mergeOptions({
 const createCustomIcon = (color) => {
   return new L.Icon({
     iconUrl: `https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${color}.png`,
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+    className: 'map-marker-icon', // Adding a class for easier styling
+  });
 };
 
 const icons = {
@@ -429,12 +430,51 @@ const SetMapBounds = ({ map, bounds }) => {
   return null;
 };
 
+// Add this after the import statements
+const preloadMapIcons = () => {
+  const colors = ['red', 'blue', 'green', 'orange', 'violet'];
+  colors.forEach(color => {
+    const img = new Image();
+    img.src = `https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${color}.png`;
+  });
+  
+  // Also preload shadow
+  const shadow = new Image();
+  shadow.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png';
+};
+
+// Call preload function
+preloadMapIcons();
+
 const WorldMap = () => {
   const [activeRegion, setActiveRegion] = useState('all');
   const [map, setMap] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [showRoutes, setShowRoutes] = useState(false);
   const [showZoomNotification, setShowZoomNotification] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const mapContainerRef = useRef(null);
+
+  // Implement intersection observer to load map only when visible
+  useEffect(() => {
+    if (!mapLoaded && mapContainerRef.current) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            // Delay map loading by a short time to prioritize other content
+            setTimeout(() => {
+              setMapLoaded(true);
+            }, 500);
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.1 }
+      );
+      
+      observer.observe(mapContainerRef.current);
+      return () => observer.disconnect();
+    }
+  }, [mapLoaded]);
 
   // Define map bounds to prevent infinite scrolling horizontally
   const mapBounds = L.latLngBounds(
@@ -697,17 +737,17 @@ const WorldMap = () => {
         </SectionHeader>
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <RegionTabs>
-          {regions.map(region => (
-            <RegionTab 
-              key={region.id} 
-              active={activeRegion === region.id}
+          <RegionTabs>
+            {regions.map(region => (
+              <RegionTab 
+                key={region.id} 
+                active={activeRegion === region.id}
                 onClick={() => handleSetRegion(region.id)}
-            >
-              {region.name}
-            </RegionTab>
-          ))}
-        </RegionTabs>
+              >
+                {region.name}
+              </RegionTab>
+            ))}
+          </RegionTabs>
           
           <div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
@@ -722,77 +762,107 @@ const WorldMap = () => {
           </div>
         </div>
         
-        <LeafletMapContainer>
-          <MapContainer 
-            center={[20, 0]} 
-            zoom={2} 
-            scrollWheelZoom={true}
-            whenCreated={setMap}
-            style={{ height: '100%', width: '100%' }}
-            zoomControl={false}
-            minZoom={2}
-            maxZoom={6}
-            worldCopyJump={true}
-            maxBoundsViscosity={1.0}
-          >
-            {/* Set map bounds to prevent infinite horizontal scrolling */}
-            <SetMapBounds map={map} bounds={mapBounds} />
-            
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            />
-            
-            <ZoomControl position="bottomright" />
-            
-            {/* Display shipping routes */}
-            {showRoutes && filteredRoutes.map((route, index) => (
-              <Polyline 
-                key={index} 
-                positions={route.points}
-                pathOptions={{
-                  color: route.color,
-                  weight: route.weight,
-                  dashArray: route.dashArray
-                }}
-              >
-                <Popup>
-                  <div style={{ padding: '5px 10px' }}>
-                    <strong>Route:</strong> {route.name}
-                  </div>
-                </Popup>
-              </Polyline>
-            ))}
-            
-            {filteredLocations.map(location => (
-              <Marker 
-                key={location.id} 
-                position={location.position}
-                icon={location.isHQ ? icons.headquarters : icons[location.region]}
-                eventHandlers={{
-                  click: () => handleMarkerClick(location)
-                }}
-              >
-                <Popup>
-                  <PopupHeader>
-                    <h3>{location.name}</h3>
-                    <p>{location.type}</p>
-                  </PopupHeader>
-                  <PopupContent>
-                    <p>{location.address}</p>
-                    <p><strong>Phone:</strong> {location.phone}</p>
-                    <p><strong>Email:</strong> {location.email}</p>
-                  </PopupContent>
-                  <PopupFooter>
-                    <a href={`mailto:${location.email}`}>Contact Office</a>
-                  </PopupFooter>
-                </Popup>
-              </Marker>
-            ))}
-          </MapContainer>
+        <LeafletMapContainer ref={mapContainerRef}>
+          {mapLoaded ? (
+            <MapContainer 
+              center={[20, 0]} 
+              zoom={2} 
+              scrollWheelZoom={true}
+              whenCreated={setMap}
+              style={{ height: '100%', width: '100%' }}
+              zoomControl={false}
+              minZoom={2}
+              maxZoom={6}
+              worldCopyJump={true}
+              maxBoundsViscosity={1.0}
+            >
+              {/* Set map bounds to prevent infinite horizontal scrolling */}
+              <SetMapBounds map={map} bounds={mapBounds} />
+              
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+              />
+              
+              <ZoomControl position="bottomright" />
+              
+              {/* Display shipping routes */}
+              {showRoutes && filteredRoutes.map((route, index) => (
+                <Polyline 
+                  key={index} 
+                  positions={route.points}
+                  pathOptions={{
+                    color: route.color,
+                    weight: route.weight,
+                    dashArray: route.dashArray
+                  }}
+                >
+                  <Popup>
+                    <div style={{ padding: '5px 10px' }}>
+                      <strong>Route:</strong> {route.name}
+                    </div>
+                  </Popup>
+                </Polyline>
+              ))}
+              
+              {filteredLocations.map(location => (
+                <Marker 
+                  key={location.id} 
+                  position={location.position}
+                  icon={location.isHQ ? icons.headquarters : icons[location.region]}
+                  eventHandlers={{
+                    click: () => handleMarkerClick(location)
+                  }}
+                >
+                  <Popup>
+                    <PopupHeader>
+                      <h3>{location.name}</h3>
+                      <p>{location.type}</p>
+                    </PopupHeader>
+                    <PopupContent>
+                      <p>{location.address}</p>
+                      <p><strong>Phone:</strong> {location.phone}</p>
+                      <p><strong>Email:</strong> {location.email}</p>
+                    </PopupContent>
+                    <PopupFooter>
+                      <a href={`mailto:${location.email}`}>Contact Office</a>
+                    </PopupFooter>
+                  </Popup>
+                </Marker>
+              ))}
+            </MapContainer>
+          ) : (
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              alignItems: 'center', 
+              height: '100%', 
+              backgroundColor: '#e6f0f9',
+              borderRadius: '16px'
+            }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ 
+                  width: '40px', 
+                  height: '40px', 
+                  margin: '0 auto 15px',
+                  border: '4px solid #05a0e8',
+                  borderRadius: '50%',
+                  borderTopColor: 'transparent',
+                  animation: 'spin 1s linear infinite'
+                }} />
+                <p style={{ margin: 0, color: '#334155', fontSize: '16px' }}>Loading map...</p>
+                <style>{`
+                  @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                  }
+                `}</style>
+              </div>
+            </div>
+          )}
           
           {/* Optional selected location info overlay */}
-          {selectedLocation && (
+          {selectedLocation && mapLoaded && (
             <MapOverlay>
               <h3>{selectedLocation.name}</h3>
               <p>{selectedLocation.type}</p>

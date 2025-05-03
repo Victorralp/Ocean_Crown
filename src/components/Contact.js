@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaCheck } from "react-icons/fa";
-import { useTranslation } from "../App";
+import { useTranslation } from "../translations/useTranslation";
 import { useLocation } from 'react-router-dom';
 import SectionTitle from './shared/SectionTitle';
 
@@ -314,9 +314,9 @@ const Contact = () => {
       {isStandalonePage && (
         <HeroSection>
           <HeroContent>
-            <PageTitle>Contact Us</PageTitle>
+            <PageTitle>{t("contact.title")}</PageTitle>
             <Subtitle>
-              Get in touch with our team of logistics experts. We're here to help you with all your shipping and transportation needs.
+              {t("contact.subtitle", "Get in touch with our team of logistics experts. We're here to help you with all your shipping and transportation needs.")}
             </Subtitle>
           </HeroContent>
         </HeroSection>

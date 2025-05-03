@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const SectionTitle = styled.h2`
   text-align: center;
   margin-bottom: 60px;
-  font-size: 42px;
+  font-size: 36px;
   color: #0c2340;
   position: relative;
   font-weight: 700;
@@ -22,6 +22,11 @@ const SectionTitle = styled.h2`
     background: linear-gradient(to right, #F6AD55, #ed8936);
     border-radius: 2px;
     opacity: 1;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 24px;
+    margin-bottom: 40px;
   }
 `;
 

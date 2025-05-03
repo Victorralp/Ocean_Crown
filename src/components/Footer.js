@@ -6,7 +6,7 @@ import {
   FaFacebookF, FaTwitter, FaInstagram,
   FaWhatsapp
 } from 'react-icons/fa';
-import { useTranslation } from '../App';
+import { useTranslation } from '../translations/useTranslation';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -19,58 +19,57 @@ const Footer = () => {
           <FooterLogo>
             <img 
               src="/images/ChatGPT Image Apr 20, 2025, 11_29_19 AM.png" 
-              alt="Ocean Crown Logo" 
+              alt={t('footer.logoAlt', 'Ocean Crown Logo')} 
               loading="lazy"
               width="120"
               height="50"
             />
           </FooterLogo>
           <FooterText>
-            Ocean Crown delivers comprehensive shipping and logistics services designed to optimize 
-            your supply chain and enhance your business performance.
+            {t('footer.about.description')}
           </FooterText>
           <FooterSocial>
-            <SocialLink href="https://www.facebook.com/share/16ZSBRcQno/" target="_blank" rel="noopener noreferrer" title="Visit our Facebook page">
+            <SocialLink href="https://www.facebook.com/share/16ZSBRcQno/" target="_blank" rel="noopener noreferrer" title={t('footer.social.facebook', 'Visit our Facebook page')}>
               <FaFacebookF />
             </SocialLink>
-            <SocialLink href="https://www.instagram.com/ocmultilink?igsh=MTB3NHY2eDM5bGt2dg==" target="_blank" rel="noopener noreferrer" title="Follow us on Instagram">
+            <SocialLink href="https://www.instagram.com/ocmultilink?igsh=MTB3NHY2eDM5bGt2dg==" target="_blank" rel="noopener noreferrer" title={t('footer.social.instagram', 'Follow us on Instagram')}>
               <FaInstagram />
             </SocialLink>
-            <SocialLink href="https://x.com/ocmultinks?s=21&t=lR40FNSPfyH35SAhwZb-YQ" target="_blank" rel="noopener noreferrer" title="Follow us on X/Twitter">
+            <SocialLink href="https://x.com/ocmultinks?s=21&t=lR40FNSPfyH35SAhwZb-YQ" target="_blank" rel="noopener noreferrer" title={t('footer.social.twitter', 'Follow us on X/Twitter')}>
               <FaTwitter />
             </SocialLink>
           </FooterSocial>
         </FooterSection>
         
         <FooterSection>
-          <FooterHeading>Quick Links</FooterHeading>
+          <FooterHeading>{t('footer.quickLinks')}</FooterHeading>
           <FooterLinks>
-            <FooterLink as={Link} to="/services">Our Services</FooterLink>
-            <FooterLink as={Link} to="/industries">Industries</FooterLink>
-            <FooterLink as={Link} to="/about">About Us</FooterLink>
-            <FooterLink as={Link} to="/sustainability">Sustainability</FooterLink>
-            <FooterLink as={Link} to="/ebusiness">eBusiness</FooterLink>
-            <FooterLink as={Link} to="/faq">FAQ</FooterLink>
-            <FooterLink as={Link} to="/contact">Contact Us</FooterLink>
+            <FooterLink as={Link} to="/services">{t('menu.services', 'Our Services')}</FooterLink>
+            <FooterLink as={Link} to="/industries">{t('menu.industries', 'Industries')}</FooterLink>
+            <FooterLink as={Link} to="/about">{t('menu.aboutUs', 'About Us')}</FooterLink>
+            <FooterLink as={Link} to="/sustainability">{t('menu.sustainability', 'Sustainability')}</FooterLink>
+            <FooterLink as={Link} to="/ebusiness">{t('menu.ebusiness', 'eBusiness')}</FooterLink>
+            <FooterLink as={Link} to="/faq">{t('menu.faq', 'FAQ')}</FooterLink>
+            <FooterLink as={Link} to="/contact">{t('menu.contact', 'Contact Us')}</FooterLink>
           </FooterLinks>
         </FooterSection>
         
         <FooterSection>
-          <FooterHeading>Contact Us</FooterHeading>
+          <FooterHeading>{t('footer.contactUs')}</FooterHeading>
           <ContactInfo>
             <ContactItem>
               <ContactIcon><FaMapMarkerAlt /></ContactIcon>
               <div>
-                67 Payne Crescent, Apapa, Lagos, Nigeria<br />
+                {t('footer.contact.address', '67 Payne Crescent, Apapa, Lagos, Nigeria')}
               </div>
             </ContactItem>
             <ContactItem>
               <ContactIcon><FaPhone /></ContactIcon>
               <div>
-                <a href="tel:+2348053408828">+234 805 340 8828</a> 
+                <a href="tel:+2348053408828">{t('footer.contact.phone1', '+234 805 340 8828')}</a> 
                 <ContactLinkWrapper>
                   <ContactLink href="https://wa.me/2348053408828" target="_blank" rel="noopener noreferrer">
-                    <FaWhatsapp /> WhatsApp
+                    <FaWhatsapp /> {t('footer.contact.whatsapp', 'WhatsApp')}
                   </ContactLink>
                 </ContactLinkWrapper>
               </div>
@@ -78,14 +77,14 @@ const Footer = () => {
             <ContactItem>
               <ContactIcon><FaPhone /></ContactIcon>
               <div>
-                <a href="tel:+2349073560121">+234 907 356 0121</a>
-                <small> (Customer Care)</small>
+                <a href="tel:+2349073560121">{t('footer.contact.phone2', '+234 907 356 0121')}</a>
+                <small> {t('footer.contact.customerCare', '(Customer Care)')}</small>
               </div>
             </ContactItem>
             <ContactItem>
               <ContactIcon><FaEnvelope /></ContactIcon>
               <div>
-                <a href="mailto:operations@ocmultilinks.com">operations@ocmultilinks.com</a>
+                <a href="mailto:operations@ocmultilinks.com">{t('footer.contact.email', 'operations@ocmultilinks.com')}</a>
               </div>
             </ContactItem>
           </ContactInfo>
@@ -94,12 +93,12 @@ const Footer = () => {
       
       <FooterBottom>
         <Copyright>
-          © {currentYear} OCEAN CROWN MULTILINKS ENTERPRISES LTD. All rights reserved.
+          © {currentYear} {t('footer.copyright', 'OCEAN CROWN MULTILINKS ENTERPRISES LTD. All rights reserved.')}
         </Copyright>
         <FooterBottomLinks>
-          <FooterBottomLink as={Link} to="/privacy-policy">Privacy Policy</FooterBottomLink>
-          <FooterBottomLink as={Link} to="/terms-of-service">Terms of Service</FooterBottomLink>
-          <FooterBottomLink as={Link} to="/sitemap">Sitemap</FooterBottomLink>
+          <FooterBottomLink as={Link} to="/privacy-policy">{t('footer.privacyPolicy')}</FooterBottomLink>
+          <FooterBottomLink as={Link} to="/terms-of-service">{t('footer.termsOfService')}</FooterBottomLink>
+          <FooterBottomLink as={Link} to="/sitemap">{t('footer.sitemap', 'Sitemap')}</FooterBottomLink>
         </FooterBottomLinks>
       </FooterBottom>
     </FooterContainer>

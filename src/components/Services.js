@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { FaChevronRight, FaTimes } from 'react-icons/fa';
 import SectionTitle from './shared/SectionTitle';
+import { useTranslation } from '../translations/useTranslation';
 
 const HeroSection = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 20, 50, 0.6)),
-              url('/images/MSC Michelle Cappellini in sunset view.jpg') no-repeat center center;
+              url('/images/MSC Michelle Cappellini in sunset view.jpg?w=1200&q=75') no-repeat center center;
   background-size: cover;
   height: 100vh;
   margin-top: 0;
@@ -40,22 +41,38 @@ const HeroContent = styled.div`
   backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px rgba(0, 48, 87, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  
+  @media (max-width: 768px) {
+    padding: 25px;
+    margin: 0 15px;
+    max-width: 90%;
+  }
 `;
 
 const PageTitle = styled.h1`
-  font-size: 3.8rem;
+  font-size: 48px;
   margin-bottom: 1.5rem;
   font-weight: 700;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   letter-spacing: 1px;
+  
+  @media (max-width: 768px) {
+    font-size: 28px;
+    margin-bottom: 1rem;
+  }
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.4rem;
+  font-size: 20px;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 1.4;
+  }
   
   &::after {
     content: '';
@@ -65,6 +82,11 @@ const Subtitle = styled.p`
     background: linear-gradient(to right, #05a0e8, #0c2340);
     margin: 25px auto 0;
     border-radius: 2px;
+    
+    @media (max-width: 768px) {
+      width: 80px;
+      margin: 15px auto 0;
+    }
   }
 `;
 
@@ -130,14 +152,25 @@ const ServiceTitle = styled.h3`
   position: relative;
   display: inline-block;
   font-weight: 600;
+  
+  @media (max-width: 768px) {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
 `;
 
 const ServiceDescription = styled.p`
   color: #666;
-  line-height: 1.6;
-  font-size: 16px;
+  line-height: 1.8;
+  font-size: 1.1rem;
   max-width: 280px;
   margin: 0 auto 20px;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 auto 15px;
+  }
 `;
 
 const ServiceLink = styled.a`
@@ -192,7 +225,7 @@ const ModalContent = styled.div`
 `;
 
 const ModalHeader = styled.div`
-  background-image: url(${props => props.image});
+  background-image: url(${props => props.image ? `${props.image}?w=800&q=75` : ''});
   background-size: cover;
   background-position: center;
   height: 200px;
@@ -209,6 +242,11 @@ const ModalHeader = styled.div`
   }
 `;
 
+const ModalHeaderContent = styled.div`
+  position: relative;
+  z-index: 1;
+`;
+
 const ModalTitle = styled.h3`
   font-size: 28px;
   font-weight: 700;
@@ -218,6 +256,12 @@ const ModalTitle = styled.h3`
   left: 30px;
   margin: 0;
   z-index: 1;
+  
+  @media (max-width: 768px) {
+    font-size: 20px;
+    bottom: 15px;
+    left: 20px;
+  }
 `;
 
 const ModalBody = styled.div`
@@ -263,6 +307,30 @@ const ModalCloseButton = styled.button`
   }
 `;
 
+const ModalDescription = styled.p`
+  color: #4a5568;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  font-size: 1.1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+`;
+
+const ModalSectionTitle = styled.h4`
+  font-size: 24px;
+  font-weight: 600;
+  color: #0c2340;
+  margin-bottom: 15px;
+  
+  @media (max-width: 768px) {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+`;
+
 const SolutionsList = styled.ul`
   padding-left: 20px;
   margin-bottom: 30px;
@@ -271,9 +339,16 @@ const SolutionsList = styled.ul`
 const SolutionItem = styled.li`
   margin-bottom: 12px;
   color: #4a5568;
-  line-height: 1.5;
+  line-height: 1.8;
   position: relative;
   padding-left: 10px;
+  font-size: 1.1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
   
   &:before {
     content: '';
@@ -312,17 +387,51 @@ const CaseStudy = styled.div`
 `;
 
 const CaseStudyName = styled.h5`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   color: #0c2340;
   margin: 0 0 10px;
+  
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin: 0 0 6px;
+  }
 `;
 
 const CaseStudyDescription = styled.p`
-  font-size: 15px;
+  font-size: 1.1rem;
   color: #4a5568;
-  line-height: 1.5;
+  line-height: 1.8;
   margin: 0;
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+`;
+
+const ContactButton = styled.button`
+  display: inline-block;
+  background-color: #F6AD55;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 20px;
+  
+  &:hover {
+    background-color: #ed8936;
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
 `;
 
 const Services = () => {
@@ -330,149 +439,150 @@ const Services = () => {
   const isServicesPage = location.pathname === '/services';
   const isHome = location.pathname === '/';
   const [selectedService, setSelectedService] = useState(null);
+  const { t } = useTranslation();
   
   const services = [
     {
       id: 'ocean',
-      title: 'Ocean Freight',
-      description: 'Comprehensive ocean freight solutions for all your shipping needs.',
+      title: t('services.ocean.title'),
+      description: t('services.ocean.description'),
       image: '/images/services/ocean-freight.jpg',
-      fullDescription: 'Ocean Crown provides comprehensive ocean freight solutions tailored to your specific shipping requirements. Our global network ensures reliable and efficient transportation of your cargo across international waters.',
+      fullDescription: t('services.ocean.fullDescription'),
       solutions: [
-        'FCL (Full Container Load) shipping',
-        'LCL (Less than Container Load) options',
-        'Specialized equipment for oversized cargo',
-        'Temperature-controlled containers',
-        'Real-time tracking and monitoring'
+        t('services.ocean.feature1'),
+        t('services.ocean.feature2'),
+        t('services.ocean.feature3'),
+        t('services.ocean.feature4', 'Temperature-controlled containers'),
+        t('services.ocean.feature5', 'Real-time tracking and monitoring')
       ],
       caseStudies: [
         {
-          name: 'Global Manufacturer',
-          description: 'Reduced shipping costs by 25% through optimized container utilization and route planning.'
+          name: t('services.ocean.caseStudy1.name', 'Global Manufacturer'),
+          description: t('services.ocean.caseStudy1.description', 'Reduced shipping costs by 25% through optimized container utilization and route planning.')
         },
         {
-          name: 'Agricultural Exporter',
-          description: 'Implemented temperature-controlled shipping solutions, reducing spoilage by 98%.'
+          name: t('services.ocean.caseStudy2.name', 'Agricultural Exporter'),
+          description: t('services.ocean.caseStudy2.description', 'Implemented temperature-controlled shipping solutions, reducing spoilage by 98%.')
         }
       ]
     },
     {
       id: 'air',
-      title: 'Air Freight',
-      description: 'Fast and reliable air freight services worldwide.',
+      title: t('services.air.title', 'Air Freight'),
+      description: t('services.air.description', 'Fast and reliable air freight services worldwide.'),
       image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1000',
-      fullDescription: 'Our air freight services provide rapid transportation solutions for time-sensitive cargo. With partnerships with major airlines, we ensure your shipments reach their destination quickly and safely.',
+      fullDescription: t('services.air.fullDescription', 'Our air freight services provide rapid transportation solutions for time-sensitive cargo. With partnerships with major airlines, we ensure your shipments reach their destination quickly and safely.'),
       solutions: [
-        'Express air freight services',
-        'Charter flight options',
-        'Door-to-door delivery',
-        'Customs clearance assistance',
-        'Real-time shipment tracking'
+        t('services.air.feature1', 'Express air freight services'),
+        t('services.air.feature2', 'Charter flight options'),
+        t('services.air.feature3', 'Door-to-door delivery'),
+        t('services.air.feature4', 'Customs clearance assistance'),
+        t('services.air.feature5', 'Real-time shipment tracking')
       ],
       caseStudies: [
         {
-          name: 'Electronics Manufacturer',
-          description: 'Delivered critical components to production facilities within 24 hours, preventing production delays.'
+          name: t('services.air.caseStudy1.name', 'Electronics Manufacturer'),
+          description: t('services.air.caseStudy1.description', 'Delivered critical components to production facilities within 24 hours, preventing production delays.')
         },
         {
-          name: 'Pharmaceutical Company',
-          description: 'Managed the transportation of temperature-sensitive vaccines to 15 countries within 48 hours.'
+          name: t('services.air.caseStudy2.name', 'Pharmaceutical Company'),
+          description: t('services.air.caseStudy2.description', 'Managed the transportation of temperature-sensitive vaccines to 15 countries within 48 hours.')
         }
       ]
     },
     {
       id: 'inland',
-      title: 'Inland Transportation',
-      description: 'Efficient inland transportation for your cargo.',
+      title: t('services.inland.title', 'Inland Transportation'),
+      description: t('services.inland.description', 'Efficient inland transportation for your cargo.'),
       image: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1000',
-      fullDescription: 'Our inland transportation services provide reliable and efficient movement of goods within countries and regions. We offer a comprehensive range of options to meet your specific needs.',
+      fullDescription: t('services.inland.fullDescription', 'Our inland transportation services provide reliable and efficient movement of goods within countries and regions. We offer a comprehensive range of options to meet your specific needs.'),
       solutions: [
-        'Road transportation',
-        'Rail freight services',
-        'Intermodal solutions',
-        'Last-mile delivery',
-        'Route optimization'
+        t('services.inland.feature1', 'Road transportation'),
+        t('services.inland.feature2', 'Rail freight services'),
+        t('services.inland.feature3', 'Intermodal solutions'),
+        t('services.inland.feature4', 'Last-mile delivery'),
+        t('services.inland.feature5', 'Route optimization')
       ],
       caseStudies: [
         {
-          name: 'Retail Chain',
-          description: 'Implemented a hub-and-spoke distribution model, reducing delivery times by 40%.'
+          name: t('services.inland.caseStudy1.name', 'Retail Chain'),
+          description: t('services.inland.caseStudy1.description', 'Implemented a hub-and-spoke distribution model, reducing delivery times by 40%.')
         },
         {
-          name: 'Construction Company',
-          description: 'Coordinated the delivery of heavy equipment to remote construction sites with 100% on-time delivery.'
+          name: t('services.inland.caseStudy2.name', 'Construction Company'),
+          description: t('services.inland.caseStudy2.description', 'Coordinated the delivery of heavy equipment to remote construction sites with 100% on-time delivery.')
         }
       ]
     },
     {
       id: 'warehousing',
-      title: 'Warehousing & Distribution',
-      description: 'Secure and efficient warehousing and distribution solutions.',
+      title: t('services.warehousing.title', 'Warehousing & Distribution'),
+      description: t('services.warehousing.description', 'Secure and efficient warehousing and distribution solutions.'),
       image: '/images/services/warehousing.jpg',
-      fullDescription: 'Our warehousing and distribution services provide secure storage and efficient handling of your goods. We offer state-of-the-art facilities and advanced inventory management systems.',
+      fullDescription: t('services.warehousing.fullDescription', 'Our warehousing and distribution services provide secure storage and efficient handling of your goods. We offer state-of-the-art facilities and advanced inventory management systems.'),
       solutions: [
-        'Short and long-term storage',
-        'Inventory management',
-        'Order fulfillment',
-        'Cross-docking services',
-        'Value-added services'
+        t('services.warehousing.feature1', 'Short and long-term storage'),
+        t('services.warehousing.feature2', 'Inventory management'),
+        t('services.warehousing.feature3', 'Order fulfillment'),
+        t('services.warehousing.feature4', 'Cross-docking services'),
+        t('services.warehousing.feature5', 'Value-added services')
       ],
       caseStudies: [
         {
-          name: 'E-commerce Platform',
-          description: 'Implemented automated order fulfillment system, reducing processing time by 60%.'
+          name: t('services.warehousing.caseStudy1.name', 'E-commerce Platform'),
+          description: t('services.warehousing.caseStudy1.description', 'Implemented automated order fulfillment system, reducing processing time by 60%.')
         },
         {
-          name: 'Consumer Goods Company',
-          description: 'Optimized warehouse layout and operations, increasing storage capacity by 35%.'
+          name: t('services.warehousing.caseStudy2.name', 'Consumer Goods Company'),
+          description: t('services.warehousing.caseStudy2.description', 'Optimized warehouse layout and operations, increasing storage capacity by 35%.')
         }
       ]
     },
     {
       id: 'import',
-      title: 'Import & Export',
-      description: 'Comprehensive import and export services for global trade.',
+      title: t('services.import.title', 'Import & Export'),
+      description: t('services.import.description', 'Comprehensive import and export services for global trade.'),
       image: 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=1000',
-      fullDescription: 'Our import and export services facilitate smooth international trade operations. We handle all aspects of the process, from documentation to customs clearance.',
+      fullDescription: t('services.import.fullDescription', 'Our import and export services facilitate smooth international trade operations. We handle all aspects of the process, from documentation to customs clearance.'),
       solutions: [
-        'Documentation preparation',
-        'Customs clearance',
-        'Trade compliance',
-        'Export licensing',
-        'Import regulations'
+        t('services.import.feature1', 'Documentation preparation'),
+        t('services.import.feature2', 'Customs clearance'),
+        t('services.import.feature3', 'Trade compliance'),
+        t('services.import.feature4', 'Export licensing'),
+        t('services.import.feature5', 'Import regulations')
       ],
       caseStudies: [
         {
-          name: 'International Trader',
-          description: 'Streamlined import/export processes, reducing clearance time by 50%.'
+          name: t('services.import.caseStudy1.name', 'International Trader'),
+          description: t('services.import.caseStudy1.description', 'Streamlined import/export processes, reducing clearance time by 50%.')
         },
         {
-          name: 'Manufacturing Company',
-          description: 'Implemented comprehensive trade compliance program, eliminating regulatory issues.'
+          name: t('services.import.caseStudy2.name', 'Manufacturing Company'),
+          description: t('services.import.caseStudy2.description', 'Implemented comprehensive trade compliance program, eliminating regulatory issues.')
         }
       ]
     },
     {
       id: 'customs',
-      title: 'Customs Clearance',
-      description: 'Expert customs clearance services to ensure smooth operations.',
+      title: t('services.customs.title', 'Customs Clearance'),
+      description: t('services.customs.description', 'Expert customs clearance services to ensure smooth operations.'),
       image: '/images/services/regulatory.jpg',
-      fullDescription: 'Our customs clearance services ensure smooth and compliant movement of goods across borders. We handle all aspects of customs procedures and documentation.',
+      fullDescription: t('services.customs.fullDescription', 'Our customs clearance services ensure smooth and compliant movement of goods across borders. We handle all aspects of customs procedures and documentation.'),
       solutions: [
-        'Import/export documentation',
-        'Customs compliance consulting',
-        'Duties and taxes management',
-        'Trade agreement optimization',
-        'Regulatory compliance'
+        t('services.customs.feature1', 'Import/export documentation'),
+        t('services.customs.feature2', 'Customs compliance consulting'),
+        t('services.customs.feature3', 'Duties and taxes management'),
+        t('services.customs.feature4', 'Trade agreement optimization'),
+        t('services.customs.feature5', 'Regulatory compliance')
       ],
       caseStudies: [
         {
-          name: 'Global Importer',
-          description: 'Reduced customs clearance time by 40% through optimized documentation processes.'
+          name: t('services.customs.caseStudy1.name', 'Global Importer'),
+          description: t('services.customs.caseStudy1.description', 'Reduced customs clearance time by 40% through optimized documentation processes.')
         },
         {
-          name: 'Export Company',
-          description: 'Implemented automated compliance checks, eliminating customs delays.'
+          name: t('services.customs.caseStudy2.name', 'Export Company'),
+          description: t('services.customs.caseStudy2.description', 'Implemented automated compliance checks, eliminating customs delays.')
         }
       ]
     }
@@ -493,75 +603,82 @@ const Services = () => {
       {isServicesPage && (
         <HeroSection>
           <HeroContent>
-            <PageTitle>Our Solutions</PageTitle>
+            <PageTitle>{t('services.pageTitle', 'Our Solutions')}</PageTitle>
             <Subtitle>
-              Comprehensive shipping and logistics services tailored to meet your global transportation needs.
+              {t('services.pageSubtitle', 'Comprehensive shipping and logistics services tailored to meet your global transportation needs.')}
             </Subtitle>
           </HeroContent>
         </HeroSection>
       )}
       <ServicesContainer>
         <ServicesContent>
-          <SectionTitle isHome={isHome}>Our Services</SectionTitle>
+          {isServicesPage ? (
+            <SectionTitle 
+              title={t('services.sectionTitle', 'Our Services')} 
+              subtitle={t('services.sectionDescription', 'Ocean Crown delivers comprehensive shipping and logistics services designed to optimize your supply chain and enhance your business performance.')}
+            />
+          ) : (
+            <SectionTitle 
+              title={t('services.sectionTitle', 'Our Services')} 
+              subtitle={t('services.sectionDescription', 'Ocean Crown delivers comprehensive shipping and logistics services designed to optimize your supply chain and enhance your business performance.')}
+            />
+          )}
+          
           <ServicesGrid>
-            {services.map((service, index) => (
-              <ServiceCard 
-                key={index}
-                onClick={() => handleOpenModal(service)}
-              >
+            {services.map((service) => (
+              <ServiceCard key={service.id} onClick={() => handleOpenModal(service)}>
                 <ServiceIcon>
                   <img src={service.image} alt={service.title} />
                 </ServiceIcon>
                 <ServiceTitle>{service.title}</ServiceTitle>
                 <ServiceDescription>{service.description}</ServiceDescription>
-                <ServiceLink href="#" onClick={(e) => {
-                  e.preventDefault();
-                  handleOpenModal(service);
-                }}>
-                  Learn more <FaChevronRight />
+                <ServiceLink>
+                  {t('services.learnMore', 'Learn More')} <FaChevronRight />
                 </ServiceLink>
               </ServiceCard>
             ))}
           </ServicesGrid>
         </ServicesContent>
-
-        <ModalOverlay 
-          isOpen={!!selectedService}
-          onClick={handleCloseModal}
-        >
+      </ServicesContainer>
+      
+      <ModalOverlay isOpen={!!selectedService} onClick={handleCloseModal}>
+        <ModalContent isOpen={!!selectedService} onClick={e => e.stopPropagation()}>
           {selectedService && (
-            <ModalContent 
-              isOpen={!!selectedService}
-              onClick={(e) => e.stopPropagation()}
-            >
+            <>
               <ModalHeader image={selectedService.image}>
-                <ModalTitle>{selectedService.title}</ModalTitle>
-                <ModalCloseButton onClick={handleCloseModal} />
+                <ModalCloseButton onClick={handleCloseModal}>
+                  <FaTimes />
+                </ModalCloseButton>
+                <ModalHeaderContent>
+                  <ModalTitle>{selectedService.title}</ModalTitle>
+                </ModalHeaderContent>
               </ModalHeader>
               <ModalBody>
-                <p>{selectedService.fullDescription}</p>
+                <ModalDescription>{selectedService.fullDescription}</ModalDescription>
                 
-                <h4>Our Solutions:</h4>
+                <ModalSectionTitle>{t('services.solutionsTitle', 'Our Solutions')}</ModalSectionTitle>
                 <SolutionsList>
                   {selectedService.solutions.map((solution, index) => (
                     <SolutionItem key={index}>{solution}</SolutionItem>
                   ))}
                 </SolutionsList>
                 
-                <CaseStudies>
-                  <CaseStudyTitle>Success Stories</CaseStudyTitle>
-                  {selectedService.caseStudies.map((caseStudy, index) => (
-                    <CaseStudy key={index}>
-                      <CaseStudyName>{caseStudy.name}</CaseStudyName>
-                      <CaseStudyDescription>{caseStudy.description}</CaseStudyDescription>
-                    </CaseStudy>
-                  ))}
-                </CaseStudies>
+                <ModalSectionTitle>{t('services.caseStudiesTitle', 'Case Studies')}</ModalSectionTitle>
+                {selectedService.caseStudies.map((study, index) => (
+                  <CaseStudy key={index}>
+                    <CaseStudyName>{study.name}</CaseStudyName>
+                    <CaseStudyDescription>{study.description}</CaseStudyDescription>
+                  </CaseStudy>
+                ))}
+                
+                <ContactButton>
+                  {t('services.contactUs', 'Request a Customized Solution')}
+                </ContactButton>
               </ModalBody>
-            </ModalContent>
+            </>
           )}
-        </ModalOverlay>
-      </ServicesContainer>
+        </ModalContent>
+      </ModalOverlay>
     </>
   );
 };

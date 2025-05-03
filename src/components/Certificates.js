@@ -484,7 +484,18 @@ const Certificates = () => {
               <CertificateCard key={certificate.id} index={index}>
                 <CertificateHeader color={certificate.color}>
                   <CertificateLogo color={certificate.color}>
-                    {certificate.icon}
+                    {certificate.logo && certificate.logo.startsWith('http') ? (
+                      <img 
+                        src={`${certificate.logo}?w=80&q=75`} 
+                        alt={certificate.title} 
+                        width="50" 
+                        height="50"
+                        loading="lazy"
+                        style={{ borderRadius: '50%', objectFit: 'contain' }}
+                      />
+                    ) : (
+                      <FaShieldAlt />
+                    )}
                   </CertificateLogo>
                   <CertificateTitle>{certificate.title}</CertificateTitle>
                 </CertificateHeader>

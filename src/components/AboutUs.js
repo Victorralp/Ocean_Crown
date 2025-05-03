@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTranslation } from '../App';
+import { useTranslation } from '../translations/useTranslation';
 import { FaShip, FaAward, FaHandshake, FaGlobeAfrica, FaChartLine, FaUsers, FaBuilding, FaUniversity } from 'react-icons/fa';
 
 const AboutSection = styled.section`

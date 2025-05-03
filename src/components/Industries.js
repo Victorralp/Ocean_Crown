@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaChevronRight } from 'react-icons/fa';
 import { useTranslation } from '../translations/useTranslation';
@@ -131,31 +131,69 @@ const IndustryTitle = styled.h3`
 `;
 
 const IndustryCard = styled.div`
-  background: white;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  transition: all 0.4s ease;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  height: 280px;
   position: relative;
   cursor: pointer;
+  background-color: #f0f0f0; /* Placeholder while image loads */
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: ${props => props.imageLoaded ? `url(${props.image ? `${props.image}?w=600&q=75` : ''})` : 'none'};
+    background-size: cover;
+    background-position: center;
+    opacity: ${props => props.imageLoaded ? 1 : 0};
+    transition: opacity 0.3s ease;
+    z-index: 0;
+  }
   
   &:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     
-    ${IndustryImage} {
-      transform: scale(1.05);
+    .industry-overlay {
+      background: rgba(0, 0, 0, 0.6);
     }
     
-    ${IndustryTitle} {
-      color: #F6AD55;
+    .industry-content {
+      transform: translateY(0);
+    }
+    
+    .industry-description {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 `;
 
+const IndustryOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+`;
+
 const IndustryContent = styled.div`
-  padding: 0 30px 30px;
-  margin-top: 15px;
+  z-index: 2;
+  color: white;
+  display: flex;
+  flex-direction: column;
 `;
 
 const IndustryDescription = styled.p`
@@ -368,10 +406,56 @@ const IndustriesContent = styled.div`
 const Industries = () => {
   const { t } = useTranslation();
   const [selectedIndustry, setSelectedIndustry] = useState(null);
+  const [loadedImages, setLoadedImages] = useState({});
   const location = useLocation();
   const isStandalonePage = location.pathname === '/industries';
   const isHome = location.pathname === '/';
   
+  // Load images lazily
+  useEffect(() => {
+    const imageObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const industryId = entry.target.dataset.industryId;
+            if (industryId) {
+              // Preload the image
+              const img = new Image();
+              const industry = industriesData.find(ind => ind.id === industryId);
+              
+              if (industry && industry.image) {
+                img.src = `${industry.image}?w=600&q=75`;
+                img.onload = () => {
+                  setLoadedImages(prev => ({ ...prev, [industryId]: true }));
+                };
+              }
+              
+              imageObserver.unobserve(entry.target);
+            }
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    // Add timeout to ensure images load even if observer fails
+    const timeout = setTimeout(() => {
+      industriesData.forEach(industry => {
+        setLoadedImages(prev => ({ ...prev, [industry.id]: true }));
+      });
+    }, 3000);
+    
+    // Observe all industry cards
+    document.querySelectorAll('.industry-card').forEach(card => {
+      imageObserver.observe(card);
+    });
+    
+    return () => {
+      imageObserver.disconnect();
+      clearTimeout(timeout);
+    };
+  }, []);
+
   const industriesData = [
     {
       id: 'automotive',
@@ -550,21 +634,49 @@ const Industries = () => {
               <IndustryCard 
                 key={industry.id}
                 onClick={() => handleOpenModal(industry)}
+                className="industry-card"
+                data-industry-id={industry.id}
+                image={industry.image}
+                imageLoaded={loadedImages[industry.id]}
               >
-                <IndustryImage image={industry.image}>
-                  <IndustryTitle>{industry.title}</IndustryTitle>
-                </IndustryImage>
-                <IndustryContent>
-                  <IndustryDescription>
-                    {industry.shortDescription}
-                  </IndustryDescription>
-                  <IndustryLink href="#" onClick={(e) => {
-                    e.preventDefault();
-                    handleOpenModal(industry);
-                  }}>
-                    Learn more <FaChevronRight />
-                  </IndustryLink>
-                </IndustryContent>
+                <IndustryOverlay className="industry-overlay">
+                  <IndustryContent className="industry-content">
+                    <h3 style={{ 
+                      fontSize: '24px', 
+                      margin: '0 0 10px 0', 
+                      fontWeight: '600',
+                      color: 'white'
+                    }}>
+                      {industry.title}
+                    </h3>
+                    <p style={{ 
+                      margin: 0, 
+                      fontSize: '14px', 
+                      opacity: 0.9,
+                      lineHeight: '1.5' 
+                    }} className="industry-description">
+                      {industry.shortDescription}
+                    </p>
+                  </IndustryContent>
+                  <div style={{ textAlign: 'right' }}>
+                    <button 
+                      style={{
+                        background: 'rgba(255,255,255,0.2)',
+                        border: 'none',
+                        color: 'white',
+                        padding: '6px 12px',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        fontSize: '14px'
+                      }}
+                    >
+                      Learn more <FaChevronRight size={12} />
+                    </button>
+                  </div>
+                </IndustryOverlay>
               </IndustryCard>
             ))}
           </IndustriesGrid>

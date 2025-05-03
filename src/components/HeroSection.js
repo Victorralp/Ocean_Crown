@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useTranslation } from "../App";
+import { useTranslation } from "../translations/useTranslation";
 
 const HeroContainer = styled.section`
   height: 75vh;
@@ -35,25 +35,28 @@ const HeroContent = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.5rem;
+  font-size: 48px;
   font-weight: 700;
   color: white;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   line-height: 1.2;
   
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 28px;
+    margin-bottom: 15px;
   }
 `;
 
 const Subtitle = styled.p`
-  font-size: 1rem;
+  font-size: 20px;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 25px;
-  line-height: 1.5;
+  line-height: 1.6;
+  max-width: 700px;
   
   @media (max-width: 768px) {
-    font-size: 0.9rem;
+    font-size: 14px;
+    line-height: 1.5;
   }
 `;
 
@@ -70,9 +73,9 @@ const ButtonGroup = styled.div`
 const PrimaryButton = styled(Link)`
   background-color: #05a0e8;
   color: white;
-  font-size: 0.9rem;
+  font-size: 16px;
   font-weight: 600;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 5px;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -83,14 +86,19 @@ const PrimaryButton = styled(Link)`
     background-color: #0482bc;
     transform: translateY(-3px);
   }
+  
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
 `;
 
 const SecondaryButton = styled(Link)`
   background-color: transparent;
   color: white;
-  font-size: 0.9rem;
+  font-size: 16px;
   font-weight: 600;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 5px;
   border: 1px solid white;
   text-decoration: none;
@@ -101,6 +109,11 @@ const SecondaryButton = styled(Link)`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-3px);
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 10px 20px;
   }
 `;
 
