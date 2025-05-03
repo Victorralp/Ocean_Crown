@@ -336,7 +336,8 @@ const InitiativeTitle = styled.h3`
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 19%;
+    transform: translateX(-50%);
     width: 60px;
     height: 3px;
     background-color: ${colors.coral};

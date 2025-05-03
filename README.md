@@ -1,6 +1,6 @@
 # Ocean Crown Multilink Ent Website
 
-A modern, responsive website for Ocean Crown Multilink Ent, a professional shipping and logistics company.
+A modern, responsive website for Ocean Crown Multilink Ent, a professional shipping & logistics company.
 
 ## Features
 

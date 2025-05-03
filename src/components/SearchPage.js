@@ -347,7 +347,7 @@ const mockSearchResults = [
   {
     id: 6,
     title: 'E-Business Solutions',
-    description: 'Digital tools and platforms to streamline your shipping and logistics operations.',
+    description: 'Digital tools and platforms to streamline your shipping & logistics operations.',
     type: 'Service',
     url: '/ebusiness'
   },

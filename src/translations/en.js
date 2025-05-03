@@ -38,7 +38,7 @@ const en = {
     searchPlaceholder: "Search our services and solutions...",
     searchButton: "Search",
     title: "Global Shipping & Logistics Solutions",
-    subtitle: "Connecting businesses across continents with reliable, efficient shipping and logistics services tailored to your needs.",
+    subtitle: "Connecting businesses across continents with reliable, efficient shipping & logistics services tailored to your needs.",
     primaryButton: "Contact Us",
     secondaryButton: "Our Services"
   },
@@ -52,9 +52,9 @@ const en = {
   // Services Component
   services: {
     pageTitle: "Our Solutions",
-    pageSubtitle: "Comprehensive shipping and logistics services tailored to meet your global transportation needs.",
+    pageSubtitle: "Comprehensive shipping & logistics services tailored to meet your global transportation needs.",
     sectionTitle: "Our Services",
-    sectionDescription: "Ocean Crown delivers comprehensive shipping and logistics services designed to optimize your supply chain and enhance your business performance.",
+    sectionDescription: "Ocean Crown delivers comprehensive shipping & logistics services designed to optimize your supply chain and enhance your business performance.",
     learnMore: "Learn More",
     contactUs: "Request a Customized Solution",
     solutionsTitle: "Our Solutions",
@@ -261,7 +261,7 @@ const en = {
     logoAlt: "Ocean Crown Logo",
     about: {
       title: "About Ocean Crown",
-      description: "Ocean Crown delivers comprehensive shipping and logistics services designed to optimize your supply chain and enhance your business performance."
+      description: "Ocean Crown delivers comprehensive shipping & logistics services designed to optimize your supply chain and enhance your business performance."
     },
     social: {
       facebook: "Visit our Facebook page",

@@ -226,7 +226,7 @@ const Stats = () => {
         <StatsHeader>
           <StatsTitle>Global Reach, Local Expertise</StatsTitle>
           <StatsDescription>
-            With decades of experience and a presence across continents, we connect businesses worldwide through reliable shipping and logistics solutions.
+            With decades of experience and a presence across continents, we connect businesses worldwide through reliable shipping & logistics solutions.
           </StatsDescription>
         </StatsHeader>
         

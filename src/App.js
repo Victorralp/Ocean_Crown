@@ -225,6 +225,8 @@ const HeroTitle = styled.div`
     font-weight: 700;
     margin-bottom: 5px;
     color: white;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     
     @media (max-width: 768px) {
       font-size: 42px;
@@ -237,35 +239,24 @@ const HeroTitle = styled.div`
 
   h3 {
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 600;
     margin: 10px 0;
     color: #F6AD55;
     letter-spacing: 2px;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     position: relative;
     display: inline-block;
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
     
     @media (max-width: 768px) {
       font-size: 20px;
+      letter-spacing: 1.5px;
     }
     
     @media (max-width: 576px) {
       font-size: 18px;
       letter-spacing: 1px;
-    }
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 80px;
-      height: 2px;
-      background: #F6AD55;
-      
-      @media (max-width: 576px) {
-        width: 60px;
-      }
     }
   }
 
@@ -273,10 +264,11 @@ const HeroTitle = styled.div`
     font-size: 36px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     color: white;
     margin: 20px 0 0 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: 'Inter', sans-serif;
     
     @media (max-width: 768px) {
       font-size: 28px;
@@ -284,7 +276,7 @@ const HeroTitle = styled.div`
     
     @media (max-width: 576px) {
       font-size: 22px;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
   }
 `;
@@ -853,7 +845,7 @@ function App() {
                       <HeroTitle>
                         <h2>OCEAN CROWN</h2>
                         <h1>MULTILINKS ENTERPRISES LTD</h1>
-                        <h3>SHIPPING AND LOGISTICS</h3>
+                        <h3>SHIPPING & LOGISTICS</h3>
                       </HeroTitle>
                     </HeroContent>
                   </Hero>
