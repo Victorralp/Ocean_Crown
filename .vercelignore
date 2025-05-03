@@ -1,0 +1,7 @@
+node_modules
+.git
+.next
+h -u origin mastermain
+h origin mastermain
+ter main
+work.txt 
