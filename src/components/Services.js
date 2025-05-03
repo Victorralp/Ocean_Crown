@@ -50,27 +50,27 @@ const HeroContent = styled.div`
 `;
 
 const PageTitle = styled.h1`
-  font-size: 48px;
+  font-size: 42px;
   margin-bottom: 1.5rem;
   font-weight: 700;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   letter-spacing: 1px;
   
   @media (max-width: 768px) {
-    font-size: 28px;
+    font-size: 24px;
     margin-bottom: 1rem;
   }
 `;
 
 const Subtitle = styled.p`
-  font-size: 20px;
+  font-size: 18px;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
   
   @media (max-width: 768px) {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.4;
   }
   
@@ -146,7 +146,7 @@ const ServiceIcon = styled.div`
 `;
 
 const ServiceTitle = styled.h3`
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 15px;
   color: #0c2340;
   position: relative;
@@ -154,7 +154,7 @@ const ServiceTitle = styled.h3`
   font-weight: 600;
   
   @media (max-width: 768px) {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 10px;
   }
 `;
@@ -162,12 +162,12 @@ const ServiceTitle = styled.h3`
 const ServiceDescription = styled.p`
   color: #666;
   line-height: 1.8;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   max-width: 280px;
   margin: 0 auto 20px;
   
   @media (max-width: 768px) {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     line-height: 1.5;
     margin: 0 auto 15px;
   }
@@ -311,10 +311,10 @@ const ModalDescription = styled.p`
   color: #4a5568;
   line-height: 1.8;
   margin-bottom: 25px;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   
   @media (max-width: 768px) {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     line-height: 1.5;
   }
 `;
@@ -342,10 +342,10 @@ const SolutionItem = styled.li`
   line-height: 1.8;
   position: relative;
   padding-left: 10px;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   
   @media (max-width: 768px) {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-bottom: 10px;
     line-height: 1.5;
   }
@@ -399,13 +399,13 @@ const CaseStudyName = styled.h5`
 `;
 
 const CaseStudyDescription = styled.p`
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: #4a5568;
   line-height: 1.8;
   margin: 0;
   
   @media (max-width: 768px) {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     line-height: 1.5;
   }
 `;
@@ -417,7 +417,7 @@ const ContactButton = styled.button`
   border: none;
   border-radius: 6px;
   padding: 12px 24px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
@@ -429,7 +429,7 @@ const ContactButton = styled.button`
   }
   
   @media (max-width: 768px) {
-    font-size: 14px;
+    font-size: 12px;
     padding: 10px 20px;
   }
 `;

@@ -79,7 +79,7 @@ const RocketIcon = styled(motion.div)`
 `;
 
 const Title = styled(motion.h1)`
-  font-size: 5rem;
+  font-size: 42px;
   font-weight: 800;
   margin-bottom: 20px;
   background: linear-gradient(to right, #ffffff, #F6AD55);
@@ -88,12 +88,12 @@ const Title = styled(motion.h1)`
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
   
   @media (max-width: 768px) {
-    font-size: 3rem;
+    font-size: 24px;
   }
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 1.5rem;
+  font-size: 18px;
   line-height: 1.6;
   margin-bottom: 60px;
   color: rgba(255, 255, 255, 0.9);
@@ -102,7 +102,7 @@ const Subtitle = styled(motion.p)`
   margin-right: auto;
   
   @media (max-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 13px;
   }
 `;
 
@@ -151,15 +151,23 @@ const FeatureCard = styled(motion.div)`
   }
 
   h3 {
-    font-size: 1.8rem;
+    font-size: 20px;
     margin-bottom: 15px;
-  color: white;
+    color: white;
+    
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
   }
 
   p {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     color: rgba(255, 255, 255, 0.9);
     line-height: 1.6;
+    
+    @media (max-width: 768px) {
+      font-size: 0.85rem;
+    }
   }
 `;
 
@@ -167,7 +175,7 @@ const NotifyButton = styled(motion.button)`
   background: linear-gradient(45deg, #F6AD55, #ed8936);
   border: none;
   padding: 20px 40px;
-  font-size: 1.2rem;
+  font-size: 14px;
   color: white;
   border-radius: 50px;
   cursor: pointer;
@@ -180,6 +188,11 @@ const NotifyButton = styled(motion.button)`
   margin-top: 40px;
   position: relative;
   overflow: hidden;
+  
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 15px 30px;
+  }
 
   &:before {
     content: '';
@@ -202,7 +215,11 @@ const NotifyButton = styled(motion.button)`
   }
 
   svg {
-    font-size: 1.2rem;
+    font-size: 14px;
+    
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
   }
 `;
 

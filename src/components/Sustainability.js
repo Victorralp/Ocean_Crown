@@ -69,19 +69,29 @@ const HeroContent = styled(GlassContainer)`
 `;
 
 const PageTitle = styled.h1`
-  font-size: 3.5rem;
+  font-size: 42px;
   margin-bottom: 1.5rem;
   font-weight: 700;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   letter-spacing: 1px;
+  
+  @media (max-width: 768px) {
+    font-size: 24px;
+    margin-bottom: 1rem;
+  }
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.3rem;
+  font-size: 18px;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  
+  @media (max-width: 768px) {
+    font-size: 13px;
+    line-height: 1.5;
+  }
   
   &::after {
     content: '';
@@ -101,12 +111,17 @@ const ContentSection = styled.section`
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 2.4rem;
+  font-size: 32px;
   text-align: center;
   margin-bottom: 1.5rem;
   color: ${props => props.light ? colors.white : colors.deepBlue};
   font-weight: 600;
   position: relative;
+  
+  @media (max-width: 768px) {
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
   
   &::after {
     content: '';
@@ -123,9 +138,15 @@ const SectionIntro = styled.p`
   text-align: center;
   max-width: 800px;
   margin: 0 auto 4rem;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   line-height: 1.7;
   color: ${props => props.light ? colors.skyBlue : '#555'};
+  
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0 auto 2.5rem;
+  }
 `;
 
 const CommitmentGrid = styled.div`
@@ -179,14 +200,25 @@ const CardContent = styled.div`
 `;
 
 const CardTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: 20px;
   margin-bottom: 15px;
   color: ${colors.deepBlue};
+  
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
 `;
 
 const CardDescription = styled.p`
-  color: #555;
+  font-size: 0.95rem;
   line-height: 1.7;
+  color: #555;
+  
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
 `;
 
 const StatContainer = styled.div`
@@ -220,12 +252,17 @@ const StatItem = styled.div`
 `;
 
 const StatNumber = styled.div`
-  font-size: 3.5rem;
+  font-size: 42px;
   font-weight: 700;
   color: ${colors.oceanBlue};
   margin-bottom: 10px;
   display: inline-block;
   position: relative;
+  
+  @media (max-width: 768px) {
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
   
   &::after {
     content: '';
@@ -241,11 +278,15 @@ const StatNumber = styled.div`
 `;
 
 const StatLabel = styled.div`
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: #555;
   max-width: 180px;
   margin: 0 auto;
   line-height: 1.4;
+  
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const InitiativeSection = styled.div`
@@ -278,13 +319,18 @@ const InitiativeMedia = styled.div`
 `;
 
 const InitiativeTitle = styled.h3`
-  font-size: 2rem;
+  font-size: 20px;
   margin-bottom: 20px;
   color: ${colors.oceanBlue};
   position: relative;
   padding-bottom: 15px;
   white-space: normal;
   word-break: break-word;
+  
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
   
   &::after {
     content: '';
@@ -302,7 +348,13 @@ const InitiativeDescription = styled.p`
   color: #555;
   line-height: 1.8;
   margin-bottom: 24px;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
 `;
 
 const QuoteBox = styled.div`
@@ -344,10 +396,16 @@ const QuoteIcon = styled(FaQuoteLeft)`
 `;
 
 const Quote = styled.p`
-  font-size: 1.3rem;
+  font-size: 0.95rem;
   line-height: 1.7;
   margin-bottom: 20px;
   color: #444;
+  
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
 `;
 
 const QuoteAuthor = styled.p`
@@ -390,14 +448,18 @@ const CTAButton = styled.a`
   text-decoration: none;
   border-radius: 50px;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 14px;
   transition: all 0.3s ease;
   box-shadow: 0 10px 25px rgba(246, 173, 85, 0.3);
+  
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 12px 24px;
+  }
   
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 35px rgba(246, 173, 85, 0.4);
-    background: #ed8936;
   }
 `;
 

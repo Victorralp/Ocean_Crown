@@ -103,7 +103,7 @@ const Subtitle = styled.p`
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 36px;
+  font-size: 32px;
   color: #0c2340;
   margin-bottom: 50px;
   text-align: center;
@@ -121,7 +121,7 @@ const SectionTitle = styled.h2`
   }
   
   @media (max-width: 768px) {
-    font-size: 24px;
+    font-size: 20px;
     margin-bottom: 40px;
   }
 `;
@@ -153,7 +153,7 @@ const AboutImage = styled.img`
 `;
 
 const AboutParagraph = styled.p`
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   line-height: 1.8;
   color: #333;
   margin-bottom: 1.5rem;
@@ -161,7 +161,7 @@ const AboutParagraph = styled.p`
   margin: 0 auto 1.5rem;
   
   @media (max-width: 768px) {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     line-height: 1.5;
     margin-bottom: 1.2rem;
   }
@@ -225,12 +225,12 @@ const ValueTitle = styled.h3`
 `;
 
 const ValueDescription = styled.p`
-  font-size: 16px;
+  font-size: 0.95rem;
   color: #555;
   line-height: 1.6;
   
   @media (max-width: 768px) {
-    font-size: 13px;
+    font-size: 0.85rem;
     line-height: 1.5;
   }
 `;
@@ -321,12 +321,12 @@ const TimelineTitle = styled.h3`
 `;
 
 const TimelineText = styled.p`
-  font-size: 15px;
+  font-size: 0.95rem;
   color: #555;
   line-height: 1.6;
   
   @media (max-width: 768px) {
-    font-size: 13px;
+    font-size: 0.85rem;
     line-height: 1.5;
   }
 `;
