@@ -84,7 +84,7 @@ const Footer = () => {
             <ContactItem>
               <ContactIcon><FaEnvelope /></ContactIcon>
               <div>
-                <a href="mailto:operations@ocmultilinks.com">{t('footer.contact.email', 'operations@ocmultilinks.com')}</a>
+                <a href="mailto:operations@ocmultilink.com">{t('footer.contact.email', 'operations@ocmultilinks.com')}</a>
               </div>
             </ContactItem>
           </ContactInfo>
