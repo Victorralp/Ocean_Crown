@@ -131,6 +131,11 @@ const SectionTitle = styled.h2`
     background-color: ${colors.coral};
     margin: 15px auto 0;
     border-radius: 2px;
+    
+    @media (max-width: 768px) {
+      width: 50px;
+      margin-top: 10px;
+    }
   }
 `;
 
@@ -295,14 +300,21 @@ const InitiativeSection = styled.div`
   gap: 40px;
   margin: 60px 0;
   
-  @media (min-width: 768px) {
-    flex-direction: ${props => props.reversed ? 'row-reverse' : 'row'};
+  @media (max-width: 768px) {
+    flex-direction: ${props => props.reversed ? 'column-reverse' : 'column'};
+    gap: 30px;
+    margin: 40px 0;
   }
 `;
 
 const InitiativeContent = styled.div`
   flex: 1;
   min-width: 300px;
+  
+  @media (max-width: 768px) {
+    min-width: 100%;
+    padding: 0 10px;
+  }
 `;
 
 const InitiativeMedia = styled.div`
@@ -316,6 +328,12 @@ const InitiativeMedia = styled.div`
   background-position: center;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   position: relative;
+  
+  @media (max-width: 768px) {
+    min-height: 300px;
+    min-width: 100%;
+    margin: 0 -5px;
+  }
 `;
 
 const InitiativeTitle = styled.h3`
@@ -323,25 +341,27 @@ const InitiativeTitle = styled.h3`
   margin-bottom: 20px;
   color: ${colors.oceanBlue};
   position: relative;
-  padding-bottom: 15px;
   white-space: normal;
   word-break: break-word;
   
   @media (max-width: 768px) {
-    font-size: 16px;
-    margin-bottom: 15px;
+    font-size: 18px;
+    margin-bottom: 16px;
+    line-height: 1.4;
   }
+`;
+
+const TitleUnderline = styled.div`
+  width: 60px;
+  height: 4px;
+  background-color: ${colors.coral};
+  border-radius: 2px;
+  margin: 0 0 20px 0;
+  display: block;
   
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 5.5%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: ${colors.coral};
-    border-radius: 1.5px;
+  @media (max-width: 768px) {
+    width: 50px;
+    margin-bottom: 15px;
   }
 `;
 
@@ -352,9 +372,10 @@ const InitiativeDescription = styled.p`
   font-size: 0.95rem;
   
   @media (max-width: 768px) {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    margin-bottom: 15px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: left;
   }
 `;
 
@@ -824,6 +845,7 @@ const Sustainability = () => {
           <InitiativeSection>
             <InitiativeContent>
               <InitiativeTitle>Green Shipping Corridor</InitiativeTitle>
+              <TitleUnderline />
               <InitiativeDescription>
                 We're proud to be part of the West African Green Shipping Corridor initiative,
                 which aims to establish low and zero-carbon maritime routes between Nigeria and 
@@ -843,6 +865,7 @@ const Sustainability = () => {
           <InitiativeSection reversed>
             <InitiativeContent>
               <InitiativeTitle>Lagos Coastal Conservation Program</InitiativeTitle>
+              <TitleUnderline />
               <InitiativeDescription>
                 Our Lagos Coastal Conservation Program focuses on protecting marine ecosystems 
                 along Nigeria's coastline. Through partnerships with local environmental organizations,
@@ -862,6 +885,7 @@ const Sustainability = () => {
           <InitiativeSection>
             <InitiativeContent>
               <InitiativeTitle>Sustainable Supply Chain Certification</InitiativeTitle>
+              <TitleUnderline />
               <InitiativeDescription>
                 We've developed a Sustainable Supply Chain Certification program to help our clients
                 verify and improve the environmental performance of their maritime logistics operations.
