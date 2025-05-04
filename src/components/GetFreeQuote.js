@@ -275,7 +275,7 @@ ${formData.message}
     `;
     
     // Create mailto link
-    const mailtoLink = `mailto:operations@ocmultilinks.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoLink = `mailto:operations@ocmultilink.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     
     // Open mail client
     window.location.href = mailtoLink;

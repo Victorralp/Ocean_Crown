@@ -274,7 +274,7 @@ const en = {
       address: "67 Payne Crescent, Apapa, Lagos, Nigeria",
       phone1: "+234 805 340 8828",
       phone2: "+234 907 356 0121",
-      email: "operations@ocmultilinks.com",
+      email: "operations@ocmultilink.com",
       whatsapp: "WhatsApp",
       customerCare: "(Customer Care)"
     },
