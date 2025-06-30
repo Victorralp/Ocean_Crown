@@ -20,6 +20,7 @@ import GetFreeQuote from './components/GetFreeQuote';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import Sitemap from './components/Sitemap';
+import ThankYou from './components/ThankYou';
 import { useTranslation } from './translations/useTranslation';
 
 // Re-export the hook for backward compatibility - many components import from App.js
@@ -892,6 +893,7 @@ function App() {
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/sitemap" element={<Sitemap />} />
+              <Route path="/thank-you" element={<ThankYou />} />
             </Routes>
           </MainContent>
           <Footer />

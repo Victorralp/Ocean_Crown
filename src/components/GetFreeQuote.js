@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaEnvelope, FaCheck, FaInfoCircle } from 'react-icons/fa';
 
@@ -222,6 +223,7 @@ const GetFreeQuote = () => {
     }
   ];
 
+  const navigate = useNavigate();
   const [selectedServices, setSelectedServices] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
@@ -277,8 +279,11 @@ ${formData.message}
     // Create mailto link
     const mailtoLink = `mailto:operations@ocmultilink.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     
-    // Open mail client
-    window.location.href = mailtoLink;
+    // Open the user's default mail client in a new tab/window (does not unload the current page)
+    window.open(mailtoLink, '_blank');
+
+    // Redirect to the Thank-You page on the site
+    navigate('/thank-you');
   };
 
   return (
